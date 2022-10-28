@@ -61,6 +61,36 @@
     <Filter Include="GameEngine\GraphicsEngine\Viewport">
       <UniqueIdentifier>{ac2a6bdc-d524-4ade-b6de-d367cb3f742f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{ea8f82e5-19cf-4a15-a441-5f719844d94d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b547eb66-13f5-4147-89af-5d229defff43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\AUIScreen">
+      <UniqueIdentifier>{f8268d7d-7ca2-4971-ad37-52e567b0d72a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UINames">
+      <UniqueIdentifier>{d3ec8e33-cdb3-481d-b59d-0d031a66a40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\UIManager">
+      <UniqueIdentifier>{c4985387-2f0b-40fb-9916-fa07a3478271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\ProfilerScreen">
+      <UniqueIdentifier>{ba361341-86b1-4985-9b85-6a3e57f8ab52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\MenuScreen">
+      <UniqueIdentifier>{afa47d11-3093-4dd3-b634-14fc85196e1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\InspectorScreen">
+      <UniqueIdentifier>{0933a662-eb7f-4e63-8335-5c4d09f8e1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\HierarchyScreen">
+      <UniqueIdentifier>{91a8ae06-e582-402b-ae13-25cde4634a34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\CreditsScreen">
+      <UniqueIdentifier>{88daa9b0-81a3-449f-a47d-9e6bbaf239d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphicsEngine.cpp">
@@ -111,6 +141,45 @@
     <ClCompile Include="Viewport.cpp">
       <Filter>GameEngine\GraphicsEngine\Viewport</Filter>
     </ClCompile>
+    <ClCompile Include="IMGUI\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_dx11.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_impl_win32.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="IMGUI\imgui_widgets.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScreen.cpp">
+      <Filter>UI\AUIScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>UI\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfilerScreen.cpp">
+      <Filter>UI\ProfilerScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>UI\MenuScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorScreen.cpp">
+      <Filter>UI\InspectorScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="HierarchyScreen.cpp">
+      <Filter>UI\HierarchyScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsScreen.cpp">
+      <Filter>UI\CreditsScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphicsEngine.h">
@@ -158,6 +227,54 @@
     <ClInclude Include="Viewport.h">
       <Filter>GameEngine\GraphicsEngine\Viewport</Filter>
     </ClInclude>
+    <ClInclude Include="IMGUI\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_dx11.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_impl_win32.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_rectpack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imstb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScreen.h">
+      <Filter>UI\AUIScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="IMGUI\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="UINames.h">
+      <Filter>UI\UINames</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>UI\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ProfilerScreen.h">
+      <Filter>UI\ProfilerScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>UI\MenuScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorScreen.h">
+      <Filter>UI\InspectorScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="HierarchyScreen.h">
+      <Filter>UI\HierarchyScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsScreen.h">
+      <Filter>UI\CreditsScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -169,5 +286,10 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>File Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IMGUI\imgui.ini">
+      <Filter>IMGUI</Filter>
+    </None>
   </ItemGroup>
 </Project>

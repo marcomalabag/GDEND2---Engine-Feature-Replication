@@ -1,4 +1,6 @@
 #include "AppWindow.h"
+#include "IMGUI/imgui.h"
+
 
 struct vec3
 {
@@ -97,6 +99,12 @@ void AppWindow::initializeEngine()
 	
 }
 
+void AppWindow::createInterface()
+{
+	UIManager::initialize(this->m_hwnd);
+}
+
+
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
@@ -124,6 +132,8 @@ void AppWindow::onUpdate()
 		this->rectangle.at(i)->draw();
 	}
 
+	UIManager::getInstance()->drawAllUI();
+
 	this->m_swap_chain->present(false);
 
 	//this->m_swap_chain_game->present(false);
@@ -144,7 +154,7 @@ void AppWindow::onDestroy()
 		GraphicsEngine::getInstance()->release();
 	}
 	
-	
+	UIManager::getInstance()->destroy();
 	
 }
 
