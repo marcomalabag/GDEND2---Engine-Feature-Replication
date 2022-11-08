@@ -49,8 +49,6 @@ public:
 	void setRotationz(float z);
 	Vector3D getLocalRotation();
 
-
-
 protected:
 	VertexShader* vertex_shader;
 	PixelShader* pixel_shader;

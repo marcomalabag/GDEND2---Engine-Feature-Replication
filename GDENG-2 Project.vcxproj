@@ -200,6 +200,7 @@
     <ClInclude Include="GDENG-2 Project\CreditsScreen.h" />
     <ClInclude Include="GDENG-2 Project\Cube.h" />
     <ClInclude Include="GDENG-2 Project\Cylinder.h" />
+    <ClInclude Include="GDENG-2 Project\Debug.h" />
     <ClInclude Include="GDENG-2 Project\DeviceContext.h" />
     <ClInclude Include="GDENG-2 Project\EngineTime.h" />
     <ClInclude Include="GDENG-2 Project\GameWindow.h" />
@@ -226,6 +227,7 @@
     <ClInclude Include="GDENG-2 Project\ProfilerScreen.h" />
     <ClInclude Include="GDENG-2 Project\Rectangle.h" />
     <ClInclude Include="GDENG-2 Project\SceneCameraHandler.h" />
+    <ClInclude Include="GDENG-2 Project\ShaderLibrary.h" />
     <ClInclude Include="GDENG-2 Project\Sphere.h" />
     <ClInclude Include="GDENG-2 Project\SwapChain.h" />
     <ClInclude Include="GDENG-2 Project\Triangle.h" />
@@ -247,6 +249,7 @@
     <ClCompile Include="GDENG-2 Project\CreditsScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\Cube.cpp" />
     <ClCompile Include="GDENG-2 Project\Cylinder.cpp" />
+    <ClCompile Include="GDENG-2 Project\Debug.cpp" />
     <ClCompile Include="GDENG-2 Project\DeviceContext.cpp" />
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp" />
     <ClCompile Include="GDENG-2 Project\GameWindow.cpp" />
@@ -271,6 +274,7 @@
     <ClCompile Include="GDENG-2 Project\ProfilerScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\Rectangle.cpp" />
     <ClCompile Include="GDENG-2 Project\SceneCameraHandler.cpp" />
+    <ClCompile Include="GDENG-2 Project\ShaderLibrary.cpp" />
     <ClCompile Include="GDENG-2 Project\Sphere.cpp" />
     <ClCompile Include="GDENG-2 Project\SwapChain.cpp" />
     <ClCompile Include="GDENG-2 Project\Triangle.cpp" />

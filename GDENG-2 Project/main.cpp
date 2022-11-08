@@ -3,7 +3,6 @@
 
 int main() {
 
-	
 	AppWindow::initialize();
 	//GameWindow::initialize();
 	AppWindow* runningApp = (AppWindow*)AppWindow::getInstance();
