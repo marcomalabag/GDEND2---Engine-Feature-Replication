@@ -6,18 +6,15 @@
 class DeviceContext;
 class GraphicsEngine;
 
-class PixelShader
+class PixelShader final
 {
 public:
-	PixelShader();
-	void release();
+	explicit PixelShader(ID3DBlob* pixelShaderBlob);
+	
 	~PixelShader();
 
 private:
-	bool init(const void* shader_byte, size_t byte_code_size);
-
-private:
-	ID3D11PixelShader* pixelshader;
+	ID3D11PixelShader* data;
 
 private:
 	friend class GraphicsEngine;

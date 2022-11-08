@@ -1,27 +1,21 @@
 #include "PixelShader.h"
+#include "Debug.h"
 
-PixelShader::PixelShader()
+PixelShader::PixelShader(ID3DBlob* pixelShaderBlob) :
+	data{nullptr}
 {
-}
+	HRESULT result = GraphicsEngine::getInstance()->
+	                 getD3Ddevice()->
+	                 CreatePixelShader(pixelShaderBlob->GetBufferPointer(),
+	                                   pixelShaderBlob->GetBufferSize(),
+	                                   nullptr,
+	                                   &data);
 
-bool PixelShader::init(const void* shader_byte, size_t byte_code_size)
-{
-	if (!SUCCEEDED(GraphicsEngine::getInstance()->getD3Ddevice()->CreatePixelShader(shader_byte, byte_code_size,
-		nullptr, &this->pixelshader))) {
-		std::cout << "Failed to create pixel shader";
-		return false;
-	}
-	return true;
-}
-
-void PixelShader::release()
-{
-	this->pixelshader->Release();
-	delete this;
+	Debug::Assert(SUCCEEDED(result),
+	              "Failed to create Pixel shader!");
 }
 
 PixelShader::~PixelShader()
 {
+	data->Release();
 }
-
-

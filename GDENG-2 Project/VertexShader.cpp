@@ -1,28 +1,21 @@
 #include "VertexShader.h"
+#include "Debug.h"
 
-VertexShader::VertexShader()
+VertexShader::VertexShader(ID3DBlob* vertexShaderBlob) :
+	data{nullptr}
 {
-}
+	HRESULT result = GraphicsEngine::getInstance()->
+	                 getD3Ddevice()->
+	                 CreateVertexShader(vertexShaderBlob->GetBufferPointer(),
+	                                    vertexShaderBlob->GetBufferSize(),
+	                                    nullptr,
+	                                    &data);
 
-bool VertexShader::init(const void* shader_byte_code, size_t byte_code_size)
-{
-	if(!SUCCEEDED(GraphicsEngine::getInstance()->getD3Ddevice()->CreateVertexShader(shader_byte_code, byte_code_size, nullptr, &this->vertexShader)))
-	{
-		std::cout << "Failed to create vertex shader";
-		return false;		
-	}
-	return true;
-}
-
-bool VertexShader::release()
-{
-	this->vertexShader;
-	delete this;
-	return true;
+	Debug::Assert(SUCCEEDED(result),
+	              "Failed to create Vertex shader!");
 }
 
 VertexShader::~VertexShader()
 {
+	data->Release();
 }
-
-

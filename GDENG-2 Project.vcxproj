@@ -233,6 +233,7 @@
     <ClInclude Include="GDENG-2 Project\Triangle.h" />
     <ClInclude Include="GDENG-2 Project\UIManager.h" />
     <ClInclude Include="GDENG-2 Project\UINames.h" />
+    <ClInclude Include="GDENG-2 Project\Utils.h" />
     <ClInclude Include="GDENG-2 Project\Vector3D.h" />
     <ClInclude Include="GDENG-2 Project\Vector4D.h" />
     <ClInclude Include="GDENG-2 Project\VertexBuffer.h" />
@@ -279,6 +280,7 @@
     <ClCompile Include="GDENG-2 Project\SwapChain.cpp" />
     <ClCompile Include="GDENG-2 Project\Triangle.cpp" />
     <ClCompile Include="GDENG-2 Project\UIManager.cpp" />
+    <ClCompile Include="GDENG-2 Project\Utils.cpp" />
     <ClCompile Include="GDENG-2 Project\Vector3D.cpp" />
     <ClCompile Include="GDENG-2 Project\Vector4D.cpp" />
     <ClCompile Include="GDENG-2 Project\VertexBuffer.cpp" />
