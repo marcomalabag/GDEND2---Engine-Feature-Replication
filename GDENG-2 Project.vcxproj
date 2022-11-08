@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug Win64|Win32">
+      <Configuration>Debug Win64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug Win64|x64">
+      <Configuration>Debug Win64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release Win64|Win32">
+      <Configuration>Release Win64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release Win64|x64">
+      <Configuration>Release Win64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{20FA1509-8C85-83CD-9596-06C201A1DFCD}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>GDENG-2 Project</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\Win32\Debug\</OutDir>
+    <IntDir>obj\Win32\Debug\</IntDir>
+    <TargetName>GDENG-2 Project</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\Win64\Debug\</OutDir>
+    <IntDir>obj\Win64\Debug\</IntDir>
+    <TargetName>GDENG-2 Project</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>bin\Win32\Release\</OutDir>
+    <IntDir>obj\Win32\Release\</IntDir>
+    <TargetName>GDENG-2 Project</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>bin\Win64\Release\</OutDir>
+    <IntDir>obj\Win64\Release\</IntDir>
+    <TargetName>GDENG-2 Project</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>GDENG-2 Project;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Win64|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>GDENG-2 Project;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>GDENG-2 Project;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Win64|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>GDENG-2 Project;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="GDENG-2 Project\AGameObject.h" />
+    <ClInclude Include="GDENG-2 Project\AUIScreen.h" />
+    <ClInclude Include="GDENG-2 Project\AppWindow.h" />
+    <ClInclude Include="GDENG-2 Project\Camera.h" />
+    <ClInclude Include="GDENG-2 Project\ConstantBuffer.h" />
+    <ClInclude Include="GDENG-2 Project\CreditsScreen.h" />
+    <ClInclude Include="GDENG-2 Project\Cube.h" />
+    <ClInclude Include="GDENG-2 Project\Cylinder.h" />
+    <ClInclude Include="GDENG-2 Project\DeviceContext.h" />
+    <ClInclude Include="GDENG-2 Project\EngineTime.h" />
+    <ClInclude Include="GDENG-2 Project\GameWindow.h" />
+    <ClInclude Include="GDENG-2 Project\GraphicsEngine.h" />
+    <ClInclude Include="GDENG-2 Project\HierarchyScreen.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imconfig.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imgui.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imgui_internal.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imstb_textedit.h" />
+    <ClInclude Include="GDENG-2 Project\ImGui\imstb_truetype.h" />
+    <ClInclude Include="GDENG-2 Project\IndexBuffer.h" />
+    <ClInclude Include="GDENG-2 Project\InputListener.h" />
+    <ClInclude Include="GDENG-2 Project\InputSystem.h" />
+    <ClInclude Include="GDENG-2 Project\InspectorScreen.h" />
+    <ClInclude Include="GDENG-2 Project\Mathf.h" />
+    <ClInclude Include="GDENG-2 Project\Matrix4x4.h" />
+    <ClInclude Include="GDENG-2 Project\MenuScreen.h" />
+    <ClInclude Include="GDENG-2 Project\PixelShader.h" />
+    <ClInclude Include="GDENG-2 Project\Plane.h" />
+    <ClInclude Include="GDENG-2 Project\Point.h" />
+    <ClInclude Include="GDENG-2 Project\ProfilerScreen.h" />
+    <ClInclude Include="GDENG-2 Project\Rectangle.h" />
+    <ClInclude Include="GDENG-2 Project\SceneCameraHandler.h" />
+    <ClInclude Include="GDENG-2 Project\Sphere.h" />
+    <ClInclude Include="GDENG-2 Project\SwapChain.h" />
+    <ClInclude Include="GDENG-2 Project\Triangle.h" />
+    <ClInclude Include="GDENG-2 Project\UIManager.h" />
+    <ClInclude Include="GDENG-2 Project\UINames.h" />
+    <ClInclude Include="GDENG-2 Project\Vector3D.h" />
+    <ClInclude Include="GDENG-2 Project\Vector4D.h" />
+    <ClInclude Include="GDENG-2 Project\VertexBuffer.h" />
+    <ClInclude Include="GDENG-2 Project\VertexShader.h" />
+    <ClInclude Include="GDENG-2 Project\Viewport.h" />
+    <ClInclude Include="GDENG-2 Project\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GDENG-2 Project\AGameObject.cpp" />
+    <ClCompile Include="GDENG-2 Project\AUIScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\AppWindow.cpp" />
+    <ClCompile Include="GDENG-2 Project\Camera.cpp" />
+    <ClCompile Include="GDENG-2 Project\ConstantBuffer.cpp" />
+    <ClCompile Include="GDENG-2 Project\CreditsScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\Cube.cpp" />
+    <ClCompile Include="GDENG-2 Project\Cylinder.cpp" />
+    <ClCompile Include="GDENG-2 Project\DeviceContext.cpp" />
+    <ClCompile Include="GDENG-2 Project\EngineTime.cpp" />
+    <ClCompile Include="GDENG-2 Project\GameWindow.cpp" />
+    <ClCompile Include="GDENG-2 Project\GraphicsEngine.cpp" />
+    <ClCompile Include="GDENG-2 Project\HierarchyScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="GDENG-2 Project\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="GDENG-2 Project\IndexBuffer.cpp" />
+    <ClCompile Include="GDENG-2 Project\InputSystem.cpp" />
+    <ClCompile Include="GDENG-2 Project\InspectorScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\Mathf.cpp" />
+    <ClCompile Include="GDENG-2 Project\Matrix4x4.cpp" />
+    <ClCompile Include="GDENG-2 Project\MenuScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\PixelShader.cpp" />
+    <ClCompile Include="GDENG-2 Project\Plane.cpp" />
+    <ClCompile Include="GDENG-2 Project\Point.cpp" />
+    <ClCompile Include="GDENG-2 Project\ProfilerScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\Rectangle.cpp" />
+    <ClCompile Include="GDENG-2 Project\SceneCameraHandler.cpp" />
+    <ClCompile Include="GDENG-2 Project\Sphere.cpp" />
+    <ClCompile Include="GDENG-2 Project\SwapChain.cpp" />
+    <ClCompile Include="GDENG-2 Project\Triangle.cpp" />
+    <ClCompile Include="GDENG-2 Project\UIManager.cpp" />
+    <ClCompile Include="GDENG-2 Project\Vector3D.cpp" />
+    <ClCompile Include="GDENG-2 Project\Vector4D.cpp" />
+    <ClCompile Include="GDENG-2 Project\VertexBuffer.cpp" />
+    <ClCompile Include="GDENG-2 Project\VertexShader.cpp" />
+    <ClCompile Include="GDENG-2 Project\Viewport.cpp" />
+    <ClCompile Include="GDENG-2 Project\Window.cpp" />
+    <ClCompile Include="GDENG-2 Project\main.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
