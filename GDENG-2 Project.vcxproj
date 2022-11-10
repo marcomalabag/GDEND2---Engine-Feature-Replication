@@ -202,6 +202,7 @@
     <ClInclude Include="GDENG-2 Project\Cylinder.h" />
     <ClInclude Include="GDENG-2 Project\DeviceContext.h" />
     <ClInclude Include="GDENG-2 Project\EngineTime.h" />
+    <ClInclude Include="GDENG-2 Project\GameObjectManager.h" />
     <ClInclude Include="GDENG-2 Project\GameWindow.h" />
     <ClInclude Include="GDENG-2 Project\GraphicsEngine.h" />
     <ClInclude Include="GDENG-2 Project\HierarchyScreen.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="GDENG-2 Project\Cylinder.cpp" />
     <ClCompile Include="GDENG-2 Project\DeviceContext.cpp" />
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp" />
+    <ClCompile Include="GDENG-2 Project\GameObjectManager.cpp" />
     <ClCompile Include="GDENG-2 Project\GameWindow.cpp" />
     <ClCompile Include="GDENG-2 Project\GraphicsEngine.cpp" />
     <ClCompile Include="GDENG-2 Project\HierarchyScreen.cpp" />

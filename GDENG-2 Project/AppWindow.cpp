@@ -52,6 +52,7 @@ void AppWindow::initializeEngine()
 	EngineTime::initialize();
 	SceneCameraHandler::initialize();
 	GraphicsEngine* graphEngine = GraphicsEngine::getInstance();
+	GameObjectManager::initialize();
 
 	Viewport::initialize();
 
@@ -66,59 +67,9 @@ void AppWindow::initializeEngine()
 	Viewport::getInstance()->add((FLOAT)width, (FLOAT)height, 0.0f,
 		1.0f, 0.0f, 0.0f);
 
+	GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
 
-	positions[0] = Vector3D(-.5, .25, 0.0);
-	positions[1] = Vector3D(.5, .25, 0.0);
-	positions[2] = Vector3D(0, -.25, 0.0);
-
-	/*
-	TrianglePositions[0] = Vector3D(-.5, .5, 0.0);
-	TrianglePositions[1] = Vector3D(.5, .5, 0.0);
-	TrianglePositions[2] = Vector3D(0, .001, 0.0);
-	*/
-
-	//For instantiating triangles
-	/*
-	for(int i = 0; i < 3; i++)
-	{
-		this->triangle.push_back(new Triangle());
-		this->triangle.at(i)->setPosition(TrianglePositions[i]);
-		this->triangle.at(i)->setWindowSizeHeight((rc.bottom - rc.top) / 400.f);
-		this->triangle.at(i)->setWindowSizeLength((rc.right - rc.left) / 400.f);
-	}
-	*/
-	void* shader_byte_code = nullptr;
-	size_t size_shader = 0;
-	graphEngine->compileVertexShader(L"Assets/VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-
-	this->vertexshader = graphEngine->createVertexShader(shader_byte_code, size_shader);
-
-
-	//For instantiating rectangles
-	int max = 1.5f;
-	int min = -2.5f;
-
-	for (int i = 0; i < 1; i++)
-	{
-		float x = Mathf::getRandom(min, max);
-		float y = Mathf::getRandom(-2.0, 1.0f);
-
-		float speed = Mathf::getRandom(1.0f, 25.0f);
-		this->Cubes.push_back(new Cube("Cube", shader_byte_code, size_shader));
-		this->Cubes.at(i)->setScale(.5, .5, .5);
-		this->Cubes.at(i)->setPosition(0.0f, 1.0f, 3.0f);
-		this->Cubes.at(i)->setAnimSpeed(speed);
-
-	}
-
-	graphEngine->releaseCompiledShader();
-
-
-	graphEngine->compilePixelShader(L"Assets/PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	this->pixelshader = graphEngine->createPixelShader(shader_byte_code, size_shader);
-
-
-	graphEngine->releaseCompiledShader();
+	
 }
 
 void AppWindow::createInterface()
@@ -135,22 +86,12 @@ void AppWindow::onUpdate()
 	GraphicsEngine::getInstance()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
 		0, 0, 0.5, 0.5);
 	RECT rc = this->getClientWindowRect();
+	int width = rc.right - rc.left;
+	int height = rc.bottom - rc.top;
 	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setViewportSize(Viewport::getInstance()->getViewport(0));
 
-	//For instantiating triangles
-	/*
-	for(int i = 0; i < this->triangle.size(); i++)
-	{
-		this->triangle.at(i)->draw();
-	}
-	*/
 	
-	for (int i = 0; i < Cubes.size(); i++)
-	{
-
-		//Cubes[i]->update(ticks);
-		Cubes.at(i)->draw(rc.right - rc.left, rc.bottom - rc.top, this->vertexshader, this->pixelshader);
-	}
+	GameObjectManager::getInstance()->renderAll(width, height);
 
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
@@ -159,7 +100,7 @@ void AppWindow::onUpdate()
 
 	this->m_swap_chain->present(true);
 
-	//this->m_swap_chain_game->present(false);
+	
 }
 
 void AppWindow::onDestroy()

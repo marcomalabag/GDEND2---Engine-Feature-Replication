@@ -26,6 +26,7 @@ void MenuScreen::drawUI()
 			if (ImGui::MenuItem("Create Bunny")) { /*Do something*/ }
 			if (ImGui::MenuItem("Create Statue")) { /*Do something*/ }
 			if (ImGui::MenuItem("Create Teapot")) { /*Do something*/ }
+			if(ImGui::MenuItem("Create Game Camera")){ /*Do something*/}
 			if (ImGui::MenuItem("Create Physics_Cube")) { /*Do something*/ }
 			if (ImGui::BeginMenu("Light")) {
 				if (ImGui::MenuItem("Point Light")) { /* Do stuff */ }
@@ -36,6 +37,11 @@ void MenuScreen::drawUI()
 		if (ImGui::MenuItem("Color Picker")) { /*Do something*/ }
 		if (ImGui::BeginMenu("About")) {
 			if (ImGui::MenuItem("Credits")) { UIManager::getInstance()->showCreditsScreen(); }
+			ImGui::EndMenu();
+		}
+		if(ImGui::BeginMenu("Game Camera"))
+		{
+			if(ImGui::MenuItem("Align with view")){}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();

@@ -17,6 +17,7 @@
 #include "EngineTime.h"
 #include "InputListener.h"
 #include "InputSystem.h"
+#include "GameObjectManager.h"
 
 class AppWindow : public Window, public InputListener
 {

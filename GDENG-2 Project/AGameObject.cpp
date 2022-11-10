@@ -69,6 +69,11 @@ Vector3D AGameObject::getLocalRotation()
 	return this->Rotation;
 }
 
+String AGameObject::getName()
+{
+	return this->name;
+}
+
 AGameObject::~AGameObject()
 {
 	this->vertex_shader->release();
