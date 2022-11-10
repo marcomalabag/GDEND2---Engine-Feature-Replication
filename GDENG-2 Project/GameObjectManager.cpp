@@ -153,7 +153,7 @@ void GameObjectManager::deleteObject(AGameObject* gameObject)
 	int index = -1;
 	for(int i = 0; i < this->GameObjectList.size(); i++)
 	{
-		if(this->GameObjectList[i] == gameObject)
+		if(this->GameObjectList[i]->getName() == gameObject->getName())
 		{
 			index = i;
 			this->GameObjectList.erase(this->GameObjectList.begin() + index);

@@ -52,6 +52,8 @@ public:
 
 	String getName();
 
+public:
+	String name;
 
 
 protected:
@@ -60,7 +62,7 @@ protected:
 	Vector3D Position;
 	Vector3D Scale;
 	Vector3D Rotation;
-	String name;
+	
 };
 
 
