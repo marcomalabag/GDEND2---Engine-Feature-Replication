@@ -53,8 +53,11 @@ void AppWindow::initializeEngine()
 	SceneCameraHandler::initialize();
 	GraphicsEngine* graphEngine = GraphicsEngine::getInstance();
 	GameObjectManager::initialize();
+	GameCameraHandler::initialize();
 
 	Viewport::initialize();
+
+
 
 	m_swap_chain = graphEngine->createSwapChain();
 
@@ -67,8 +70,8 @@ void AppWindow::initializeEngine()
 	Viewport::getInstance()->add((FLOAT)width, (FLOAT)height, 0.0f,
 		1.0f, 0.0f, 0.0f);
 
-	GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
-
+	//GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
+	GameCameraHandler::getInstance()->initializeGameCamera();
 	
 }
 

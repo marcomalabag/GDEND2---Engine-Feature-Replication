@@ -18,6 +18,7 @@
 #include "InputListener.h"
 #include "InputSystem.h"
 #include "GameObjectManager.h"
+#include "GameCameraHandler.h"
 
 class AppWindow : public Window, public InputListener
 {
