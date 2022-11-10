@@ -9,11 +9,10 @@
 #include "Matrix4x4.h"
 #include "SceneCameraHandler.h"
 
-
 class Cube: public AGameObject
 {
 public:
-	Cube(string name, void* shaderByteCode, size_t sizeShader);
+	Cube(std::string name, void* shaderByteCode, size_t sizeShader);
 	~Cube();
 
 	void update(float deltaTime) override;

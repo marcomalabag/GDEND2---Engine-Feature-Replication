@@ -1,5 +1,6 @@
 #include "Triangle.h"
 
+#include "ShaderLibrary.h"
 
 struct vertex
 {
@@ -18,7 +19,6 @@ struct constant
 	float m_angle;
 };
 
-
 Triangle::Triangle()
 {
 	GraphicsEngine* graphEngine = GraphicsEngine::getInstance();
@@ -32,31 +32,17 @@ Triangle::Triangle()
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
-	graphEngine->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-
-	this->vertexshader = graphEngine->createVertexShader(shader_byte_code, size_shader);
-
-	this->vertexbuffer = graphEngine->createVertexBuffer();
+	this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
+	this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader");
 
 	UINT size_list = ARRAYSIZE(list);
-
-	this->vertexbuffer->load(list, sizeof(vertex), size_list, shader_byte_code, size_shader);
-
-	graphEngine->releaseCompiledShader();
-
-	graphEngine->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	this->pixelshader = graphEngine->createPixelShader(shader_byte_code, size_shader);
-
-	graphEngine->releaseCompiledShader();
-
+	this->vertexbuffer = new VertexBuffer(list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 
 	constant cc;
 	cc.m_angle = 0;
 
 	this->constantbuffer = graphEngine->createConstantBuffer();
 	this->constantbuffer->load(&cc, sizeof(constant));
-
-
 }
 
 void Triangle::draw()
@@ -88,18 +74,18 @@ void Triangle::draw()
 		-4.0f,
 		4.0f);
 
-	this->constantbuffer->update(GraphicsEngine::getInstance()->getImmediateDeviceContext(), &cc);
+	this->constantbuffer->update(GraphicsEngine::getInstance()->getDeviceContext(), &cc);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(this->vertexshader, this->constantbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(this->pixelshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(this->vertexshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(this->pixelshader, this->constantbuffer);
 
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexShader(this->vertexshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setPixelShader(this->pixelshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexBuffer(this->vertexbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexShader(this->vertexshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setPixelShader(this->pixelshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexBuffer(this->vertexbuffer);
 
 	//Triangle render
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->drawTriangleList(this->vertexbuffer->getSizeVertexList(), 0);
+	GraphicsEngine::getInstance()->getDeviceContext()->drawTriangleList(this->vertexbuffer->getSizeVertexList(), 0);
 
 }
 
@@ -120,7 +106,5 @@ void Triangle::setPosition(Vector3D Position)
 
 Triangle::~Triangle()
 {
-	this->vertexbuffer->release();
-	this->vertexshader->release();
-	this->pixelshader->release();
+	delete vertexbuffer;
 }

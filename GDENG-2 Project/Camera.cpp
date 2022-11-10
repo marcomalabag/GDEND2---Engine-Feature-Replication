@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include <iostream>
 
-Camera::Camera(string name):AGameObject(name)
+Camera::Camera(std::string name):AGameObject(name)
 {
 	this->setPosition(0.0f, 0.0f, -2.0f);
 	//this->cameraFront = Vector3D(0.0f, 0.0f, -1.0f);

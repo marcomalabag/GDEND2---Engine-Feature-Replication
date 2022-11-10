@@ -93,17 +93,17 @@ void Rectangle::draw()
 		4.0f);
 
 
-	this->constantbuffer->update(GraphicsEngine::getInstance()->getImmediateDeviceContext(), &cc);
+	this->constantbuffer->update(GraphicsEngine::getInstance()->getDeviceContext(), &cc);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(this->vertexshader, this->constantbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(this->pixelshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(this->vertexshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(this->pixelshader, this->constantbuffer);
 
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexShader(this->vertexshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setPixelShader(this->pixelshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexBuffer(this->vertexbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexShader(this->vertexshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setPixelShader(this->pixelshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexBuffer(this->vertexbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->drawTriangleStrip(this->vertexbuffer->getSizeVertexList(), 0);
+	GraphicsEngine::getInstance()->getDeviceContext()->drawTriangleStrip(this->vertexbuffer->getSizeVertexList(), 0);
 
 }
 

@@ -1,5 +1,7 @@
 #include "Sphere.h"
 
+#include "ShaderLibrary.h"
+
 Sphere::Sphere(string name, void* shaderByteCode, size_t sizeShader):AGameObject(name)
 {
 	float radius = 1.5f;
@@ -29,6 +31,15 @@ Sphere::Sphere(string name, void* shaderByteCode, size_t sizeShader):AGameObject
 		}
 	}
 
+	this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
+	this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader");
+
+	UINT size_list = ARRAYSIZE(this->vertices);
+	this->vertexbuffer = new VertexBuffer(this->vertices,
+		sizeof(vertex),
+		size_list,
+		shader_byte_code,
+		size_shader);
 
 
 	this->verterbuffer = GraphicsEngine::getInstance()->createVertexBuffer();
@@ -117,18 +128,18 @@ void Sphere::draw(int width, int height, VertexShader* vertexshader, PixelShader
 
 	cc.projection.setPerspectiveFovLH(aspectRatio, aspectRatio, 0.1f, 1000.0f);
 
-	this->constantbuffer->update(GraphicsEngine::getInstance()->getImmediateDeviceContext(), &cc);
+	this->constantbuffer->update(GraphicsEngine::getInstance()->getDeviceContext(), &cc);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(vertexshader, this->constantbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(pixelshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(vertexshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(pixelshader, this->constantbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexShader(vertexshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setPixelShader(pixelshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexShader(vertexshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setPixelShader(pixelshader);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexBuffer(this->verterbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setIndexBuffer(this->indexbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexBuffer(this->verterbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setIndexBuffer(this->indexbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->drawIndexedTriangleList(this->indexbuffer->getSizeIndexList(), 0, 0);
+	GraphicsEngine::getInstance()->getDeviceContext()->drawIndexedTriangleList(this->indexbuffer->getSizeIndexList(), 0, 0);
 
 	this->oldDelta = this->newDelta;
 	this->newDelta += this->ticks;

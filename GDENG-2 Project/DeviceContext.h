@@ -1,5 +1,7 @@
 #pragma once
 #include <d3d11.h>
+
+#include "Color.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
@@ -13,36 +15,81 @@ class VertexShader;
 class PixelShader;
 class IndexBuffer;
 
-class DeviceContext
+class DeviceContext final
 {
 public:
-	DeviceContext(ID3D11DeviceContext* device_context);
-	bool release();
-	void clearRenderTargetColor(SwapChain* swapchain, float red, float green, float blue, float alpha);
-	void setVertexBuffer(VertexBuffer* vertex_buffer);
-	void setIndexBuffer(IndexBuffer* index_buffer);
-	
-	void setViewportSize(D3D11_VIEWPORT viewport);
-	void drawTriangleList(UINT vertex_count, UINT startVertexIndex);
-	void drawTriangleStrip(UINT vertex_count, UINT startVertexIndex);
-	void drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location);
-	ID3D11DeviceContext* getContext();
+	explicit DeviceContext(ID3D11DeviceContext* deviceContext);
+
 	~DeviceContext();
 
-public:
-	void setVertexShader(VertexShader* vertex_shader);
-	void setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* constant_buffer);
+	void clearRenderTargetColor(SwapChain* swapchain,
+	                            float red,
+	                            float green,
+	                            float blue,
+	                            float alpha);
 
-	void setPixelShader(PixelShader* pixel_shader);
-	void setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* constant_buffer);
+	// Rendering pipeline
+	// Render Begin
+	void setViewportSize(D3D11_VIEWPORT viewport) const;
+
+	void clearRenderTargetView(ID3D11RenderTargetView& renderTarget,
+	                           const Color& clearColor) const;
+
+	void clearDepthStencilView(ID3D11DepthStencilView& depthStencil) const;
+
+	void setRenderTargetTo(ID3D11RenderTargetView* renderTarget,
+	                       ID3D11DepthStencilView* depthStencil) const;
+
+	void updateBufferResource(ID3D11Buffer* bufferResource,
+	                          const void* updatedBufferData) const;
+
+	void setVertexShader(const VertexShader& vertexShader) const;
+
+	void setPixelShader(const PixelShader& pixelShader) const;
+
+	template <typename Shader>
+	void uploadShaderData(ConstantBuffer& dataToUpload);
+
+	void setVertexBuffer(VertexBuffer& vertexBuffer) const;
+
+	void setIndexBuffer(const IndexBuffer& indexBuffer) const;
+
+	void setTopology(const D3D11_PRIMITIVE_TOPOLOGY& topology) const;
+
+	void draw(unsigned int vertexCount,
+	          unsigned int startVertexID) const;
+
+	void drawIndexed(unsigned int indexCount,
+	                 unsigned int startingIndexID,
+	                 int startingVertexID) const;
+	// Render End (Unbind render targets)
+
+	ID3D11DeviceContext* getContext() const;
 
 private:
-	ID3D11DeviceContext* Devicecontext;
+	ID3D11DeviceContext* deviceContext;
 
 private:
 	friend class ConstantBuffer;
-
-
-	
 };
 
+template <typename Shader>
+void DeviceContext::uploadShaderData(ConstantBuffer& dataToUpload)
+{
+}
+
+template <>
+inline void DeviceContext::uploadShaderData<VertexShader>(ConstantBuffer& dataToUpload)
+{
+	this->deviceContext->VSSetConstantBuffers(0,
+	                                          1,
+	                                          &dataToUpload.buffer);
+}
+
+template <>
+inline void DeviceContext::uploadShaderData<PixelShader>(ConstantBuffer& dataToUpload)
+{
+	this->deviceContext->PSSetConstantBuffers(0,
+	                                          1,
+	                                          &dataToUpload.buffer);
+}

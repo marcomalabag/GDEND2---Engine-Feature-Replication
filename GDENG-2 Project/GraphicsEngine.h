@@ -1,85 +1,50 @@
 #pragma once
 #include <d3d11.h>
-#include <d3dcompiler.h>
-#include <iostream>
 #include "DeviceContext.h"
-#include "VertexBuffer.h"
-#include "ConstantBuffer.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "IndexBuffer.h"
 
 class SwapChain;
 class DeviceContext;
 class VertexBuffer;
 class ConstantBuffer;
 
-class GraphicsEngine
+class GraphicsEngine final
 {
 public:
-	
-	bool init();
-	bool release();
-	ID3D11Device* getD3Ddevice();
-	D3D_FEATURE_LEVEL getFeatureLevel();
-	IDXGIFactory* getFactory();
-	
-	
+	static void init();
+	static void release();
 
-public:
-	SwapChain* createSwapChain();
-	DeviceContext* getImmediateDeviceContext();
-	VertexBuffer* createVertexBuffer();
-	ConstantBuffer* createConstantBuffer();
-	IndexBuffer* createIndexBuffer();
-	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
-	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
-
-public:
-	bool compileVertexShader(const wchar_t* Filename, const char* EntryPointName, void** shader_byte_code, size_t* byte_code_size);
-	bool compilePixelShader(const wchar_t* Filename, const char* EntryPointName, void** shader_byte_code, size_t* byte_code_size);
-	void releaseCompiledShader();
-
-
-	
-
-public:
+	[[nodiscard]]
 	static GraphicsEngine* getInstance();
-	static void initialize();
-	static void destroy();
+
+	[[nodiscard]]
+	ID3D11Device& getDevice() const;
+
+	[[nodiscard]]
+	DeviceContext& getDeviceContext() const;
+
+	[[nodiscard]]
+	IDXGIFactory& getFactory() const;
+
+	GraphicsEngine(const GraphicsEngine&)                = delete;
+	GraphicsEngine& operator=(const GraphicsEngine&)     = delete;
+	GraphicsEngine(GraphicsEngine&&) noexcept            = delete;
+	GraphicsEngine& operator=(GraphicsEngine&&) noexcept = delete;
 
 private:
 	GraphicsEngine();
 	~GraphicsEngine();
-	GraphicsEngine(GraphicsEngine const&){};
-	GraphicsEngine&operator=(GraphicsEngine const&){};
 
-private:
-	static GraphicsEngine* sharedInstance;
+	static GraphicsEngine* instance;
 
-private:
-	DeviceContext* m_imm_device_context;
+	DeviceContext* immDeviceContext = nullptr;
 
-private:
-	ID3D11Device* m_d3d_device;
-	D3D_FEATURE_LEVEL m_feature_level;
-	
+	ID3D11Device* d3dDevice = nullptr;
+	D3D_FEATURE_LEVEL featureLevel;
 
-private:
-	IDXGIDevice* m_dxgi_device;
-	IDXGIAdapter* m_dxgi_adapter;
-	IDXGIFactory* m_dxgi_factory;
-	ID3D11DeviceContext* m_imm_context;
+	IDXGIDevice* dxgiDevice   = nullptr;
+	IDXGIAdapter* dxgiAdapter = nullptr;
+	IDXGIFactory* dxgiFactory = nullptr;
 
-private:
-	ID3DBlob* m_blob = nullptr;
-	ID3DBlob* VertexShaderBlob = nullptr;
-	ID3DBlob* PixelShaderBlob = nullptr;
-	ID3D11VertexShader* VertexShader = nullptr;
-	ID3D11PixelShader* pixelshader = nullptr;
-
-
-private:
 	friend class SwapChain;
 	friend class ConstantBuffer;
 };

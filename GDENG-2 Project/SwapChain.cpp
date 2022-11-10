@@ -8,7 +8,7 @@ SwapChain::SwapChain()
 
 bool SwapChain::init(HWND hwnd, UINT width, UINT height)
 {
-    ID3D11Device* device = GraphicsEngine::getInstance()->getD3Ddevice();
+    ID3D11Device* device = &GraphicsEngine::getInstance()->getDevice();
 
     DXGI_SWAP_CHAIN_DESC desc;
     ZeroMemory(&desc, sizeof(desc));
@@ -25,7 +25,7 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height)
     desc.Windowed = TRUE;
 
 
-    HRESULT hr = GraphicsEngine::getInstance()->getFactory()->CreateSwapChain(device, &desc, &m_swap_chain);
+    HRESULT hr = GraphicsEngine::getInstance()->getFactory().CreateSwapChain(device, &desc, &m_swap_chain);
 
     if(FAILED(hr))
     {

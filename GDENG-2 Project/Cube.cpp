@@ -1,30 +1,41 @@
 #include "Cube.h"
 
+#include "RenderComponent.h"
 
-Cube::Cube(string name, void* shaderByteCode, size_t sizeShader):AGameObject(name)
+struct CubeVertex
 {
+	Vector3D position;
+};
 
-	vertex vertex_list[] =
+Cube::Cube(std::string name, void* shaderByteCode, size_t sizeShader):AGameObject(name)
+{
+	CubeVertex* vertex_list = new CubeVertex[]
 	{
 		//X - Y - Z
 		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
+		{Vector3D(-0.5f,-0.5f,-0.5f),    },
+		{Vector3D(-0.5f,0.5f,-0.5f),    },
+		{ Vector3D(0.5f,0.5f,-0.5f),   },
+		{ Vector3D(0.5f,-0.5f,-0.5f),      },
 
 		//BACK FACE
-		{ Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
-
+		{ Vector3D(0.5f,-0.5f,0.5f),     },
+		{ Vector3D(0.5f,0.5f,0.5f),     },
+		{ Vector3D(-0.5f,0.5f,0.5f),    },
+		{ Vector3D(-0.5f,-0.5f,0.5f),      }
 	};
 
-	this->verterbuffer = GraphicsEngine::getInstance()->createVertexBuffer();
-	this->verterbuffer->load(vertex_list, sizeof(vertex), ARRAYSIZE(vertex_list), shaderByteCode, sizeShader);
-
-	UINT size_list = ARRAYSIZE(vertex_list);
+	D3D11_INPUT_ELEMENT_DESC* layout = new D3D11_INPUT_ELEMENT_DESC[3] {
+		{
+			"POSITION",
+			0,
+			DXGI_FORMAT_R32G32B32_FLOAT,
+			0,
+			0,
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0
+		}
+	};
 
 	unsigned int index_list[] =
 	{
@@ -47,6 +58,22 @@ Cube::Cube(string name, void* shaderByteCode, size_t sizeShader):AGameObject(nam
 		7,6,1,
 		1,0,7
 	};
+
+	RenderData* renderData = new RenderData();
+	renderData->vertices = vertex_list;
+	renderData->vertexCount = sizeof(vertex_list);
+	renderData->vertexSize = sizeof(vertex);
+	renderData->vertexLayout = layout;
+	renderData->vertexLayoutElementCount = 1ULL;
+	renderData->indices = nullptr;
+	renderData->indexCount = 0;
+	
+	this->attachComponent<RenderComponent>(*this, );
+	
+	this->verterbuffer = GraphicsEngine::getInstance()->createVertexBuffer();
+	this->verterbuffer->load(vertex_list, sizeof(vertex), ARRAYSIZE(vertex_list), shaderByteCode, sizeShader);
+
+	UINT size_list = ARRAYSIZE(vertex_list);
 
 	this->indexbuffer = GraphicsEngine::getInstance()->createIndexBuffer();
 	UINT size_index_list = ARRAYSIZE(index_list);
@@ -110,18 +137,18 @@ void Cube::draw(int width, int height, VertexShader* vertexshader, PixelShader* 
 
 	cc.projection.setPerspectiveFovLH(aspectRatio, aspectRatio, 0.1f, 1000.0f);
 
-	this->constantbuffer->update(GraphicsEngine::getInstance()->getImmediateDeviceContext(), &cc);
+	this->constantbuffer->update(GraphicsEngine::getInstance()->getDeviceContext(), &cc);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(vertexshader, this->constantbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(pixelshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(vertexshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(pixelshader, this->constantbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexShader(vertexshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setPixelShader(pixelshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexShader(vertexshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setPixelShader(pixelshader);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexBuffer(this->verterbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setIndexBuffer(this->indexbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexBuffer(this->verterbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setIndexBuffer(this->indexbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->drawIndexedTriangleList(this->indexbuffer->getSizeIndexList(), 0, 0);
+	GraphicsEngine::getInstance()->getDeviceContext()->drawIndexedTriangleList(this->indexbuffer->getSizeIndexList(), 0, 0);
 
 	this->oldDelta = this->newDelta;
 	this->newDelta += this->ticks;

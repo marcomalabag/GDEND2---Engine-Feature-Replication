@@ -5,7 +5,7 @@ PixelShader::PixelShader(ID3DBlob* pixelShaderBlob) :
 	data{nullptr}
 {
 	HRESULT result = GraphicsEngine::getInstance()->
-	                 getD3Ddevice()->
+	                 getDevice()->
 	                 CreatePixelShader(pixelShaderBlob->GetBufferPointer(),
 	                                   pixelShaderBlob->GetBufferSize(),
 	                                   nullptr,

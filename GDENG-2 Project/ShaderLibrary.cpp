@@ -1,17 +1,17 @@
 ﻿#include "ShaderLibrary.h"
 
-ShaderLibrary ShaderLibrary::s_Instance = ShaderLibrary();
+ShaderLibrary ShaderLibrary::instance = ShaderLibrary();
 
 void ShaderLibrary::init(const size_t expectedShaderCount)
 {
-	s_Instance.m_VertexShaderMap.reserve(expectedShaderCount);
-	s_Instance.m_PixelShaderMap.reserve(expectedShaderCount);
+	instance.vertexShaderMap.reserve(expectedShaderCount);
+	instance.pixelShaderMap.reserve(expectedShaderCount);
 }
 
 void ShaderLibrary::release()
 {
-	s_Instance.m_VertexShaderMap.clear();
-	s_Instance.m_PixelShaderMap.clear();
+	instance.vertexShaderMap.clear();
+	instance.pixelShaderMap.clear();
 }
 
 ShaderLibrary::ShaderLibrary() = default;

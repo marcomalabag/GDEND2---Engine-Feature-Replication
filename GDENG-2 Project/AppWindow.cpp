@@ -2,6 +2,7 @@
 #include "IMGUI/imgui.h"
 
 #include "Mathf.h"
+#include "ShaderLibrary.h"
 
 struct vec3
 {
@@ -11,8 +12,11 @@ struct vec3
 struct vertex
 {
 	vec3 position;
+
 	vec3 position1;
+
 	vec3 color;
+
 	vec3 color1;
 };
 
@@ -22,8 +26,8 @@ struct constant
 	float m_angle;
 };
 
-
 AppWindow* AppWindow::sharedInstance = NULL;
+
 AppWindow::AppWindow()
 {
 }
@@ -37,7 +41,6 @@ void AppWindow::initialize()
 	sharedInstance = new AppWindow();
 	sharedInstance->initializeWC();
 	sharedInstance->initializeAppWindow();
-	
 }
 
 void AppWindow::onCreate()
@@ -49,6 +52,7 @@ void AppWindow::onCreate()
 void AppWindow::initializeEngine()
 {
 	GraphicsEngine::initialize();
+	ShaderLibrary::init(5);
 	EngineTime::initialize();
 	SceneCameraHandler::initialize();
 	GraphicsEngine* graphEngine = GraphicsEngine::getInstance();
@@ -57,46 +61,31 @@ void AppWindow::initializeEngine()
 
 	m_swap_chain = graphEngine->createSwapChain();
 
-	RECT rc = this->getClientWindowRect();
-	int width = rc.right - rc.left;
+	RECT rc    = this->getClientWindowRect();
+	int width  = rc.right - rc.left;
 	int height = rc.bottom - rc.top;
 
 	m_swap_chain->init(this->m_hwnd, width, height);
 
 	Viewport::getInstance()->add((FLOAT)width, (FLOAT)height, 0.0f,
-		1.0f, 0.0f, 0.0f);
-
+	                             1.0f, 0.0f, 0.0f);
 
 	positions[0] = Vector3D(-.5, .25, 0.0);
 	positions[1] = Vector3D(.5, .25, 0.0);
 	positions[2] = Vector3D(0, -.25, 0.0);
 
-	/*
-	TrianglePositions[0] = Vector3D(-.5, .5, 0.0);
-	TrianglePositions[1] = Vector3D(.5, .5, 0.0);
-	TrianglePositions[2] = Vector3D(0, .001, 0.0);
-	*/
+	ShaderLibrary::add<VertexShader>("Assets/VertexShader.hlsl");
+	ShaderLibrary::add<PixelShader>("Assets/PixelShader.hlsl");
 
-	//For instantiating triangles
-	/*
-	for(int i = 0; i < 3; i++)
-	{
-		this->triangle.push_back(new Triangle());
-		this->triangle.at(i)->setPosition(TrianglePositions[i]);
-		this->triangle.at(i)->setWindowSizeHeight((rc.bottom - rc.top) / 400.f);
-		this->triangle.at(i)->setWindowSizeLength((rc.right - rc.left) / 400.f);
-	}
-	*/
+	this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
+	this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader.hlsl");
+
 	void* shader_byte_code = nullptr;
-	size_t size_shader = 0;
-	graphEngine->compileVertexShader(L"Assets/VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-
-	this->vertexshader = graphEngine->createVertexShader(shader_byte_code, size_shader);
-
+	size_t size_shader     = 0;
 
 	//For instantiating rectangles
-	int max = 1.5f;
-	int min = -2.5f;
+	float max = 1.5f;
+	float min = -2.5f;
 
 	for (int i = 0; i < 1; i++)
 	{
@@ -108,17 +97,8 @@ void AppWindow::initializeEngine()
 		this->Cubes.at(i)->setScale(.5, .5, .5);
 		this->Cubes.at(i)->setPosition(0.0f, 1.0f, 3.0f);
 		this->Cubes.at(i)->setAnimSpeed(speed);
-
 	}
 
-	graphEngine->releaseCompiledShader();
-
-
-	graphEngine->compilePixelShader(L"Assets/PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	this->pixelshader = graphEngine->createPixelShader(shader_byte_code, size_shader);
-
-
-	graphEngine->releaseCompiledShader();
 }
 
 void AppWindow::createInterface()
@@ -126,59 +106,49 @@ void AppWindow::createInterface()
 	UIManager::initialize(this->m_hwnd);
 }
 
-
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
 	InputSystem::getInstance()->update();
-	this->ticks += EngineTime::getDeltaTime() * 1.0f;
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
-		0, 0, 0.5, 0.5);
-	RECT rc = this->getClientWindowRect();
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setViewportSize(Viewport::getInstance()->getViewport(0));
 
-	//For instantiating triangles
-	/*
-	for(int i = 0; i < this->triangle.size(); i++)
-	{
-		this->triangle.at(i)->draw();
-	}
-	*/
-	
+	this->ticks += EngineTime::getDeltaTime() * 1.0f;
+
+	// Drawing----------------
+
+	GraphicsEngine::getInstance()->getDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
+	                                                                                   0, 0, 0.5, 0.5);
+	RECT rc = this->getClientWindowRect();
+	GraphicsEngine::getInstance()->getDeviceContext()->
+	                               setViewportSize(Viewport::getInstance()->getViewport(0));
+
 	for (int i = 0; i < Cubes.size(); i++)
 	{
-
 		//Cubes[i]->update(ticks);
 		Cubes.at(i)->draw(rc.right - rc.left, rc.bottom - rc.top, this->vertexshader, this->pixelshader);
 	}
 
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
-	
-	
 
 	this->m_swap_chain->present(true);
-
-	//this->m_swap_chain_game->present(false);
 }
 
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
-	//this->vertexbuffer->release();
 
-	
 	m_swap_chain->release();
-	
+
 	InputSystem::destroy();
-	//this->vertexshader->release();
-	//this->pixelshader->release();
-	if (GraphicsEngine::getInstance() != NULL) {
+
+	ShaderLibrary::release();
+
+	if (GraphicsEngine::getInstance() != NULL)
+	{
 		GraphicsEngine::getInstance()->release();
 	}
-	
+
 	UIManager::getInstance()->destroy();
-	
 }
 
 void AppWindow::onFocus()
@@ -219,11 +189,11 @@ void AppWindow::onRightMouseUp(const Point& mousePosition)
 {
 }
 
-
 AppWindow* AppWindow::getInstance()
 {
-	if(sharedInstance != NULL)
+	if (sharedInstance != NULL)
 	{
 		return sharedInstance;
 	}
+	return nullptr;
 }

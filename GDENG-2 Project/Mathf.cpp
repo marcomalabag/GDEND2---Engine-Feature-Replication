@@ -1,11 +1,14 @@
 #include "Mathf.h"
 
+#include "Random.h"
+#include "DirectXMath.h"
+
 float Mathf::getRandom(float min, float max)
 {
-	return (min + 1) + (((float)rand()) / (float)RAND_MAX) * (max - (min + 1));
+	return Engine::Random::Range<float>(min, max);
 }
 
 float Mathf::getRadians(float degree)
 {
-	return degree * (3.14f / 180.0f);
+	return DirectX::XMConvertToRadians(degree);
 }

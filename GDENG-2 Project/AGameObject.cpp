@@ -1,12 +1,13 @@
 #include "AGameObject.h"
 
-
-AGameObject::AGameObject(string name)
+#include "SceneCameraHandler.h"
+AGameObject::AGameObject(std::string name)
 {
 	this->name = name;
 	this->Position = Vector3D::zeros();
 	this->Rotation = Vector3D::zeros();
 	this->Scale = Vector3D::ones();
+
 }
 
 void AGameObject::setPosition(float x, float y, float z)
@@ -71,6 +72,6 @@ Vector3D AGameObject::getLocalRotation()
 
 AGameObject::~AGameObject()
 {
-	this->vertex_shader->release();
-	this->pixel_shader->release();
+	delete this->vertex_shader;
+	delete this->pixel_shader;
 }

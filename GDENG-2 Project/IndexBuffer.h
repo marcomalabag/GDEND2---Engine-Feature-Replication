@@ -9,19 +9,15 @@ class DeviceContext;
 class IndexBuffer
 {
 public:
-	IndexBuffer();
-	bool load(void* list_indices, UINT size_list);
-	UINT getSizeIndexList();
-	bool release();
+	IndexBuffer(void* list_indices, UINT size_list);
 	~IndexBuffer();
 
-private:
-	UINT SizeList;
+	UINT getSizeIndexList();
 
 private:
-	ID3D11Buffer* m_buffer = nullptr;
+	UINT sizeList;
+	ID3D11Buffer* buffer = nullptr;
 
-private:
 	friend class DeviceContext;
 
 

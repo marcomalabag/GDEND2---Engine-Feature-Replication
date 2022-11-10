@@ -5,7 +5,7 @@ VertexShader::VertexShader(ID3DBlob* vertexShaderBlob) :
 	data{nullptr}
 {
 	HRESULT result = GraphicsEngine::getInstance()->
-	                 getD3Ddevice()->
+	                 getDevice()->
 	                 CreateVertexShader(vertexShaderBlob->GetBufferPointer(),
 	                                    vertexShaderBlob->GetBufferSize(),
 	                                    nullptr,

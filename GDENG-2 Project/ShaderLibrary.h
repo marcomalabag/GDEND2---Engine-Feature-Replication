@@ -20,7 +20,7 @@ public:
 	static void add(std::string_view filename);
 
 	template <typename T>
-	static T& getShader(std::string_view shaderName);
+	static T& getShader(std::string_view name);
 
 	ShaderLibrary(const ShaderLibrary&) = delete;
 
@@ -35,17 +35,13 @@ private:
 
 	~ShaderLibrary();
 
-	constexpr const char* VERTEX_SHADER_ENTRY_POINT_NAME = "VSMain";
-
-	constexpr const char* PIXEL_SHADER_ENTRY_POINT_NAME = "PSMain";
-
 	static std::string getShaderNameFromFilename(std::string_view filename);
 
-	static ShaderLibrary s_Instance;
+	static ShaderLibrary instance;
 
-	std::unordered_map<std::string, VertexShader*> m_VertexShaderMap{};
+	std::unordered_map<std::string, VertexShader*> vertexShaderMap{};
 
-	std::unordered_map<std::string, PixelShader*> m_PixelShaderMap{};
+	std::unordered_map<std::string, PixelShader*> pixelShaderMap{};
 };
 
 //---------- IS SHADER REGISTERED
@@ -58,13 +54,13 @@ bool ShaderLibrary::isShaderRegistered(std::string_view name)
 template <>
 inline bool ShaderLibrary::isShaderRegistered<VertexShader>(const std::string_view name)
 {
-	return s_Instance.m_VertexShaderMap.contains(name.data());
+	return instance.vertexShaderMap.contains(name.data());
 }
 
 template <>
 inline bool ShaderLibrary::isShaderRegistered<PixelShader>(const std::string_view name)
 {
-	return s_Instance.m_PixelShaderMap.contains(name.data());
+	return instance.pixelShaderMap.contains(name.data());
 }
 
 //---------- REGISTER SHADER
@@ -91,7 +87,7 @@ inline void ShaderLibrary::add<VertexShader>(const std::string_view filename)
 	const HRESULT result = D3DCompileFromFile(filenameWideStr.c_str(),
 	                                          nullptr,
 	                                          nullptr,
-	                                          VERTEX_SHADER_ENTRY_POINT_NAME,
+	                                          "vsmain",
 	                                          "vs_5_0",
 	                                          0,
 	                                          0,
@@ -109,7 +105,7 @@ inline void ShaderLibrary::add<VertexShader>(const std::string_view filename)
 		}
 	}
 
-	s_Instance.m_VertexShaderMap[shaderName] = new VertexShader(blob);
+	instance.vertexShaderMap[shaderName] = new VertexShader(blob);
 }
 
 template <>
@@ -130,7 +126,7 @@ inline void ShaderLibrary::add<PixelShader>(const std::string_view filename)
 	const HRESULT result = D3DCompileFromFile(filenameWideStr.c_str(),
 	                                          nullptr,
 	                                          nullptr,
-	                                          PIXEL_SHADER_ENTRY_POINT_NAME,
+	                                          "psmain",
 	                                          "ps_5_0",
 	                                          0,
 	                                          0,
@@ -149,7 +145,7 @@ inline void ShaderLibrary::add<PixelShader>(const std::string_view filename)
 		}
 	}
 
-	s_Instance.m_PixelShaderMap[shaderName] = new PixelShader(blob);
+	instance.pixelShaderMap[shaderName] = new PixelShader(blob);
 }
 
 //---------- GET SHADER
@@ -165,7 +161,7 @@ inline VertexShader& ShaderLibrary::getShader<VertexShader>(const std::string_vi
 	const bool isFound = isShaderRegistered<VertexShader>(name);
 	Debug::Assert(isFound, "Vertex Shader is not registered!");
 	const char* shaderName = name.data();
-	return *s_Instance.m_VertexShaderMap[shaderName];
+	return *instance.vertexShaderMap[shaderName];
 }
 
 template <>
@@ -174,5 +170,5 @@ inline PixelShader& ShaderLibrary::getShader<PixelShader>(const std::string_view
 	const bool isFound = isShaderRegistered<PixelShader>(name);
 	Debug::Assert(isFound, "Pixel Shader is not registered!");
 	const char* shaderName = name.data();
-	return *s_Instance.m_PixelShaderMap[shaderName];
+	return *instance.pixelShaderMap[shaderName];
 }

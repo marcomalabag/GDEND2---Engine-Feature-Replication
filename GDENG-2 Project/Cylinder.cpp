@@ -165,18 +165,18 @@ void Cylinder::draw(int width, int height, VertexShader* vertexshader, PixelShad
 
 	cc.projection.setPerspectiveFovLH(aspectRatio, aspectRatio, 0.1f, 1000.0f);
 
-	this->constantbuffer->update(GraphicsEngine::getInstance()->getImmediateDeviceContext(), &cc);
+	this->constantbuffer->update(GraphicsEngine::getInstance()->getDeviceContext(), &cc);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(vertexshader, this->constantbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setConstantBuffer(pixelshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(vertexshader, this->constantbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setConstantBuffer(pixelshader, this->constantbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexShader(vertexshader);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setPixelShader(pixelshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexShader(vertexshader);
+	GraphicsEngine::getInstance()->getDeviceContext()->setPixelShader(pixelshader);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setVertexBuffer(this->verterbuffer);
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->setIndexBuffer(this->indexbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setVertexBuffer(this->verterbuffer);
+	GraphicsEngine::getInstance()->getDeviceContext()->setIndexBuffer(this->indexbuffer);
 
-	GraphicsEngine::getInstance()->getImmediateDeviceContext()->drawIndexedTriangleList(this->indexbuffer->getSizeIndexList(), 0, 0);
+	GraphicsEngine::getInstance()->getDeviceContext()->drawIndexedTriangleList(this->indexbuffer->getSizeIndexList(), 0, 0);
 
 	this->oldDelta = this->newDelta;
 	this->newDelta += this->ticks;

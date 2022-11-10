@@ -5,17 +5,17 @@
 
 class DeviceContext;
 
-class ConstantBuffer
+class ConstantBuffer final
 {
 public:
-	ConstantBuffer();
-	bool load(void* buffer, UINT sizeBuffer);
-	void update(DeviceContext* context, void* buffer);
-	bool release();
+	ConstantBuffer(const void* buffer, UINT sizeBuffer);
 	~ConstantBuffer();
 
+	void update(const DeviceContext& deviceContext,
+					const void* updatedBufferData) const;
+
 private:
-	ID3D11Buffer* Buffer = nullptr;
+	ID3D11Buffer* buffer = nullptr;
 
 private:
 	friend class DeviceContext;
