@@ -196,6 +196,7 @@
     <ClInclude Include="GDENG-2 Project\AUIScreen.h" />
     <ClInclude Include="GDENG-2 Project\AppWindow.h" />
     <ClInclude Include="GDENG-2 Project\Camera.h" />
+    <ClInclude Include="GDENG-2 Project\CameraMovement.h" />
     <ClInclude Include="GDENG-2 Project\ConstantBuffer.h" />
     <ClInclude Include="GDENG-2 Project\CreditsScreen.h" />
     <ClInclude Include="GDENG-2 Project\Cube.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="GDENG-2 Project\AUIScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp" />
     <ClCompile Include="GDENG-2 Project\Camera.cpp" />
+    <ClCompile Include="GDENG-2 Project\CameraMovement.cpp" />
     <ClCompile Include="GDENG-2 Project\ConstantBuffer.cpp" />
     <ClCompile Include="GDENG-2 Project\CreditsScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\Cube.cpp" />

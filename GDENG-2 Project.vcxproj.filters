@@ -27,6 +27,9 @@
     <ClInclude Include="GDENG-2 Project\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GDENG-2 Project\CameraMovement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GDENG-2 Project\ConstantBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -162,6 +165,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\CameraMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\ConstantBuffer.cpp">
