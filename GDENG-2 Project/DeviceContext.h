@@ -2,9 +2,10 @@
 #include <d3d11.h>
 
 #include "Color.h"
-#include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+
+#include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 
@@ -31,6 +32,8 @@ public:
 	// Rendering pipeline
 	// Render Begin
 	void setViewportSize(D3D11_VIEWPORT viewport) const;
+
+	void setViewportSize(float width, float height) const;
 
 	void clearRenderTargetView(ID3D11RenderTargetView& renderTarget,
 	                           const Color& clearColor) const;

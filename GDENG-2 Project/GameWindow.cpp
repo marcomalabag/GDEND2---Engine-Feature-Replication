@@ -75,7 +75,7 @@ void GameWindow::CreateGameWindow()
 void GameWindow::onUpdate()
 {
 	Window::onUpdate();
-	GraphicsEngine::getInstance()->getDeviceContext()->clearRenderTargetColor(this->m_swap_chain_game,
+	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetColor(this->m_swap_chain_game,
 		0, 0, 0.5, 0.5);
 
 	for (int i = 0; i < this->triangle.size(); i++)

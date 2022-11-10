@@ -11,7 +11,6 @@
 #include "Rectangle.h"
 #include "Vector3D.h"
 #include <vector>
-#include "Viewport.h"
 #include "UIManager.h"
 #include "Cube.h"
 #include "EngineTime.h"
@@ -43,7 +42,6 @@ public:
 public:
 	static void initialize();
 	static AppWindow* getInstance();
-	
 
 private:
 	AppWindow();
@@ -54,24 +52,12 @@ private:
 private:
 	static AppWindow* sharedInstance;
 
-
 private:
-	SwapChain* m_swap_chain;
-	VertexBuffer* vertexbuffer;
-	VertexShader* vertexshader;
-	PixelShader* pixelshader;
-	ConstantBuffer* constantbuffer;
-
+	SwapChain* swapChain;
+	Cube* cube;
 	unsigned long oldTime = 0;
 	float deltaTime = 0;
 	float angle = 0;
 	float ticks = 0.0f;
-
-	std::vector <class Triangle*> triangle;
-	std::vector<class Rectangle*> rectangle;
-	std::vector <Cube*> Cubes;
-
-	Vector3D positions[3];
-	Vector3D TrianglePositions[3];
 };
 

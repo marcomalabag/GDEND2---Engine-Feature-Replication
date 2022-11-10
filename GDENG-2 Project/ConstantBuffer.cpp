@@ -1,5 +1,7 @@
 #include "ConstantBuffer.h"
 #include "Debug.h"
+#include "GraphicsEngine.h"
+#include "DeviceContext.h"
 
 ConstantBuffer::ConstantBuffer(const void* buffer,
                                const UINT sizeBuffer)

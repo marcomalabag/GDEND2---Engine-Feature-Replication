@@ -4,22 +4,22 @@
 struct RenderData
 {
 	// Vertices
-	void* vertices;
+	void* Vertices;
 
-	size_t vertexCount;
+	unsigned int VertexCount;
 
-	size_t vertexSize;
+	size_t VertexSize;
 
 	// Vertex Layout
-	D3D11_INPUT_ELEMENT_DESC* vertexLayout;
+	D3D11_INPUT_ELEMENT_DESC* VertexLayout;
 
-	size_t vertexLayoutElementCount;
+	unsigned int VertexLayoutElementCount;
 
 	// Indices
-	unsigned int* indices;
+	unsigned int* Indices;
 
-	size_t indexCount;
+	unsigned int IndexCount;
 
 	// Topology
-	D3D11_PRIMITIVE_TOPOLOGY topology;
+	D3D11_PRIMITIVE_TOPOLOGY Topology;
 };

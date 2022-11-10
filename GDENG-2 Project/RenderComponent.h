@@ -1,7 +1,10 @@
 ﻿#pragma once
+#include "AGameObject.h"
+#include "Debug.h"
+#include "Color.h"
+#include "Matrix4x4.h"
 
 #include "AComponent.h"
-
 #include "RenderData.h"
 
 #include "VertexShader.h"
@@ -11,21 +14,24 @@
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 
-class Camera;
+#include "Camera.h"
 
 class RenderComponent final : public AComponent
 {
 public:
 	RenderComponent(AGameObject& owner,
-					RenderData* renderData,
-					VertexShader* vertexShader,
-					PixelShader* pixelShader);
+	                RenderData* renderData,
+	                VertexShader* vertexShader,
+	                PixelShader* pixelShader);
 
 	~RenderComponent() override;
 
-	void Draw(Camera& camera) const;
-
 	MAKE_COMPONENT(Render)
+
+	void draw(Camera& camera) const;
+
+	// Refactor later
+	void draw(Matrix4x4 viewProjMatrix) const;
 
 	RenderComponent(const RenderComponent&) = delete;
 
@@ -35,7 +41,7 @@ public:
 
 	RenderComponent& operator=(RenderComponent&&) noexcept = delete;
 
-	// Color AlbedoColor = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	Color AlbedoColor = Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 private:
 	// Material
@@ -47,25 +53,15 @@ private:
 	//	VertexBuffer
 	//	IndexBuffer
 
-	RenderData* m_RenderData;
+	RenderData* renderData;
 
-	VertexShader* m_VertexShader;
+	VertexShader* vertexShader;
 
-	PixelShader* m_PixelShader;
+	PixelShader* pixelShader;
 
-	VertexBuffer* m_VertexBuffer;
+	VertexBuffer* vertexBuffer;
 
-	IndexBuffer* m_IndexBuffer;
+	IndexBuffer* indexBuffer;
 
-	ConstantBuffer* m_ConstantBuffer;
-
-	// bool m_HasTexture = false;
-	//
-	// ID3D11ShaderResourceView* m_TextureView = nullptr;
-	//
-	// int m_TextureWidth;
-	//
-	// int m_TextureHeight;
-	//
-	// ID3D11SamplerState* m_TextureSampler = nullptr;
+	ConstantBuffer* constantBuffer;
 };

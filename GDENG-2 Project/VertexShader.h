@@ -1,5 +1,4 @@
 #pragma once
-#include "GraphicsEngine.h"
 #include <d3d11.h>
 
 class GraphicsEngine;
@@ -12,6 +11,12 @@ public:
 	
 	~VertexShader();
 
+	[[nodiscard]]
+	void* getByteCodeData() const;
+
+	[[nodiscard]]
+	unsigned int getByteCodeSizeData() const;
+
 	VertexShader(const VertexShader&) = delete;
 
 	VertexShader& operator=(const VertexShader&) = delete;
@@ -21,9 +26,9 @@ public:
 	VertexShader& operator=(const VertexShader&&) = delete;
 
 private:
+	ID3DBlob* blob;
 	ID3D11VertexShader* data;
 
-private:
 	friend class GraphicsEngine;
 	
 	friend class DeviceContext;

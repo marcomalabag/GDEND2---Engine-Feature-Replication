@@ -50,7 +50,6 @@ public:
 
 	virtual void update(float deltaTime) = 0;
 
-	// Might need to refactor as checking for a component can be expensive
 	virtual void draw(int width,
 	                  int height,
 	                  VertexShader* vertexshader,

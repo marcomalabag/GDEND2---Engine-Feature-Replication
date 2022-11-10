@@ -1,7 +1,5 @@
 #pragma once
 #include <d3d11.h>
-#include "GraphicsEngine.h"
-#include "DeviceContext.h"
 
 class DeviceContext;
 

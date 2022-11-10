@@ -1,7 +1,7 @@
 #pragma once
 #include "Cube.h"
 
-class Plane : public Cube
+class Plane : public AGameObject
 {
 public:
 	Plane(string name, void* shaderByteCode, size_t sizeShader);

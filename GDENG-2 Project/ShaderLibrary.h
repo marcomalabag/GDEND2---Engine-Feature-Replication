@@ -1,10 +1,12 @@
 ﻿#pragma once
+#include <d3dcompiler.h>
 #include <string_view>
 #include <unordered_map>
 
 #include "Debug.h"
 #include "Utils.h"
 #include "VertexShader.h"
+#include "PixelShader.h"
 
 class ShaderLibrary
 {

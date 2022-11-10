@@ -26,6 +26,16 @@ void DeviceContext::setViewportSize(const D3D11_VIEWPORT viewport) const
 {
 	this->deviceContext->RSSetViewports(1, &viewport);
 }
+void DeviceContext::setViewportSize(float width,
+	float height) const
+{
+	D3D11_VIEWPORT viewport = {};
+	viewport.Width = width;
+	viewport.Height = height;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+	this->deviceContext->RSSetViewports(1, &viewport);
+}
 
 void DeviceContext::clearRenderTargetView(ID3D11RenderTargetView& renderTarget,
                                           const Color& clearColor) const
@@ -78,7 +88,7 @@ void DeviceContext::setPixelShader(const PixelShader& pixelShader) const
 
 void DeviceContext::setVertexBuffer(VertexBuffer& vertexBuffer) const
 {
-	UINT stride = vertexBuffer.getSizeVertexBuffer();
+	UINT stride = vertexBuffer.getBufferSize();
 	UINT offset = 0;
 
 	this->deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer.buffer, &stride, &offset);

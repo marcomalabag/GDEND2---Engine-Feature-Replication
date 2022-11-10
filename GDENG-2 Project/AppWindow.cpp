@@ -1,30 +1,11 @@
 #include "AppWindow.h"
+
+#include "RenderComponent.h"
+
 #include "IMGUI/imgui.h"
 
-#include "Mathf.h"
+#include "SceneCameraHandler.h"
 #include "ShaderLibrary.h"
-
-struct vec3
-{
-	float x, y, z;
-};
-
-struct vertex
-{
-	vec3 position;
-
-	vec3 position1;
-
-	vec3 color;
-
-	vec3 color1;
-};
-
-__declspec(align(16))
-struct constant
-{
-	float m_angle;
-};
 
 AppWindow* AppWindow::sharedInstance = NULL;
 
@@ -51,54 +32,28 @@ void AppWindow::onCreate()
 
 void AppWindow::initializeEngine()
 {
-	GraphicsEngine::initialize();
+	GraphicsEngine::init();
 	ShaderLibrary::init(5);
 	EngineTime::initialize();
 	SceneCameraHandler::initialize();
-	GraphicsEngine* graphEngine = GraphicsEngine::getInstance();
 
-	Viewport::initialize();
-
-	m_swap_chain = graphEngine->createSwapChain();
+	swapChain = new SwapChain();
 
 	RECT rc    = this->getClientWindowRect();
 	int width  = rc.right - rc.left;
 	int height = rc.bottom - rc.top;
 
-	m_swap_chain->init(this->m_hwnd, width, height);
+	swapChain->init(this->m_hwnd, width, height);
 
-	Viewport::getInstance()->add((FLOAT)width, (FLOAT)height, 0.0f,
-	                             1.0f, 0.0f, 0.0f);
+	ShaderLibrary::add<VertexShader>("GDENG-2 Project/Assets/SolidColor_VS.hlsl");
+	ShaderLibrary::add<PixelShader>("GDENG-2 Project/Assets/SolidColor_PS.hlsl");
 
-	positions[0] = Vector3D(-.5, .25, 0.0);
-	positions[1] = Vector3D(.5, .25, 0.0);
-	positions[2] = Vector3D(0, -.25, 0.0);
+	cube = new Cube("Testing cube");
+	// this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
+	// this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader.hlsl");
 
-	ShaderLibrary::add<VertexShader>("Assets/VertexShader.hlsl");
-	ShaderLibrary::add<PixelShader>("Assets/PixelShader.hlsl");
-
-	this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
-	this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader.hlsl");
-
-	void* shader_byte_code = nullptr;
-	size_t size_shader     = 0;
-
-	//For instantiating rectangles
-	float max = 1.5f;
-	float min = -2.5f;
-
-	for (int i = 0; i < 1; i++)
-	{
-		float x = Mathf::getRandom(min, max);
-		float y = Mathf::getRandom(-2.0, 1.0f);
-
-		float speed = Mathf::getRandom(1.0f, 25.0f);
-		this->Cubes.push_back(new Cube("Cube", shader_byte_code, size_shader));
-		this->Cubes.at(i)->setScale(.5, .5, .5);
-		this->Cubes.at(i)->setPosition(0.0f, 1.0f, 3.0f);
-		this->Cubes.at(i)->setAnimSpeed(speed);
-	}
-
+	// Initial Entities
+	// Goal: Draw at least 1 Cube using ECS
 }
 
 void AppWindow::createInterface()
@@ -114,39 +69,38 @@ void AppWindow::onUpdate()
 	this->ticks += EngineTime::getDeltaTime() * 1.0f;
 
 	// Drawing----------------
+	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetColor(swapChain,
+	                                                                         0.8f,
+	                                                                         0.3f,
+	                                                                         0.6f,
+	                                                                         1.0f);
 
-	GraphicsEngine::getInstance()->getDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
-	                                                                                   0, 0, 0.5, 0.5);
+	// GraphicsEngine::getInstance()->getDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
+	//                                                                                    0, 0, 0.5, 0.5);
 	RECT rc = this->getClientWindowRect();
-	GraphicsEngine::getInstance()->getDeviceContext()->
-	                               setViewportSize(Viewport::getInstance()->getViewport(0));
+	GraphicsEngine::getInstance()->getDeviceContext().
+	                               setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
-	for (int i = 0; i < Cubes.size(); i++)
-	{
-		//Cubes[i]->update(ticks);
-		Cubes.at(i)->draw(rc.right - rc.left, rc.bottom - rc.top, this->vertexshader, this->pixelshader);
-	}
+	cube->getComponent<RenderComponent>()->draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix());
 
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
 
-	this->m_swap_chain->present(true);
+	this->swapChain->present(true);
 }
 
 void AppWindow::onDestroy()
 {
+	delete cube;
 	Window::onDestroy();
 
-	m_swap_chain->release();
+	swapChain->release();
 
 	InputSystem::destroy();
 
 	ShaderLibrary::release();
 
-	if (GraphicsEngine::getInstance() != NULL)
-	{
-		GraphicsEngine::getInstance()->release();
-	}
+	GraphicsEngine::getInstance()->release();
 
 	UIManager::getInstance()->destroy();
 }
