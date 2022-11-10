@@ -14,6 +14,7 @@ public:
 
 	Matrix4x4 getSceneCameraViewMatrix();
 	void initializeGameCamera();
+	Camera* getGameCameraInstance();
 
 private:
 	GameCameraHandler();
