@@ -5,7 +5,7 @@ SceneCameraHandler* SceneCameraHandler::sharedInstance = NULL;
 
 SceneCameraHandler::SceneCameraHandler()
 {
-	this->sceneCamera = new Camera("SceneCamera");
+	this->cam = new CameraMovement("cameraMovement");
 }
 
 SceneCameraHandler* SceneCameraHandler::getInstance()
@@ -26,15 +26,15 @@ void SceneCameraHandler::destroy()
 
 void SceneCameraHandler::update()
 {
-	this->sceneCamera->update(EngineTime::getDeltaTime());
+	this->cam->update(EngineTime::getDeltaTime());
 }
 
 Matrix4x4 SceneCameraHandler::getSceneCameraViewMatrix()
 {
-	return this->sceneCamera->getViewMatrix();
+	return this->cam->getViewMatrix();
 }
 
 SceneCameraHandler::~SceneCameraHandler()
 {
-	delete this->sceneCamera;
+	delete this->cam;
 }
