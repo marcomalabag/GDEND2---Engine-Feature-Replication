@@ -7,12 +7,9 @@
 #include "ConstantBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-#include "Triangle.h"
-#include "Rectangle.h"
 #include "Vector3D.h"
 #include <vector>
 #include "UIManager.h"
-#include "Cube.h"
 #include "EngineTime.h"
 #include "InputListener.h"
 #include "InputSystem.h"
@@ -54,7 +51,6 @@ private:
 
 private:
 	SwapChain* swapChain;
-	Cube* cube;
 	unsigned long oldTime = 0;
 	float deltaTime = 0;
 	float angle = 0;

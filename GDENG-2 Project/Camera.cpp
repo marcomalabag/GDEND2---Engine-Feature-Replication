@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <iostream>
+#include <InputSystem.h>
 
 Camera::Camera(std::string name):AGameObject(name)
 {

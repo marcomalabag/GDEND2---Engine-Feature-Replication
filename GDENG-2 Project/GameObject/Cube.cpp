@@ -1,6 +1,6 @@
 #include "Cube.h"
 
-#include "RenderComponent.h"
+#include "Component/RenderComponent.h"
 #include "ShaderLibrary.h"
 
 #include "RenderData.h"

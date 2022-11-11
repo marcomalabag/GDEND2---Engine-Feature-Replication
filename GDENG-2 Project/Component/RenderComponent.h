@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "AGameObject.h"
 #include "Debug.h"
 #include "Color.h"
 #include "Matrix4x4.h"
@@ -14,8 +13,7 @@
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 
-#include "Camera.h"
-
+class AGameObject;
 class RenderComponent final : public AComponent
 {
 public:
@@ -27,11 +25,6 @@ public:
 	~RenderComponent() override;
 
 	MAKE_COMPONENT(Render)
-
-	void draw(Camera& camera) const;
-
-	// Refactor later
-	void draw(Matrix4x4 viewProjMatrix) const;
 
 	RenderComponent(const RenderComponent&) = delete;
 

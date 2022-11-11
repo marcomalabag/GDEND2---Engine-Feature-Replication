@@ -1,11 +1,6 @@
 #pragma once
-#include "AGameObject.h"
+#include "GameObject/AGameObject.h"
 #include "InputListener.h"
-#include "InputSystem.h"
-#include "Math.h"
-#include <cmath>
-
-
 
 class Camera: public AGameObject, public InputListener
 {
@@ -47,6 +42,3 @@ private:
 	bool AerialBool = false;
 	bool RightBool = false;
 };
-
-class EditorCamera : Camera, InputListener
-{};

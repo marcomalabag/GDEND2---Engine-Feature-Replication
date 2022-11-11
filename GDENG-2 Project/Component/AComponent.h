@@ -5,7 +5,6 @@
 									  std::string getName() const override { return #component; }
 
 class AGameObject;
-
 class AComponent
 {
 public:

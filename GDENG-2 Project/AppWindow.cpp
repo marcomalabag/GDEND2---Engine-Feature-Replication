@@ -1,7 +1,5 @@
 #include "AppWindow.h"
 
-#include "RenderComponent.h"
-
 #include "IMGUI/imgui.h"
 
 #include "SceneCameraHandler.h"
@@ -48,7 +46,7 @@ void AppWindow::initializeEngine()
 	ShaderLibrary::add<VertexShader>("GDENG-2 Project/Assets/SolidColor_VS.hlsl");
 	ShaderLibrary::add<PixelShader>("GDENG-2 Project/Assets/SolidColor_PS.hlsl");
 
-	cube = new Cube("Testing cube");
+	// cube = new Cube("Testing cube");
 	// this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
 	// this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader.hlsl");
 
@@ -81,7 +79,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::getInstance()->getDeviceContext().
 	                               setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
-	cube->getComponent<RenderComponent>()->draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix());
+	//cube->getComponent<RenderComponent>()->draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix());
 
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
@@ -91,7 +89,6 @@ void AppWindow::onUpdate()
 
 void AppWindow::onDestroy()
 {
-	delete cube;
 	Window::onDestroy();
 
 	swapChain->release();
