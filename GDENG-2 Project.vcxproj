@@ -209,6 +209,7 @@
     <ClInclude Include="GDENG-2 Project\Graphics\DeviceContext.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\Framebuffer.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="GDENG-2 Project\Graphics\HalfRenderQuad.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\IndexBuffer.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\PixelShader.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\Primitive.h" />
@@ -785,6 +786,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\HalfRenderQuad.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\IndexBuffer.cpp">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

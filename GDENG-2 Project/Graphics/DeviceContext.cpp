@@ -1,4 +1,7 @@
 #include "DeviceContext.h"
+
+#include <vector>
+
 #include "SwapChain.h"
 
 DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext)
@@ -33,8 +36,8 @@ void DeviceContext::setViewportSize(float width,
 	D3D11_VIEWPORT viewport = {};
 	viewport.Width          = width;
 	viewport.Height         = height;
-	viewport.TopLeftX       = 0.0f;
-	viewport.TopLeftY       = 0.0f;
+	viewport.MinDepth       = 0.0f;
+	viewport.MaxDepth       = 1.0f;
 	this->deviceContext->RSSetViewports(1, &viewport);
 }
 
@@ -58,8 +61,11 @@ void DeviceContext::setRenderTargetTo(ID3D11RenderTargetView* renderTarget,
 	if (renderTarget == nullptr)
 		numOfRenderTarget = 0;
 
+	std::vector<ID3D11RenderTargetView*> renderTargetViews = {};
+	renderTargetViews.push_back(renderTarget);
+
 	this->deviceContext->OMSetRenderTargets(numOfRenderTarget,
-	                                        &renderTarget,
+	                                        renderTargetViews.data(),
 	                                        depthStencil);
 }
 void DeviceContext::updateBufferResource(ID3D11Buffer* bufferResource,
@@ -92,7 +98,11 @@ void DeviceContext::setVertexBuffer(VertexBuffer& vertexBuffer) const
 	UINT stride = vertexBuffer.getBufferSize();
 	UINT offset = 0;
 
-	this->deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer.buffer, &stride, &offset);
+	this->deviceContext->IASetVertexBuffers(0,
+	                                        1,
+	                                        &vertexBuffer.buffer,
+	                                        &stride,
+	                                        &offset);
 	this->deviceContext->IASetInputLayout(vertexBuffer.layout);
 }
 
@@ -118,7 +128,7 @@ void DeviceContext::drawIndexed(const unsigned int indexCount,
 {
 	this->deviceContext->DrawIndexed(indexCount,
 	                                 startingIndexID,
-	                                 startingVertexID);
+	                                 0);
 }
 
 ID3D11DeviceContext* DeviceContext::getContext() const

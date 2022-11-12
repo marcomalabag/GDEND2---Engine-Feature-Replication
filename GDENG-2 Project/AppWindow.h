@@ -16,6 +16,7 @@
 #include "GameObject/GameObjectManager.h"
 #include "GameCameraHandler.h"
 
+class HalfRenderQuad;
 class RenderQuad;
 class Cube;
 class AppWindow : public Window, public InputListener
@@ -57,6 +58,7 @@ private:
 	Cube* cube = nullptr;
 	Framebuffer* framebuffer1 = nullptr;
 	RenderQuad* renderQuad = nullptr;
+	HalfRenderQuad* halfRenderQuad = nullptr;
 	unsigned long oldTime = 0;
 	float deltaTime = 0;
 	float angle = 0;
