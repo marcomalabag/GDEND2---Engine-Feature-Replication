@@ -182,9 +182,9 @@ AGameObject* GameObjectManager::getSelectedObject()
 	return this->SelectedObject;
 }
 
-Camera* GameObjectManager::createGameCamera()
+GameCamera* GameObjectManager::createGameCamera()
 {
-	Camera* GameCamera = new Camera("GameCamera");
+	GameCamera* GameCamera = new class GameCamera("Game Camera");
 	GameCamera->setPosition(0.0f, 1.0f, -2.0f);
 	this->addObject(GameCamera);
 	return GameCamera;

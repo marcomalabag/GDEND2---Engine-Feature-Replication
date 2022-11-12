@@ -192,6 +192,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GDENG-2 Project\GameCamera.h" />
     <ClInclude Include="GDENG-2 Project\GameCameraHandler.h" />
     <ClInclude Include="GDENG-2 Project\AGameObject.h" />
     <ClInclude Include="GDENG-2 Project\AUIScreen.h" />
@@ -242,6 +243,7 @@
     <ClInclude Include="GDENG-2 Project\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GDENG-2 Project\GameCamera.cpp" />
     <ClCompile Include="GDENG-2 Project\GameCameraHandler.cpp" />
     <ClCompile Include="GDENG-2 Project\AGameObject.cpp" />
     <ClCompile Include="GDENG-2 Project\AUIScreen.cpp" />

@@ -9,7 +9,7 @@
 #include "Cylinder.h"
 #include "Plane.h"
 #include "Sphere.h"
-#include "Camera.h"
+#include "GameCamera.h"
 
 
 
@@ -46,7 +46,7 @@ public:
 	void setSelectedObject(string name);
 	void setSelectedObject(AGameObject* gameObject);
 	AGameObject* getSelectedObject();
-	Camera* createGameCamera();
+	GameCamera* createGameCamera();
 	
 private:
 	static GameObjectManager* sharedInstance;

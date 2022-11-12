@@ -38,7 +38,7 @@ void GameCameraHandler::initializeGameCamera()
 	this->gameCamera = GameObjectManager::getInstance()->createGameCamera();
 }
 
-Camera* GameCameraHandler::getGameCameraInstance()
+GameCamera* GameCameraHandler::getGameCameraInstance()
 {
 	return this->gameCamera;
 }

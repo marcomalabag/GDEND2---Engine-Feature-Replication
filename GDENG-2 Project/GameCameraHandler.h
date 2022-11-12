@@ -1,7 +1,7 @@
 #pragma once
-#include "Camera.h"
 #include "EngineTime.h"
 #include "GameObjectManager.h"
+#include "GameCamera.h"
 
 class GameCameraHandler
 {
@@ -14,7 +14,7 @@ public:
 
 	Matrix4x4 getSceneCameraViewMatrix();
 	void initializeGameCamera();
-	Camera* getGameCameraInstance();
+	GameCamera* getGameCameraInstance();
 
 private:
 	GameCameraHandler();
@@ -23,7 +23,7 @@ private:
 	GameCameraHandler& operator=(GameCameraHandler const&) {};
 	static GameCameraHandler* sharedInstance;
 
-	Camera* gameCamera = nullptr;
+	GameCamera* gameCamera = nullptr;
 
 };
 
