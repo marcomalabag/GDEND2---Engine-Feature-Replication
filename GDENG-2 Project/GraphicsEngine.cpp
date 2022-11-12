@@ -7,7 +7,15 @@
 
 GraphicsEngine* GraphicsEngine::instance = nullptr;
 
-GraphicsEngine::GraphicsEngine()
+GraphicsEngine::GraphicsEngine(const HWND windowHandle,
+                               const unsigned int width,
+                               const unsigned int height) :
+	swapChain{nullptr},
+	immDeviceContext{nullptr},
+	d3dDevice{nullptr},
+	dxgiDevice{nullptr},
+	dxgiAdapter{nullptr},
+	dxgiFactory{nullptr}
 {
 	const std::vector<D3D_DRIVER_TYPE> driverTypes =
 	{
@@ -33,8 +41,8 @@ GraphicsEngine::GraphicsEngine()
 		                           featureLevels.data(),
 		                           (UINT)featureLevels.size(),
 		                           D3D11_SDK_VERSION,
-		                           &d3dDevice,
-		                           &featureLevel,
+		                           &this->d3dDevice,
+		                           &this->featureLevel,
 		                           &deviceContext);
 		if (SUCCEEDED(result))
 		{
@@ -46,28 +54,37 @@ GraphicsEngine::GraphicsEngine()
 
 	this->immDeviceContext = new DeviceContext(deviceContext);
 
-	d3dDevice->QueryInterface(__uuidof(IDXGIDevice),
-	                          (void**)&dxgiDevice);
-	dxgiDevice->GetParent(__uuidof(IDXGIAdapter),
-	                      (void**)&dxgiAdapter);
-	dxgiAdapter->GetParent(__uuidof(IDXGIFactory),
-	                       (void**)&dxgiFactory);
+	this->d3dDevice->QueryInterface(__uuidof(IDXGIDevice),
+	                                (void**)&this->dxgiDevice);
+	this->dxgiDevice->GetParent(__uuidof(IDXGIAdapter),
+	                            (void**)&this->dxgiAdapter);
+	this->dxgiAdapter->GetParent(__uuidof(IDXGIFactory),
+	                             (void**)&this->dxgiFactory);
+
+	this->swapChain = new SwapChain(windowHandle,
+	                                width,
+	                                height,
+	                                this->d3dDevice,
+	                                this->dxgiFactory);
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
-	dxgiAdapter->Release();
-	dxgiDevice->Release();
-	dxgiFactory->Release();
-	delete immDeviceContext;
-	d3dDevice->Release();
+	delete this->swapChain;
+	this->dxgiAdapter->Release();
+	this->dxgiDevice->Release();
+	this->dxgiFactory->Release();
+	delete this->immDeviceContext;
+	this->d3dDevice->Release();
 }
 
-void GraphicsEngine::init()
+void GraphicsEngine::init(const HWND windowHandle,
+                          const unsigned int width,
+                          const unsigned int height)
 {
 	if (instance == nullptr)
 	{
-		instance = new GraphicsEngine();
+		instance = new GraphicsEngine(windowHandle, width, height);
 	}
 }
 
@@ -101,4 +118,8 @@ DeviceContext& GraphicsEngine::getDeviceContext() const
 IDXGIFactory& GraphicsEngine::getFactory() const
 {
 	return *this->dxgiFactory;
+}
+SwapChain& GraphicsEngine::getSwapChain() const
+{
+	return *this->swapChain;
 }

@@ -20,6 +20,7 @@ void SystemHandler::release()
 SystemHandler::SystemHandler()
 {
 	// Init all respective systems
+	renderSystem = new RenderSystem();
 }
 
 SystemHandler::~SystemHandler()
@@ -32,5 +33,9 @@ SystemHandler& SystemHandler::getInstance()
 			  "SystemHandler must be initialized first using init()!");
 
 	return *instance;
+}
+RenderSystem& SystemHandler::getRenderSystem() const
+{
+	return *renderSystem;
 }
 

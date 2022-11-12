@@ -1,23 +1,31 @@
 #pragma once
 #include <d3d11.h>
-
-#include "DeviceContext.h"
-
+class Framebuffer;
 class DeviceContext;
-class SwapChain
+class SwapChain final
 {
 public:
-	SwapChain();
-	bool init(HWND hwnd, UINT width, UINT height);
-	bool present(bool vsync);
-	bool release();
+	SwapChain(HWND windowHandle,
+	          unsigned int width,
+	          unsigned int height,
+	          ID3D11Device* device,
+	          IDXGIFactory* factory);
+
 	~SwapChain();
 
-private:
-	IDXGISwapChain* m_swap_chain;
-	ID3D11RenderTargetView* RenderTargetView;
+	[[nodiscard]]
+	Framebuffer& getBuffer() const;
+
+	void present(bool vsync) const;
+
+	SwapChain(const SwapChain&)                = delete;
+	SwapChain& operator=(const SwapChain&)     = delete;
+	SwapChain(SwapChain&&) noexcept            = delete;
+	SwapChain& operator=(SwapChain&&) noexcept = delete;
 
 private:
+	IDXGISwapChain* swapChain;
+	Framebuffer* framebuffer;
+
 	friend class DeviceContext;
 };
-

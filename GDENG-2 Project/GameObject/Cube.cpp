@@ -13,6 +13,8 @@ struct CubeVertex
 Cube::Cube(std::string name) :
 	AGameObject(name)
 {
+	Debug::Log("Testing rendering");
+
 	std::vector<CubeVertex>* vertexList = new std::vector<CubeVertex>{
 		//FRONT FACE
 		{Vector3D(-0.5f, -0.5f, -0.5f)},

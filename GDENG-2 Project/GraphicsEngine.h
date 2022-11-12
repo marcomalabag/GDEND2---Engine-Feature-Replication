@@ -10,7 +10,9 @@ class ConstantBuffer;
 class GraphicsEngine final
 {
 public:
-	static void init();
+	static void init(HWND windowHandle,
+	                 unsigned int width,
+	                 unsigned int height);
 	static void release();
 
 	[[nodiscard]]
@@ -25,17 +27,23 @@ public:
 	[[nodiscard]]
 	IDXGIFactory& getFactory() const;
 
+	[[nodiscard]]
+	SwapChain& getSwapChain() const;
+
 	GraphicsEngine(const GraphicsEngine&)                = delete;
 	GraphicsEngine& operator=(const GraphicsEngine&)     = delete;
 	GraphicsEngine(GraphicsEngine&&) noexcept            = delete;
 	GraphicsEngine& operator=(GraphicsEngine&&) noexcept = delete;
 
 private:
-	GraphicsEngine();
+	GraphicsEngine(HWND windowHandle,
+					 unsigned int width,
+					 unsigned int height);
 	~GraphicsEngine();
 
 	static GraphicsEngine* instance;
 
+	SwapChain* swapChain            = nullptr;
 	DeviceContext* immDeviceContext = nullptr;
 
 	ID3D11Device* d3dDevice = nullptr;

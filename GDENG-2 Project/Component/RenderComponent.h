@@ -13,6 +13,7 @@
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 
+class Camera;
 class AGameObject;
 class RenderComponent final : public AComponent
 {
@@ -35,6 +36,10 @@ public:
 	RenderComponent& operator=(RenderComponent&&) noexcept = delete;
 
 	Color AlbedoColor = Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+	// Functionality for now, issue when it needs to sort for transparency
+	void draw(Camera& camera) const;
+	void draw(Matrix4x4 viewProjMatrix) const;
 
 private:
 	// Material

@@ -3,6 +3,8 @@
 #include <vector>
 #include <unordered_map>
 
+#include "RenderView/Framebuffer.h"
+
 class AGameObject;
 class RenderComponent;
 class Camera;
@@ -21,7 +23,7 @@ public:
 
 	// Control render targets?
 
-	// void draw(Camera& camera);
+	void draw(const Framebuffer* framebuffer) const;
 
 	RenderSystem(const RenderSystem&)                = delete;
 	RenderSystem& operator=(const RenderSystem&)     = delete;

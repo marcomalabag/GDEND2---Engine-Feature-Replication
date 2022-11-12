@@ -23,11 +23,11 @@ public:
 
 	~DeviceContext();
 
-	void clearRenderTargetColor(SwapChain* swapchain,
-	                            float red,
-	                            float green,
-	                            float blue,
-	                            float alpha);
+	// void clearRenderTargetColor(SwapChain* swapchain,
+	//                             float red,
+	//                             float green,
+	//                             float blue,
+	//                             float alpha);
 
 	// Rendering pipeline
 	// Render Begin

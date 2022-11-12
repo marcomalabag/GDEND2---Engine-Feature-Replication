@@ -70,6 +70,8 @@ public:
 
 	Vector3D getLocalRotation();
 
+	Matrix4x4 getLocalMatrix();
+
 	// TODO: What to do for copying
 	// Idea is that all component's data will be copied
 	AGameObject(const AGameObject&) = delete;

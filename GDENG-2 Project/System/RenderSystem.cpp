@@ -1,5 +1,6 @@
 ﻿#include "RenderSystem.h"
 #include "Debug.h"
+#include "SwapChain.h"
 
 #include "Component/RenderComponent.h"
 
@@ -21,7 +22,7 @@ RenderSystem::~RenderSystem()
 	}
 
 	componentList.erase(componentList.begin(),
-						componentList.end());
+	                    componentList.end());
 	componentList.clear();
 	componentList.shrink_to_fit();
 }
@@ -60,7 +61,7 @@ void RenderSystem::deregisterComponent(AGameObject& gameObjRef)
 			index = i;
 		}
 	}
-	
+
 	componentList.erase(componentList.begin() + index);
 	componentList.shrink_to_fit();
 	componentMap.erase(gameObjRef.Name);
@@ -74,4 +75,34 @@ RenderComponent* RenderSystem::getComponent(AGameObject& gameObjRef)
 		return nullptr;
 	}
 	return componentMap[gameObjRef.Name];
+}
+
+void RenderSystem::draw(const Framebuffer* framebuffer) const
+{
+	const FramebufferProfile info = framebuffer->getInfo();
+
+	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)info.Width,
+	                                                                  (float)info.Height);
+
+	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&framebuffer->getRenderTarget(),
+																	&framebuffer->getDepthStencil());
+
+	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(framebuffer->getRenderTarget(),
+	                                                                        Color(0.8f, 0.4f, 0.7f, 1.0f));
+
+	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(framebuffer->getDepthStencil());
+
+	Matrix4x4 viewProj;
+	viewProj.setIdentity();
+	viewProj.setPerspectiveFovLH(DirectX::XMConvertToRadians(45.0f),
+		(float)info.Width / (float)info.Height,
+		0.01f,
+		100.0f);
+	
+	for (const RenderComponent* component : componentList)
+	{
+		component->draw(viewProj);
+	}
+
+	// set framebuffer to swap chain buffer if doing multipass rendering
 }

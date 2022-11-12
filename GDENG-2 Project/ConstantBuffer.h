@@ -12,6 +12,11 @@ public:
 	void update(const DeviceContext& deviceContext,
 					const void* updatedBufferData) const;
 
+	ID3D11Buffer& getBuffer() const
+	{
+		return *buffer;
+	}
+
 private:
 	ID3D11Buffer* buffer = nullptr;
 

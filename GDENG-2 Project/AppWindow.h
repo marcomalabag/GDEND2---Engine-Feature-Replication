@@ -14,6 +14,8 @@
 #include "InputListener.h"
 #include "InputSystem.h"
 
+class RenderQuad;
+class Cube;
 class AppWindow : public Window, public InputListener
 {
 public:
@@ -50,7 +52,9 @@ private:
 	static AppWindow* sharedInstance;
 
 private:
-	SwapChain* swapChain;
+	Cube* cube = nullptr;
+	Framebuffer* framebuffer1 = nullptr;
+	RenderQuad* renderQuad = nullptr;
 	unsigned long oldTime = 0;
 	float deltaTime = 0;
 	float angle = 0;

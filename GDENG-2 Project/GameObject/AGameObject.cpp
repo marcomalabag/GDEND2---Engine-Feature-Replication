@@ -1,12 +1,13 @@
 #include "AGameObject.h"
 
-#include "SceneCameraHandler.h"
-AGameObject::AGameObject(std::string_view name)
+AGameObject::AGameObject(std::string_view name) :
+	Name(name)
 {
-	// this->name = name;
-	// this->Position = Vector3D::zeros();
-	// this->Rotation = Vector3D::zeros();
-	// this->Scale = Vector3D::ones();
+	this->Name = name;
+	this->Position = Vector3D::zeros();
+	this->Rotation = Vector3D::zeros();
+	this->Scale = Vector3D::ones();
+
 
 }
 
@@ -68,6 +69,40 @@ void AGameObject::setRotationz(float z)
 Vector3D AGameObject::getLocalRotation()
 {
 	return this->Rotation;
+}
+Matrix4x4 AGameObject::getLocalMatrix()
+{
+	Matrix4x4 summation;
+	Matrix4x4 translate;
+	Matrix4x4 scale;
+	Matrix4x4 rotateZ;
+	Matrix4x4 rotateF;
+	Matrix4x4 rotateGl;
+	Matrix4x4 rotateTotal;
+	
+	summation.setIdentity();
+	
+	translate.setIdentity();
+	scale.setIdentity();
+
+	translate.setTranslation(this->getLocalPosition());
+	scale.setScale(this->getLocalScale());
+	const Vector3D rotation = Vector3D(this->getLocalRotation());
+
+	rotateZ.setIdentity();
+	rotateZ.setRotationZ(rotation.z);
+
+	rotateF.setIdentity();
+	rotateF.setRotationX(rotation.x);
+
+	rotateGl.setIdentity();
+	rotateGl.setRotationY(rotation.y);
+
+	rotateTotal.setIdentity();
+	rotateTotal = rotateTotal.mulMatrix(rotateF.mulMatrix(rotateGl.mulMatrix(rotateZ)));
+	summation = summation.mulMatrix(scale.mulMatrix(rotateTotal));
+	summation = summation.mulMatrix(translate);
+	return summation;
 }
 
 AGameObject::~AGameObject()

@@ -1,5 +1,6 @@
 ﻿#include "RenderComponent.h"
 
+#include "Camera.h"
 #include "Debug.h"
 
 #include "GameObject/AGameObject.h"
@@ -42,8 +43,6 @@ RenderComponent::RenderComponent(AGameObject& owner,
 
 	this->constantBuffer = new ConstantBuffer(renderObjectData,
 	                                          sizeof(RenderObjectData));
-
-	// RenderSystem::register();
 }
 
 RenderComponent::~RenderComponent()
@@ -55,51 +54,55 @@ RenderComponent::~RenderComponent()
 	delete vertexBuffer;
 	delete renderData;
 }
-// Draw is delegated to RenderSystem
-// void RenderComponent::draw(Camera& camera) const
-// {
-// 	RenderObjectData* constant = new RenderObjectData();
-// 	// constant->Model            = ownerRef.Transform().LocalMatrix();
-// 	constant->ViewProjection = camera.getViewMatrix();
-// 	constant->SolidColor     = AlbedoColor;
-//
-// 	// GraphicsEngine::getDeviceContext().updateBufferResource(*constantBuffer, constant);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().setVertexShader(*vertexShader);
-// 	GraphicsEngine::getInstance()->getDeviceContext().setPixelShader(*pixelShader);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<VertexShader>(*constantBuffer);
-// 	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<PixelShader>(*constantBuffer);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().setVertexBuffer(*vertexBuffer);
-// 	GraphicsEngine::getInstance()->getDeviceContext().setIndexBuffer(*indexBuffer);
-// 	GraphicsEngine::getInstance()->getDeviceContext().setTopology(renderData->Topology);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().drawIndexed(indexBuffer->getElementCount(),
-// 	                                                              0,
-// 	                                                              0);
-// }
-//
-// void RenderComponent::draw(Matrix4x4 viewProjMatrix) const
-// {
-// 	RenderObjectData* constant = new RenderObjectData();
-// 	// constant->Model            = ownerRef().LocalMatrix();
-// 	constant->ViewProjection = viewProjMatrix;
-// 	constant->SolidColor     = AlbedoColor;
-//
-// 	// GraphicsEngine::getDeviceContext().updateBufferResource(*constantBuffer, constant);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().setVertexShader(*vertexShader);
-// 	GraphicsEngine::getInstance()->getDeviceContext().setPixelShader(*pixelShader);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<VertexShader>(*constantBuffer);
-// 	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<PixelShader>(*constantBuffer);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().setVertexBuffer(*vertexBuffer);
-// 	GraphicsEngine::getInstance()->getDeviceContext().setIndexBuffer(*indexBuffer);
-// 	GraphicsEngine::getInstance()->getDeviceContext().setTopology(renderData->Topology);
-//
-// 	GraphicsEngine::getInstance()->getDeviceContext().drawIndexed(indexBuffer->getElementCount(),
-// 	                                                              0,
-// 	                                                              0);
-// }
+
+void RenderComponent::draw(Camera& camera) const
+{
+	RenderObjectData* constant = new RenderObjectData();
+	constant->Model            = ownerRef.getLocalMatrix();
+	constant->ViewProjection   = camera.getViewMatrix();
+	constant->SolidColor       = AlbedoColor;
+
+	GraphicsEngine::getInstance()->getDeviceContext().updateBufferResource(&constantBuffer->getBuffer(),
+	                                                                       constant);
+
+	GraphicsEngine::getInstance()->getDeviceContext().setVertexShader(*vertexShader);
+	GraphicsEngine::getInstance()->getDeviceContext().setPixelShader(*pixelShader);
+
+	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<VertexShader>(*constantBuffer);
+	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<PixelShader>(*constantBuffer);
+
+	GraphicsEngine::getInstance()->getDeviceContext().setVertexBuffer(*vertexBuffer);
+	GraphicsEngine::getInstance()->getDeviceContext().setIndexBuffer(*indexBuffer);
+	GraphicsEngine::getInstance()->getDeviceContext().setTopology(renderData->Topology);
+
+	GraphicsEngine::getInstance()->getDeviceContext().drawIndexed(indexBuffer->getElementCount(),
+	                                                              0,
+	                                                              0);
+}
+
+void RenderComponent::draw(Matrix4x4 viewProjMatrix) const
+{
+	Debug::Log("Tesing");
+	RenderObjectData* constant = new RenderObjectData();
+	constant->Model            = ownerRef.getLocalMatrix();
+	constant->ViewProjection   = viewProjMatrix;
+	constant->SolidColor       = AlbedoColor;
+
+	GraphicsEngine::getInstance()->getDeviceContext().updateBufferResource(&constantBuffer->getBuffer(),
+																		   constant);
+
+	GraphicsEngine::getInstance()->getDeviceContext().setVertexShader(*vertexShader);
+	GraphicsEngine::getInstance()->getDeviceContext().setPixelShader(*pixelShader);
+
+	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<VertexShader>(*constantBuffer);
+	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<PixelShader>(*constantBuffer);
+
+	GraphicsEngine::getInstance()->getDeviceContext().setVertexBuffer(*vertexBuffer);
+	GraphicsEngine::getInstance()->getDeviceContext().setIndexBuffer(*indexBuffer);
+	
+	GraphicsEngine::getInstance()->getDeviceContext().setTopology(renderData->Topology);
+
+	GraphicsEngine::getInstance()->getDeviceContext().drawIndexed(indexBuffer->getElementCount(),
+	                                                              0,
+	                                                              0);
+}

@@ -10,7 +10,7 @@ cbuffer constant: register(b0)
 {
 	row_major float4x4 model;
 	row_major float4x4 viewProjection;
-	float4 color;
+	float4 albedoColor;
 };
 
 VS_OUTPUT vsmain(VS_INPUT input)

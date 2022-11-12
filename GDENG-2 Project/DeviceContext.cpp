@@ -11,29 +11,30 @@ DeviceContext::~DeviceContext()
 	this->deviceContext->Release();
 }
 
-void DeviceContext::clearRenderTargetColor(SwapChain* swapchain,
-                                           float red,
-                                           float green,
-                                           float blue,
-                                           float alpha)
-{
-	FLOAT clear_color[] = {red, green, blue, alpha};
-	this->deviceContext->ClearRenderTargetView(swapchain->RenderTargetView, clear_color);
-	this->deviceContext->OMSetRenderTargets(1, &swapchain->RenderTargetView, NULL);
-}
+// void DeviceContext::clearRenderTargetColor(SwapChain* swapchain,
+//                                            float red,
+//                                            float green,
+//                                            float blue,
+//                                            float alpha)
+// {
+// 	FLOAT clear_color[] = {red, green, blue, alpha};
+// 	this->deviceContext->ClearRenderTargetView(swapchain->renderTargetView, clear_color);
+// 	this->deviceContext->OMSetRenderTargets(1, &swapchain->renderTargetView, NULL);
+// }
 
 void DeviceContext::setViewportSize(const D3D11_VIEWPORT viewport) const
 {
 	this->deviceContext->RSSetViewports(1, &viewport);
 }
+
 void DeviceContext::setViewportSize(float width,
-	float height) const
+                                    float height) const
 {
 	D3D11_VIEWPORT viewport = {};
-	viewport.Width = width;
-	viewport.Height = height;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
+	viewport.Width          = width;
+	viewport.Height         = height;
+	viewport.TopLeftX       = 0.0f;
+	viewport.TopLeftY       = 0.0f;
 	this->deviceContext->RSSetViewports(1, &viewport);
 }
 

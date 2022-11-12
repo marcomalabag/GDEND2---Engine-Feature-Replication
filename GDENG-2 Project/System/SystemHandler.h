@@ -24,6 +24,8 @@ public:
 	template <typename T>
 	T* getComponent(AGameObject& gameObjRef);
 
+	RenderSystem& getRenderSystem() const;
+
 	SystemHandler(const SystemHandler&)                = delete;
 	SystemHandler& operator=(const SystemHandler&)     = delete;
 	SystemHandler(SystemHandler&&) noexcept            = delete;
@@ -34,7 +36,9 @@ private:
 
 	static SystemHandler* instance;
 
-	RenderSystem* m_RenderSystem;
+	// TransformSystem
+	// TagSystem
+	RenderSystem* renderSystem;
 };
 
 //---- REGISTER COMPONENT
@@ -51,7 +55,7 @@ template <>
 inline RenderComponent& SystemHandler::registerComponent<RenderComponent>(AGameObject& gameObjRef,
                                                                           RenderComponent& component)
 {
-	return m_RenderSystem->registerComponent(gameObjRef, component);
+	return renderSystem->registerComponent(gameObjRef, component);
 }
 
 //---- DEREGISTER COMPONENT
@@ -65,7 +69,7 @@ void SystemHandler::deregisterComponent(AGameObject& gameObjRef)
 template <>
 inline void SystemHandler::deregisterComponent<RenderComponent>(AGameObject& gameObjRef)
 {
-	m_RenderSystem->deregisterComponent(gameObjRef);
+	renderSystem->deregisterComponent(gameObjRef);
 }
 
 //---- GET COMPONENT
@@ -80,5 +84,5 @@ T* SystemHandler::getComponent(AGameObject& gameObjRef)
 template <>
 inline RenderComponent* SystemHandler::getComponent<RenderComponent>(AGameObject& gameObjRef)
 {
-	return m_RenderSystem->getComponent(gameObjRef);
+	return renderSystem->getComponent(gameObjRef);
 }
