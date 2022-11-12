@@ -27,7 +27,7 @@ RenderComponent::RenderComponent(AGameObject& owner,
 	indexBuffer{nullptr},
 	constantBuffer{nullptr}
 {
-	if (renderData == nullptr)
+	if (this->renderData == nullptr)
 	{
 		Debug::Log("Attempting to Attach a RenderComponent to {0} with null RenderData!",
 		           owner.Name.c_str());

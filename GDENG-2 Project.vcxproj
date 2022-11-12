@@ -229,6 +229,7 @@
     <ClInclude Include="GDENG-2 Project\InputSystem.h" />
     <ClInclude Include="GDENG-2 Project\Math\Color.h" />
     <ClInclude Include="GDENG-2 Project\Math\Mathf.h" />
+    <ClInclude Include="GDENG-2 Project\Math\Matrix4.h" />
     <ClInclude Include="GDENG-2 Project\Math\Matrix4x4.h" />
     <ClInclude Include="GDENG-2 Project\Math\Random.h" />
     <ClInclude Include="GDENG-2 Project\Math\Vector2D.h" />
@@ -1532,6 +1533,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Math\Matrix4.cpp" />
     <ClCompile Include="GDENG-2 Project\Math\Matrix4x4.cpp">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

@@ -5,7 +5,7 @@
 Camera::Camera(const std::string_view name) :
 	AGameObject(name)
 {
-	this->transform().Position = Vector3D(0.0f, 0.0f, -2.0f);
+	this->transform().Position = Vector3D(0.0f, 0.0f, -10.0f);
 	this->updateViewMatrix();
 }
 
