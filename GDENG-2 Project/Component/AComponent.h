@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <string>
 
-#define MAKE_COMPONENT(component)     static const char* getStaticName() { return #component; }               \
+#define MAKE_COMPONENT(component)     static const char* getStaticName() { return #component; }\
 									  std::string getName() const override { return #component; }
 
 class AGameObject;

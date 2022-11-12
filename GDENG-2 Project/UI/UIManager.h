@@ -1,7 +1,7 @@
 #pragma once
 #include "AUIScreen.h"
 #include "UINames.h"
-#include "GraphicsEngine.h"
+#include "Graphics/GraphicsEngine.h"
 #include "ProfilerScreen.h"
 #include "MenuScreen.h"
 #include "InspectorScreen.h"

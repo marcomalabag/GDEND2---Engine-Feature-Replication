@@ -1,31 +1,31 @@
-﻿#include "Vector2Da.h"
+﻿#include "Vector2D.h"
 
 #include "Debug.h"
 
-Vector2Da::Vector2Da() :
+Vector2D::Vector2D() :
 	XMFLOAT2{0.0f, 0.0f}
 {
 }
 
-Vector2Da::Vector2Da(const float x,
+Vector2D::Vector2D(const float x,
                    const float y) :
 	XMFLOAT2{x, y}
 {
 }
 
-Vector2Da::Vector2Da(const XMFLOAT2& v) :
+Vector2D::Vector2D(const XMFLOAT2& v) :
 	XMFLOAT2{v}
 {
 }
 
-Vector2Da::~Vector2Da() = default;
+Vector2D::~Vector2D() = default;
 
-Vector2Da::operator DirectX::XMVECTOR() const
+Vector2D::operator DirectX::XMVECTOR() const
 {
 	return XMLoadFloat2(this);
 }
 
-bool Vector2Da::operator==(const Vector2Da& v) const
+bool Vector2D::operator==(const Vector2D& v) const
 {
 	using namespace DirectX;
 	const XMVECTOR v1 = XMLoadFloat2(this);
@@ -33,7 +33,7 @@ bool Vector2Da::operator==(const Vector2Da& v) const
 	return XMVector2Equal(v1, v2);
 }
 
-bool Vector2Da::operator!=(const Vector2Da& v) const
+bool Vector2D::operator!=(const Vector2D& v) const
 {
 	using namespace DirectX;
 	const XMVECTOR v1 = XMLoadFloat2(this);
@@ -41,7 +41,7 @@ bool Vector2Da::operator!=(const Vector2Da& v) const
 	return XMVector2NotEqual(v1, v2);
 }
 
-Vector2Da& Vector2Da::operator+=(const Vector2Da& v)
+Vector2D& Vector2D::operator+=(const Vector2D& v)
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -51,7 +51,7 @@ Vector2Da& Vector2Da::operator+=(const Vector2Da& v)
 	return *this;
 }
 
-Vector2Da& Vector2Da::operator-=(const Vector2Da& v)
+Vector2D& Vector2D::operator-=(const Vector2D& v)
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -61,7 +61,7 @@ Vector2Da& Vector2Da::operator-=(const Vector2Da& v)
 	return *this;
 }
 
-Vector2Da& Vector2Da::operator*=(const Vector2Da& v)
+Vector2D& Vector2D::operator*=(const Vector2D& v)
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -71,7 +71,7 @@ Vector2Da& Vector2Da::operator*=(const Vector2Da& v)
 	return *this;
 }
 
-Vector2Da& Vector2Da::operator*=(const float s)
+Vector2D& Vector2D::operator*=(const float s)
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -80,7 +80,7 @@ Vector2Da& Vector2Da::operator*=(const float s)
 	return *this;
 }
 
-Vector2Da& Vector2Da::operator/=(const float s)
+Vector2D& Vector2D::operator/=(const float s)
 {
 	using namespace DirectX;
 	Debug::Assert(s != 0.0f, "Attempting to divide by 0!");
@@ -90,88 +90,88 @@ Vector2Da& Vector2Da::operator/=(const float s)
 	return *this;
 }
 
-Vector2Da Vector2Da::operator+() const
+Vector2D Vector2D::operator+() const
 {
 	return *this;
 }
 
-Vector2Da Vector2Da::operator-() const
+Vector2D Vector2D::operator-() const
 {
-	return Vector2Da(-x, -y);
+	return Vector2D(-x, -y);
 }
 
-Vector2Da operator+(const Vector2Da& v1,
-                   const Vector2Da& v2)
+Vector2D operator+(const Vector2D& v1,
+                   const Vector2D& v2)
 {
 	using namespace DirectX;
 	const XMVECTOR tempV1     = XMLoadFloat2(&v1);
 	const XMVECTOR tempV2     = XMLoadFloat2(&v2);
 	const XMVECTOR tempResult = XMVectorAdd(tempV1, tempV2);
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-Vector2Da operator-(const Vector2Da& v1,
-                   const Vector2Da& v2)
+Vector2D operator-(const Vector2D& v1,
+                   const Vector2D& v2)
 {
 	using namespace DirectX;
 	const XMVECTOR tempV1     = XMLoadFloat2(&v1);
 	const XMVECTOR tempV2     = XMLoadFloat2(&v2);
 	const XMVECTOR tempResult = XMVectorSubtract(tempV1, tempV2);
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-Vector2Da operator*(const Vector2Da& v1,
-                   const Vector2Da& v2)
+Vector2D operator*(const Vector2D& v1,
+                   const Vector2D& v2)
 {
 	using namespace DirectX;
 	const XMVECTOR tempV1     = XMLoadFloat2(&v1);
 	const XMVECTOR tempV2     = XMLoadFloat2(&v2);
 	const XMVECTOR tempResult = XMVectorMultiply(tempV1, tempV2);
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-Vector2Da operator*(const Vector2Da& v,
+Vector2D operator*(const Vector2D& v,
                    const float s)
 {
 	using namespace DirectX;
 	const XMVECTOR tempV1     = XMLoadFloat2(&v);
 	const XMVECTOR tempResult = XMVectorScale(tempV1, s);
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-Vector2Da operator/(const Vector2Da& v1,
-                   const Vector2Da& v2)
+Vector2D operator/(const Vector2D& v1,
+                   const Vector2D& v2)
 {
 	using namespace DirectX;
 	const XMVECTOR tempV1     = XMLoadFloat2(&v1);
 	const XMVECTOR tempV2     = XMLoadFloat2(&v2);
 	const XMVECTOR tempResult = XMVectorDivide(tempV1, tempV2);
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-Vector2Da operator/(const Vector2Da& v,
+Vector2D operator/(const Vector2D& v,
                    const float s)
 {
 	using namespace DirectX;
 	Debug::Assert(s != 0.0f, "Attempting to divide by 0!");
 	const XMVECTOR v1         = XMLoadFloat2(&v);
 	const XMVECTOR tempResult = XMVectorScale(v1, 1.0f / s);
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-float Vector2Da::length() const
+float Vector2D::length() const
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -179,7 +179,7 @@ float Vector2Da::length() const
 	return XMVectorGetX(result);
 }
 
-float Vector2Da::lengthSquared() const
+float Vector2D::lengthSquared() const
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -187,7 +187,7 @@ float Vector2Da::lengthSquared() const
 	return XMVectorGetX(result);
 }
 
-float Vector2Da::dot(const Vector2Da& v) const
+float Vector2D::dot(const Vector2D& v) const
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
@@ -196,28 +196,31 @@ float Vector2Da::dot(const Vector2Da& v) const
 	return XMVectorGetX(result);
 }
 
-Vector2Da Vector2Da::cross(const Vector2Da& v) const
+Vector2D Vector2D::cross(const Vector2D& v) const
 {
 	using namespace DirectX;
 	const XMVECTOR v1         = XMLoadFloat2(this);
 	const XMVECTOR v2         = XMLoadFloat2(&v);
 	const XMVECTOR tempResult = XMVector2Cross(v1, v2);
 
-	Vector2Da result;
+	Vector2D result;
 	XMStoreFloat2(&result, tempResult);
 	return result;
 }
 
-void Vector2Da::normalize()
+Vector2D Vector2D::normalize() const
 {
 	using namespace DirectX;
 	const XMVECTOR v1     = XMLoadFloat2(this);
-	const XMVECTOR result = XMVector2Normalize(v1);
-	XMStoreFloat2(this, result);
+	const XMVECTOR normalized = XMVector2Normalize(v1);
+
+	Vector2D result;
+	XMStoreFloat2(&result, normalized);
+	return result;
 }
 
-float Vector2Da::distance(const Vector2Da& v1,
-                         const Vector2Da& v2)
+float Vector2D::distance(const Vector2D& v1,
+                         const Vector2D& v2)
 {
 	using namespace DirectX;
 	const XMVECTOR x1     = XMLoadFloat2(&v1);
@@ -227,8 +230,8 @@ float Vector2Da::distance(const Vector2Da& v1,
 	return XMVectorGetX(result);
 }
 
-float Vector2Da::distanceSquared(const Vector2Da& v1,
-                                const Vector2Da& v2)
+float Vector2D::distanceSquared(const Vector2D& v1,
+                                const Vector2D& v2)
 {
 	using namespace DirectX;
 	const XMVECTOR x1     = XMLoadFloat2(&v1);

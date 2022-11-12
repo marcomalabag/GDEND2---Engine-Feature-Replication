@@ -1,11 +1,15 @@
 #include "GameObjectManager.h"
+
+#include "Camera.h"
 #include "EngineTime.h"
 
-GameObjectManager* GameObjectManager::sharedInstance = NULL;
+#include "Component/TransformComponent.h"
+
+GameObjectManager* GameObjectManager::sharedInstance = nullptr;
 
 GameObjectManager::GameObjectManager()
 {
-	this->SelectedObject = NULL;
+	this->SelectedObject = nullptr;
 }
 
 void GameObjectManager::initialize()
@@ -38,21 +42,21 @@ int GameObjectManager::activeObjects()
 	return this->GameObjectList.size();
 }
 
-void GameObjectManager::updateAll()
-{
-	for(int i = 0; i < this->GameObjectList.size(); i++)
-	{
-		this->GameObjectList[i]->update(EngineTime::getDeltaTime());
-	}
-}
-
-void GameObjectManager::renderAll(int viewportWidth, int viewportHeight)
-{
-	for(int i = 0; i < this->GameObjectList.size(); i++)
-	{
-		this->GameObjectList[i]->draw(viewportWidth, viewportHeight, this->vertexShader, this->PixelShader);
-	}
-}
+// void GameObjectManager::updateAll()
+// {
+// 	for(int i = 0; i < this->GameObjectList.size(); i++)
+// 	{
+// 		this->GameObjectList[i]->update(EngineTime::getDeltaTime());
+// 	}
+// }
+//
+// void GameObjectManager::renderAll(int viewportWidth, int viewportHeight)
+// {
+// 	for(int i = 0; i < this->GameObjectList.size(); i++)
+// 	{
+// 		this->GameObjectList[i]->draw(viewportWidth, viewportHeight, this->vertexShader, this->PixelShader);
+// 	}
+// }
 
 void GameObjectManager::addObject(AGameObject* gameObject)
 {
@@ -143,16 +147,15 @@ void GameObjectManager::createObject(PrimitiveType type)
 	//
 	//
 	// GraphicsEngine::getInstance()->releaseCompiledShader();
-	
 }
 
 void GameObjectManager::deleteObject(AGameObject* gameObject)
 {
 	this->GameObjectTable.erase(gameObject->Name);
 	int index = -1;
-	for(int i = 0; i < this->GameObjectList.size(); i++)
+	for (int i = 0; i < this->GameObjectList.size(); i++)
 	{
-		if(this->GameObjectList[i]->Name == gameObject->Name)
+		if (this->GameObjectList[i]->Name == gameObject->Name)
 		{
 			index = i;
 			this->GameObjectList.erase(this->GameObjectList.begin() + index);
@@ -183,8 +186,8 @@ AGameObject* GameObjectManager::getSelectedObject()
 
 Camera* GameObjectManager::createGameCamera()
 {
-	Camera* GameCamera = new Camera("GameCamera");
-	GameCamera->setPosition(0.0f, 1.0f, -2.0f);
+	Camera* GameCamera               = new Camera("GameCamera");
+	GameCamera->transform().Position = Vector3D(0.0f, 1.0f, -2.0f);
 	this->addObject(GameCamera);
 	return GameCamera;
 }
@@ -192,6 +195,4 @@ Camera* GameObjectManager::createGameCamera()
 GameObjectManager::~GameObjectManager()
 {
 	delete this->SelectedObject;
-	
 }
-

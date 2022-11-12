@@ -1,5 +1,5 @@
 #include "MenuScreen.h"
-#include "GameObjectManager.h"
+#include "GameObject/GameObjectManager.h"
 #include "UIManager.h"
 
 MenuScreen::MenuScreen():AUIScreen("Menu Screen")

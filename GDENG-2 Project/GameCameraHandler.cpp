@@ -1,7 +1,7 @@
 #include "GameCameraHandler.h"
 
 #include "EngineTime.h"
-#include "GameObjectManager.h"
+#include "GameObject/GameObjectManager.h"
 
 GameCameraHandler* GameCameraHandler::sharedInstance = NULL;
 
@@ -28,7 +28,8 @@ void GameCameraHandler::destroy()
 
 void GameCameraHandler::update()
 {
-	this->gameCamera->update(EngineTime::getDeltaTime());
+	// TODO: implement update
+	// this->gameCamera->update(EngineTime::getDeltaTime());
 }
 
 Matrix4x4 GameCameraHandler::getSceneCameraViewMatrix()

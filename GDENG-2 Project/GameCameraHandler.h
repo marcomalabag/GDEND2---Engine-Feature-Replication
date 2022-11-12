@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject/Camera.h"
+#include "GameObject/CameraMovement.h"
 
 class GameCameraHandler final
 {

@@ -7,10 +7,10 @@
 class CameraMovement : public Camera, public InputListener
 {
 public:
-	CameraMovement(std::string name);
-	~CameraMovement();
+	explicit CameraMovement(std::string_view name);
+	~CameraMovement() override;
 
-	void update(float deltaTime) override;
+	void update(float deltaTime);
 
 	void defaultmode(float rate, float x, float y, float z);
 	void AerialMode(float rate, float x, float y, float z);

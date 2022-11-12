@@ -2,7 +2,7 @@
 #include <DirectXMath.h>
 
 class Vector3D;
-struct Color final : public DirectX::XMFLOAT4
+struct Color final : DirectX::XMFLOAT4
 {
 	explicit Color();
 

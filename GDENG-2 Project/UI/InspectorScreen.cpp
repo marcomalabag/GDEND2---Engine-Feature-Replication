@@ -1,6 +1,9 @@
 #include "InspectorScreen.h"
 
-InspectorScreen::InspectorScreen():AUIScreen("Inspector Screen")
+#include "Component/TransformComponent.h"
+
+InspectorScreen::InspectorScreen():
+	AUIScreen("Inspector Screen")
 {
 }
 
@@ -33,12 +36,13 @@ void InspectorScreen::generateEditor()
 		}
 		if (ImGui::Button("Delete", ImVec2(70.0f, 0.0f)))
 		{
-			GameObjectManager::getInstance()->deleteObjectByName(GameObjectManager::getInstance()->getSelectedObject()->Name);
+			GameObjectManager::getInstance()->
+					deleteObjectByName(GameObjectManager::getInstance()->getSelectedObject()->Name);
 			GameObjectManager::getInstance()->setSelectedObject(NULL);
 		}
 	}
 
-	else 
+	else
 	{
 		ImGui::Text("No object selected");
 	}
@@ -46,17 +50,17 @@ void InspectorScreen::generateEditor()
 
 void InspectorScreen::TransformUpdate()
 {
-	Vector3D position = GameObjectManager::getInstance()->getSelectedObject()->getLocalPosition();
+	Vector3D position               = GameObjectManager::getInstance()->getSelectedObject()->transform().Position;
 	this->SelectedObjectposition[0] = position.x;
 	this->SelectedObjectposition[1] = position.y;
 	this->SelectedObjectposition[2] = position.z;
 
-	Vector3D scale = GameObjectManager::getInstance()->getSelectedObject()->getLocalScale();
+	Vector3D scale               = GameObjectManager::getInstance()->getSelectedObject()->transform().Scale;
 	this->SelectedObjectScale[0] = scale.x;
 	this->SelectedObjectScale[1] = scale.y;
 	this->SelectedObjectScale[2] = scale.z;
 
-	Vector3D rotaion = GameObjectManager::getInstance()->getSelectedObject()->getLocalRotation();
+	Vector3D rotaion                = GameObjectManager::getInstance()->getSelectedObject()->transform().Rotation;
 	this->SelectedObjectRotation[0] = rotaion.x;
 	this->SelectedObjectRotation[1] = rotaion.y;
 	this->SelectedObjectRotation[2] = rotaion.z;
@@ -64,9 +68,15 @@ void InspectorScreen::TransformUpdate()
 
 void InspectorScreen::TransformSelected(AGameObject* selected)
 {
-	selected->setPosition(this->SelectedObjectposition[0], this->SelectedObjectposition[1], this->SelectedObjectposition[2]);
-	selected->setRotation(this->SelectedObjectRotation[0], this->SelectedObjectRotation[1], this->SelectedObjectRotation[2]);
-	selected->setScale(this->SelectedObjectScale[0], this->SelectedObjectScale[1], this->SelectedObjectScale[2]);
+	selected->transform().Position = Vector3D(this->SelectedObjectposition[0],
+	                                          this->SelectedObjectposition[1],
+	                                          this->SelectedObjectposition[2]);
+	selected->transform().Rotation = Vector3D(this->SelectedObjectRotation[0],
+	                                          this->SelectedObjectRotation[1],
+	                                          this->SelectedObjectRotation[2]);
+	selected->transform().Scale = Vector3D(this->SelectedObjectScale[0],
+	                                       this->SelectedObjectScale[1],
+	                                       this->SelectedObjectScale[2]);
 }
 
 InspectorScreen::~InspectorScreen()

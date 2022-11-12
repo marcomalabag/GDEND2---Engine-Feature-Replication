@@ -1,7 +1,7 @@
 ﻿#include "RenderQuad.h"
 
-#include "Vector2Da.h"
-#include "Vector3D.h"
+#include "Math/Vector2D.h"
+#include "Math/Vector3D.h"
 
 #include "IndexBuffer.h"
 #include "VertexBuffer.h"
@@ -15,7 +15,7 @@ struct RenderQuadVertex
 {
 	Vector3D Position;
 
-	Vector2Da TextureCoordinates;
+	Vector2D TextureCoordinates;
 };
 
 RenderQuad::RenderQuad() :
@@ -28,10 +28,10 @@ RenderQuad::RenderQuad() :
 {
 	RenderQuadVertex* vertices = new RenderQuadVertex[4]
 	{
-		{Vector3D{-1.0f, -1.0f, 0.0f}, Vector2Da{0.0f, 1.0f}},
-		{Vector3D{-1.0f, 1.0f, 0.0f}, Vector2Da{0.0f, 0.0f}},
-		{Vector3D{1.0f, 1.0f, 0.0f}, Vector2Da{1.0f, 0.0f}},
-		{Vector3D{1.0f, -1.0f, 0.0f}, Vector2Da{1.0f, 1.0f}},
+		{Vector3D{-1.0f, -1.0f, 0.0f}, Vector2D{0.0f, 1.0f}},
+		{Vector3D{-1.0f, 1.0f, 0.0f}, Vector2D{0.0f, 0.0f}},
+		{Vector3D{1.0f, 1.0f, 0.0f}, Vector2D{1.0f, 0.0f}},
+		{Vector3D{1.0f, -1.0f, 0.0f}, Vector2D{1.0f, 1.0f}},
 	};
 
 	// TODO: Revamp VertexLayout

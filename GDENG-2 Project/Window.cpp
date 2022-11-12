@@ -25,7 +25,7 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		{
 				Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
 				SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
-				window->setHWND(hwnd);
+				window->setHandle(hwnd);
 
 				window->onCreate();
 				break;
@@ -86,20 +86,20 @@ bool Window::initializeWC()
 bool Window::initializeAppWindow()
 {
 
-	this->m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"GDENG - 2 Project", L"DirectX Application", WS_OVERLAPPEDWINDOW,
+	this->hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"GDENG - 2 Project", L"DirectX Application", WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT, 1440, 900, NULL, NULL, NULL, this);
 
-	if (!this->m_hwnd)
+	if (!this->hwnd)
 	{
 		std::cout << "Not working";
 		return false;
 	}
 
-	::ShowWindow(this->m_hwnd, SW_SHOW);
-	::UpdateWindow(this->m_hwnd);
+	::ShowWindow(this->hwnd, SW_SHOW);
+	::UpdateWindow(this->hwnd);
 
 
-	m_isRunning = true;
+	isRunning = true;
 
 	return true;
 }
@@ -150,7 +150,7 @@ bool Window::broadcast()
 
 bool Window::release()
 {
-	if (!::DestroyWindow(this->m_hwnd))
+	if (!::DestroyWindow(this->hwnd))
 	{
 		return false;
 	}
@@ -166,7 +166,7 @@ bool Window::release()
 
 bool Window::isRun()
 {
-	return m_isRunning;
+	return isRunning;
 }
 
 bool Window::isGameRun()
@@ -177,21 +177,21 @@ bool Window::isGameRun()
 
 HWND Window::gethwnd()
 {
-	return m_hwnd;
+	return hwnd;
 }
 
 RECT Window::getClientWindowRect()
 {
 	RECT rc;
-	::GetClientRect(this->m_hwnd, &rc);
+	::GetClientRect(this->hwnd, &rc);
 
 	return rc;
 }
 
 
-void Window::setHWND(HWND hwnd)
+void Window::setHandle(HWND hwnd)
 {
-	this->m_hwnd = hwnd;
+	this->hwnd = hwnd;
 }
 
 Window::~Window()
@@ -217,6 +217,6 @@ void Window::onKillFocus()
 
 void Window::onDestroy()
 {
-	m_isRunning = false;
+	isRunning = false;
 	//GameWindowRunning = false;
 }

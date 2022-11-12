@@ -3,7 +3,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "RenderView/Framebuffer.h"
+#include "Graphics/Framebuffer.h"
 
 class AGameObject;
 class RenderComponent;

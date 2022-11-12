@@ -1,7 +1,7 @@
 ﻿#include "RenderComponent.h"
 
-#include "Camera.h"
 #include "Debug.h"
+#include "TransformComponent.h"
 
 #include "GameObject/AGameObject.h"
 
@@ -55,36 +55,10 @@ RenderComponent::~RenderComponent()
 	delete renderData;
 }
 
-void RenderComponent::draw(Camera& camera) const
+void RenderComponent::draw(const Matrix4x4& viewProjMatrix) const
 {
 	RenderObjectData* constant = new RenderObjectData();
-	constant->Model            = ownerRef.getLocalMatrix();
-	constant->ViewProjection   = camera.getViewMatrix();
-	constant->SolidColor       = AlbedoColor;
-
-	GraphicsEngine::getInstance()->getDeviceContext().updateBufferResource(&constantBuffer->getBuffer(),
-	                                                                       constant);
-
-	GraphicsEngine::getInstance()->getDeviceContext().setVertexShader(*vertexShader);
-	GraphicsEngine::getInstance()->getDeviceContext().setPixelShader(*pixelShader);
-
-	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<VertexShader>(*constantBuffer);
-	GraphicsEngine::getInstance()->getDeviceContext().uploadShaderData<PixelShader>(*constantBuffer);
-
-	GraphicsEngine::getInstance()->getDeviceContext().setVertexBuffer(*vertexBuffer);
-	GraphicsEngine::getInstance()->getDeviceContext().setIndexBuffer(*indexBuffer);
-	GraphicsEngine::getInstance()->getDeviceContext().setTopology(renderData->Topology);
-
-	GraphicsEngine::getInstance()->getDeviceContext().drawIndexed(indexBuffer->getElementCount(),
-	                                                              0,
-	                                                              0);
-}
-
-void RenderComponent::draw(Matrix4x4 viewProjMatrix) const
-{
-	Debug::Log("Tesing");
-	RenderObjectData* constant = new RenderObjectData();
-	constant->Model            = ownerRef.getLocalMatrix();
+	constant->Model            = ownerRef.transform().getLocalMatrix();
 	constant->ViewProjection   = viewProjMatrix;
 	constant->SolidColor       = AlbedoColor;
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "AComponent.h"
-#include "Matrix4x4.h"
+#include "Math/Matrix4x4.h"
 
 class TransformComponent final : AComponent
 {

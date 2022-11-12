@@ -1,19 +1,18 @@
 ﻿#pragma once
 #include "Debug.h"
-#include "Color.h"
-#include "Matrix4x4.h"
+#include "Math/Color.h"
+#include "Math/Matrix4x4.h"
 
 #include "AComponent.h"
 #include "RenderData.h"
 
-#include "VertexShader.h"
-#include "PixelShader.h"
+#include "Graphics/VertexShader.h"
+#include "Graphics/PixelShader.h"
 
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "ConstantBuffer.h"
+#include "Graphics/VertexBuffer.h"
+#include "Graphics/IndexBuffer.h"
+#include "Graphics/ConstantBuffer.h"
 
-class Camera;
 class AGameObject;
 class RenderComponent final : public AComponent
 {
@@ -38,8 +37,7 @@ public:
 	Color AlbedoColor = Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Functionality for now, issue when it needs to sort for transparency
-	void draw(Camera& camera) const;
-	void draw(Matrix4x4 viewProjMatrix) const;
+	void draw(const Matrix4x4& viewProjMatrix) const;
 
 private:
 	// Material

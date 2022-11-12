@@ -1,5 +1,5 @@
 #include "HierarchyScreen.h"
-#include "GameObjectManager.h"
+#include "GameObject/GameObjectManager.h"
 
 HierarchyScreen::HierarchyScreen():AUIScreen("HierarchyScreen")
 {

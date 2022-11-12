@@ -1,7 +1,8 @@
 #include "Cube.h"
 
+#include "Math/Vector3D.h"
 #include "Component/RenderComponent.h"
-#include "ShaderLibrary.h"
+#include "Graphics/ShaderLibrary.h"
 
 #include "RenderData.h"
 
@@ -10,7 +11,7 @@ struct CubeVertex
 	Vector3D position;
 };
 
-Cube::Cube(std::string name) :
+Cube::Cube(const std::string_view name) :
 	AGameObject(name)
 {
 	Debug::Log("Testing rendering");
@@ -107,14 +108,3 @@ Cube::Cube(std::string name) :
 }
 
 Cube::~Cube() = default;
-
-void Cube::update(float deltaTime)
-{
-}
-
-void Cube::draw(int width,
-	int height,
-	VertexShader* vertexshader,
-	PixelShader* pixelshader)
-{
-}

@@ -1,10 +1,10 @@
 #pragma once
 #include "UIManager.h"
-#include "GameObjectManager.h"
+#include "GameObject/GameObjectManager.h"
 #include "AUIScreen.h"
-#include "IMGUI\imgui.h"
-#include "IMGUI\imgui_impl_dx11.h"
-#include "IMGUI\imgui_impl_win32.h"
+#include "IMGUI/imgui.h"
+#include "IMGUI/imgui_impl_dx11.h"
+#include "IMGUI/imgui_impl_win32.h"
 
 class InspectorScreen: public AUIScreen
 {

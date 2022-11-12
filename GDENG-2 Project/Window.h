@@ -17,11 +17,8 @@ public:
 	HWND gethwnd();
 	RECT getClientWindowRect();
 	
-	void setHWND(HWND hwnd);
+	void setHandle(HWND hwnd);
 
-	
-
-	//virtual methods
 	virtual void onCreate();
 	virtual void onUpdate();
 	virtual void onDestroy();
@@ -30,13 +27,10 @@ public:
 	virtual void onKillFocus();
 
 
-	~Window();
+	virtual ~Window();
 
 protected:
-	HWND m_hwnd;
-	//HWND m_gamewindow;
-	bool m_isRunning;
-	//bool GameWindowRunning;
-
+	HWND hwnd;
+	bool isRunning;
 };
 

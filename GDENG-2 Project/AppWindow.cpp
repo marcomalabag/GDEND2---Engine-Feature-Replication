@@ -2,13 +2,16 @@
 
 #include "IMGUI/imgui.h"
 
-#include "GraphicsEngine.h"
+#include "Graphics/GraphicsEngine.h"
 #include "SceneCameraHandler.h"
-#include "ShaderLibrary.h"
+
+#include "Component/TransformComponent.h"
+
+#include "Graphics/ShaderLibrary.h"
 
 #include "GameObject/Cube.h"
 
-#include "RenderView/RenderQuad.h"
+#include "Graphics/RenderQuad.h"
 
 AppWindow* AppWindow::sharedInstance = NULL;
 
@@ -39,7 +42,7 @@ void AppWindow::initializeEngine()
 	int width  = rc.right - rc.left;
 	int height = rc.bottom - rc.top;
 
-	GraphicsEngine::init(this->m_hwnd, width, height);
+	GraphicsEngine::init(this->hwnd, width, height);
 	ShaderLibrary::init(5);
 	EngineTime::initialize();
 	SceneCameraHandler::initialize();
@@ -52,7 +55,7 @@ void AppWindow::initializeEngine()
 	ShaderLibrary::add<PixelShader>("GDENG-2 Project/Assets/SolidColor_PS.hlsl");
 
 	cube = new Cube("Testing cube");
-	cube->setScale(5, 5, 5);
+	cube->transform().Scale = Vector3D(5, 5, 5);
 
 	FramebufferProfile framebuffer1Profile;
 	framebuffer1Profile.Width  = width;
@@ -74,7 +77,7 @@ void AppWindow::initializeEngine()
 
 void AppWindow::createInterface()
 {
-	UIManager::initialize(this->m_hwnd);
+	UIManager::initialize(this->hwnd);
 }
 
 void AppWindow::onUpdate()

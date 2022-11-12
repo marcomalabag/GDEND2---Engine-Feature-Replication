@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d11.h>
 
-#include "Color.h"
+#include "Math/Color.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
 

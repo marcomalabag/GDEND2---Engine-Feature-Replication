@@ -4,19 +4,15 @@
 
 #include <vector>
 #include "GameObject/AGameObject.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
-#include "GameObject/Camera.h"
+
 
 typedef std::string String;
 typedef std::vector<AGameObject*> ObjectList;
 typedef std::unordered_map<String, AGameObject*> HashTable;
-
-class GameObjectManager
+class Camera;
+class GameObjectManager final
 {
 public:
-	
-
 	enum PrimitiveType
 	{
 		CUBE,
@@ -32,8 +28,8 @@ public:
 	AGameObject* findObjectByName(String name);
 	ObjectList getAllObjects();
 	int activeObjects();
-	void updateAll();
-	void renderAll(int viewportWidth, int viewportHeight);
+	// void updateAll();
+	// void renderAll(int viewportWidth, int viewportHeight);
 	void addObject(AGameObject* gameObject);
 	void createObject(PrimitiveType type);
 	void deleteObject(AGameObject* gameObject);
@@ -42,14 +38,21 @@ public:
 	void setSelectedObject(AGameObject* gameObject);
 	AGameObject* getSelectedObject();
 	Camera* createGameCamera();
+
+	GameObjectManager(const GameObjectManager&) = delete;
+
+	GameObjectManager& operator=(const GameObjectManager&) = delete;
+
+	GameObjectManager(GameObjectManager&&) noexcept = delete;
+
+	GameObjectManager& operator=(GameObjectManager&&) noexcept = delete;
 	
 private:
 	static GameObjectManager* sharedInstance;
 
 	GameObjectManager();
 	~GameObjectManager();
-	GameObjectManager(GameObjectManager const&) {};
-	GameObjectManager& operator=(GameObjectManager const&) {};
+	
 	AGameObject* SelectedObject;
 	ObjectList GameObjectList;
 	HashTable GameObjectTable;
@@ -58,10 +61,5 @@ private:
 	int sphereCounter = 0;
 	int cylinderCounter = 0;
 	int planeCounter = 0;
-
-	VertexShader* vertexShader;
-	PixelShader* PixelShader;
-	void* shader_byte_code = nullptr;
-	size_t size_shader = 0;
 };
 

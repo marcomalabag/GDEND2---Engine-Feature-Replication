@@ -1,6 +1,6 @@
 ﻿#include "RenderSystem.h"
 #include "Debug.h"
-#include "SwapChain.h"
+#include "Graphics/SwapChain.h"
 
 #include "Component/RenderComponent.h"
 

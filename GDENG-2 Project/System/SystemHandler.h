@@ -24,6 +24,7 @@ public:
 	template <typename T>
 	T* getComponent(AGameObject& gameObjRef);
 
+	[[nodiscard]]
 	RenderSystem& getRenderSystem() const;
 
 	SystemHandler(const SystemHandler&)                = delete;

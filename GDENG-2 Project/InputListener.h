@@ -8,7 +8,7 @@ public:
 	{
 		
 	}
-	~InputListener()
+	virtual ~InputListener()
 	{
 		
 	}

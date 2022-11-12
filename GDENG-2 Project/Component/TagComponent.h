@@ -19,6 +19,7 @@ public:
 
 	TagComponent& operator=(TagComponent&&) noexcept = delete;
 
-	// TODO: tbd if private or public (public has consequences)
-	std::string Tag;
+	//TODO: Request for change in the system if tag changes
+private:
+	std::string tag;
 };
