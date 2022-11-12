@@ -34,12 +34,12 @@ RenderComponent::RenderComponent(AGameObject& owner,
 		return;
 	}
 
-	const RenderObjectData* renderObjectData = new RenderObjectData();
-
 	this->vertexBuffer = new VertexBuffer(*this->renderData,
 	                                      *this->vertexShader);
 
 	this->indexBuffer = new IndexBuffer(*this->renderData);
+
+	const RenderObjectData* renderObjectData = new RenderObjectData();
 
 	this->constantBuffer = new ConstantBuffer(renderObjectData,
 	                                          sizeof(RenderObjectData));
@@ -63,7 +63,7 @@ void RenderComponent::draw(const Matrix4x4& viewProjMatrix) const
 	constant->SolidColor       = AlbedoColor;
 
 	GraphicsEngine::getInstance()->getDeviceContext().updateBufferResource(&constantBuffer->getBuffer(),
-																		   constant);
+	                                                                       constant);
 
 	GraphicsEngine::getInstance()->getDeviceContext().setVertexShader(*vertexShader);
 	GraphicsEngine::getInstance()->getDeviceContext().setPixelShader(*pixelShader);
@@ -73,7 +73,7 @@ void RenderComponent::draw(const Matrix4x4& viewProjMatrix) const
 
 	GraphicsEngine::getInstance()->getDeviceContext().setVertexBuffer(*vertexBuffer);
 	GraphicsEngine::getInstance()->getDeviceContext().setIndexBuffer(*indexBuffer);
-	
+
 	GraphicsEngine::getInstance()->getDeviceContext().setTopology(renderData->Topology);
 
 	GraphicsEngine::getInstance()->getDeviceContext().drawIndexed(indexBuffer->getElementCount(),

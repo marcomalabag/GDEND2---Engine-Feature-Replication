@@ -14,6 +14,7 @@ public:
 	Matrix4x4 getViewMatrix();
 
 	void updateViewMatrix();
+	
 private:
 	Matrix4x4 localMatrix;
 };

@@ -5,6 +5,8 @@
 
 #include "Graphics/Framebuffer.h"
 
+#include "Math/Matrix4x4.h"
+
 class AGameObject;
 class RenderComponent;
 class Camera;
@@ -23,7 +25,8 @@ public:
 
 	// Control render targets?
 
-	void draw(const Framebuffer* framebuffer) const;
+	void draw(const Matrix4x4& viewProj,
+	          const Framebuffer* framebuffer) const;
 
 	RenderSystem(const RenderSystem&)                = delete;
 	RenderSystem& operator=(const RenderSystem&)     = delete;

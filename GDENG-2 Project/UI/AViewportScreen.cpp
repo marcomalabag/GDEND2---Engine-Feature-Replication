@@ -17,10 +17,12 @@ void AViewportScreen::drawUI()
 {
 	ImGui::Begin(name.c_str());
 
+	framebufferRef = &this->getFramebufferRef();
 	if (framebufferRef != nullptr)
 	{
+		// TODO: Resizing viewports
 		ImGui::Image(&framebufferRef->getFrame(),
-		             ImVec2(16 * 10, 9 * 10));
+		             ImVec2(16 * 40, 9 * 40));
 	}
 	ImGui::Text("Placeholder");
 

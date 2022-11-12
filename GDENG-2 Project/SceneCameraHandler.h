@@ -1,27 +1,32 @@
 #pragma once
-#include "GameObject/Camera.h"
 #include "GameObject/CameraMovement.h"
-
 
 class SceneCameraHandler
 {
 public:
 	static SceneCameraHandler* getInstance();
-	static void initialize();
+	static void init(unsigned int screenWidth,
+									   unsigned int screenHeight);
 	static void destroy();
 
 	void update();
 
+	Framebuffer* getFramebuffer() const;
+
 	Matrix4x4 getSceneCameraViewMatrix();
 
+	SceneCameraHandler(const SceneCameraHandler&)                = delete;
+	SceneCameraHandler& operator=(const SceneCameraHandler&)     = delete;
+	SceneCameraHandler(SceneCameraHandler&&) noexcept            = delete;
+	SceneCameraHandler& operator=(SceneCameraHandler&&) noexcept = delete;
+
 private:
-	SceneCameraHandler();
+	SceneCameraHandler(unsigned int screenWidth,
+	                   unsigned int screenHeight);
 	~SceneCameraHandler();
-	SceneCameraHandler(SceneCameraHandler const&) {}
-	SceneCameraHandler& operator=(SceneCameraHandler const&) {}
-	static SceneCameraHandler* sharedInstance;
 
-	Camera* sceneCamera;
-	CameraMovement* cam;
+	CameraMovement* editorCamera   = nullptr;
+	Framebuffer* cameraFramebuffer = nullptr;
+
+	static SceneCameraHandler* instance;
 };
-

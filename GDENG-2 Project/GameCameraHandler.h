@@ -5,23 +5,30 @@ class GameCameraHandler final
 {
 public:
 	static GameCameraHandler* getInstance();
-	static void initialize();
+	static void initialize(unsigned int screenWidth,
+	                       unsigned int screenHeight);
 	static void destroy();
 
 	void update();
 
-	Matrix4x4 getSceneCameraViewMatrix();
+	Framebuffer* getFramebuffer() const;
+
+	Matrix4x4 getGameCameraViewMatrix();
 	void initializeGameCamera();
 	Camera* getGameCameraInstance();
 
+	GameCameraHandler(const GameCameraHandler&)                = delete;
+	GameCameraHandler& operator=(const GameCameraHandler&)     = delete;
+	GameCameraHandler(GameCameraHandler&&) noexcept            = delete;
+	GameCameraHandler& operator=(GameCameraHandler&&) noexcept = delete;
+
 private:
-	GameCameraHandler();
+	GameCameraHandler(unsigned int screenWidth,
+	                  unsigned int screenHeight);
 	~GameCameraHandler();
-	GameCameraHandler(GameCameraHandler const&) {};
-	GameCameraHandler& operator=(GameCameraHandler const&) {};
-	static GameCameraHandler* sharedInstance;
 
-	Camera* gameCamera = nullptr;
+	Camera* gameCamera             = nullptr;
+	Framebuffer* cameraFramebuffer = nullptr;
 
+	static GameCameraHandler* instance;
 };
-

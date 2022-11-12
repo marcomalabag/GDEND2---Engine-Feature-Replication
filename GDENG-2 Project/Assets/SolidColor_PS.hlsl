@@ -12,5 +12,5 @@ cbuffer constant: register(b0)
 
 float4 psmain(PS_INPUT input) : SV_TARGET
 {
-	return albedoColor;
+	return float4(albedoColor.x, albedoColor.y, albedoColor.z, 1.0f);
 }

@@ -1,40 +1,52 @@
 #include "SceneCameraHandler.h"
 #include "EngineTime.h"
 
-SceneCameraHandler* SceneCameraHandler::sharedInstance = NULL;
+SceneCameraHandler* SceneCameraHandler::instance = nullptr;
 
-SceneCameraHandler::SceneCameraHandler()
+SceneCameraHandler::SceneCameraHandler(unsigned int screenWidth,
+                                       unsigned int screenHeight)
 {
-	this->cam = new CameraMovement("cameraMovement");
+	FramebufferProfile cameraFramebufferProfile;
+	cameraFramebufferProfile.Width  = screenWidth;
+	cameraFramebufferProfile.Height = screenHeight;
+	this->cameraFramebuffer         = new Framebuffer(cameraFramebufferProfile,
+	                                                  &GraphicsEngine::getInstance()->getDevice());
+	this->editorCamera = new CameraMovement("EditorCamera");
 }
 
 SceneCameraHandler* SceneCameraHandler::getInstance()
 {
-	return sharedInstance;
+	return instance;
 }
 
-void SceneCameraHandler::initialize()
+void SceneCameraHandler::init(unsigned int screenWidth,
+                              unsigned int screenHeight)
 {
-	sharedInstance = new SceneCameraHandler();
-	
+	instance = new SceneCameraHandler(screenWidth,
+	                                  screenHeight);
 }
 
 void SceneCameraHandler::destroy()
 {
-	delete sharedInstance;
+	delete instance;
 }
 
 void SceneCameraHandler::update()
 {
-	this->cam->update(EngineTime::getDeltaTime());
+	this->editorCamera->update(EngineTime::getDeltaTime());
+}
+
+Framebuffer* SceneCameraHandler::getFramebuffer() const
+{
+	return this->cameraFramebuffer;
 }
 
 Matrix4x4 SceneCameraHandler::getSceneCameraViewMatrix()
 {
-	return this->cam->getViewMatrix();
+	return this->editorCamera->getViewMatrix();
 }
 
 SceneCameraHandler::~SceneCameraHandler()
 {
-	delete this->cam;
+	delete this->editorCamera;
 }

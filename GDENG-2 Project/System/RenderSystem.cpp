@@ -5,6 +5,7 @@
 #include "Component/RenderComponent.h"
 
 #include "GameObject/AGameObject.h"
+#include "GameObject/Camera.h"
 
 RenderSystem::RenderSystem() :
 	componentMap{},
@@ -77,7 +78,8 @@ RenderComponent* RenderSystem::getComponent(AGameObject& gameObjRef)
 	return componentMap[gameObjRef.Name];
 }
 
-void RenderSystem::draw(const Framebuffer* framebuffer) const
+void RenderSystem::draw(const Matrix4x4& viewProj,
+                        const Framebuffer* framebuffer) const
 {
 	const FramebufferProfile info = framebuffer->getInfo();
 
@@ -85,24 +87,15 @@ void RenderSystem::draw(const Framebuffer* framebuffer) const
 	                                                                  (float)info.Height);
 
 	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&framebuffer->getRenderTarget(),
-																	&framebuffer->getDepthStencil());
+	                                                                    &framebuffer->getDepthStencil());
 
 	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(framebuffer->getRenderTarget(),
 	                                                                        Color(0.8f, 0.4f, 0.7f, 1.0f));
 
 	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(framebuffer->getDepthStencil());
 
-	Matrix4x4 viewProj;
-	viewProj.setIdentity();
-	viewProj.setPerspectiveFovLH(DirectX::XMConvertToRadians(45.0f),
-		(float)info.Width / (float)info.Height,
-		0.01f,
-		100.0f);
-	
 	for (const RenderComponent* component : componentList)
 	{
 		component->draw(viewProj);
 	}
-
-	// set framebuffer to swap chain buffer if doing multipass rendering
 }

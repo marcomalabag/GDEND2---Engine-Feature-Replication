@@ -45,8 +45,8 @@ void AppWindow::initializeEngine()
 	GraphicsEngine::init(this->hwnd, width, height);
 	ShaderLibrary::init(5);
 	EngineTime::initialize();
-	SceneCameraHandler::initialize();
-	GameCameraHandler::initialize();
+	SceneCameraHandler::init(width, height);
+	GameCameraHandler::initialize(width, height);
 	GameObjectManager::initialize();
 
 	SystemHandler::init();
@@ -54,7 +54,7 @@ void AppWindow::initializeEngine()
 	ShaderLibrary::add<VertexShader>("GDENG-2 Project/Assets/SolidColor_VS.hlsl");
 	ShaderLibrary::add<PixelShader>("GDENG-2 Project/Assets/SolidColor_PS.hlsl");
 
-	cube = new Cube("Testing cube");
+	cube                    = new Cube("Testing cube");
 	cube->transform().Scale = Vector3D(5, 5, 5);
 
 	FramebufferProfile framebuffer1Profile;
@@ -70,7 +70,6 @@ void AppWindow::initializeEngine()
 	// Goal: Draw at least 1 Cube using ECS
 	//GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
 	GameCameraHandler::getInstance()->initializeGameCamera();
-	
 }
 
 void AppWindow::createInterface()
@@ -80,7 +79,7 @@ void AppWindow::createInterface()
 
 void AppWindow::onUpdate()
 {
-	Window::onUpdate();
+	//Window::onUpdate();
 	InputSystem::getInstance()->update();
 
 	this->ticks += EngineTime::getDeltaTime() * 1.0f;
@@ -89,26 +88,28 @@ void AppWindow::onUpdate()
 	GameCameraHandler::getInstance()->update();
 
 	// Drawing----------------
-	//GameObjectManager::getInstance()->renderAll(width, height);
+	SystemHandler::getInstance().getRenderSystem().draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix(),
+	                                                    SceneCameraHandler::getInstance()->getFramebuffer());
 
-	Framebuffer& swapChainBuffer = GraphicsEngine::getInstance()->getSwapChain().getBuffer();
+	SystemHandler::getInstance().getRenderSystem().draw(GameCameraHandler::getInstance()->getGameCameraViewMatrix(),
+	                                                    GameCameraHandler::getInstance()->getFramebuffer());
+
+	Framebuffer& swapChainBuffer           = GraphicsEngine::getInstance()->getSwapChain().getBuffer();
 	FramebufferProfile swapChainBufferInfo = swapChainBuffer.getInfo();
-	
-	// GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)swapChainBufferInfo.Width,
-	// 																  (float)swapChainBufferInfo.Height);
-	//
-	// GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
-	// 															&swapChainBuffer.getDepthStencil());
-	//
-	// GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(swapChainBuffer.getRenderTarget(),
-	// 																	Color(0.8f, 0.4f, 0.7f, 1.0f));
-	//
-	// GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(swapChainBuffer.getDepthStencil());
 
-	SystemHandler::getInstance().getRenderSystem().draw(&swapChainBuffer);
+	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)swapChainBufferInfo.Width,
+	                                                                  (float)swapChainBufferInfo.Height);
 
-	// // Draw quad with texture of the framebuffer
-	// renderQuad->draw(framebuffer1->getFrame());
+	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
+	                                                                    &swapChainBuffer.getDepthStencil());
+
+	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(swapChainBuffer.getRenderTarget(),
+	                                                                        Color(0.8f, 0.4f, 0.7f, 1.0f));
+
+	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(swapChainBuffer.getDepthStencil());
+
+	// Draw quad with texture of the framebuffer
+	renderQuad->draw(framebuffer1->getFrame());
 
 	UIManager::getInstance()->drawAllUI();
 
@@ -120,7 +121,7 @@ void AppWindow::onDestroy()
 	delete framebuffer1;
 
 	// delete renderQuad;
-	
+
 	SystemHandler::release();
 
 	Window::onDestroy();
