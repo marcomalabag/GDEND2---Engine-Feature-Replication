@@ -65,8 +65,6 @@ void AppWindow::initializeEngine()
 	                               &GraphicsEngine::getInstance()->getDevice());
 
 	renderQuad = new RenderQuad();
-	// this->vertexshader = &ShaderLibrary::getShader<VertexShader>("VertexShader");
-	// this->pixelshader = &ShaderLibrary::getShader<PixelShader>("PixelShader.hlsl");
 
 	// Initial Entities
 	// Goal: Draw at least 1 Cube using ECS
@@ -88,29 +86,29 @@ void AppWindow::onUpdate()
 	this->ticks += EngineTime::getDeltaTime() * 1.0f;
 
 	SceneCameraHandler::getInstance()->update();
+	GameCameraHandler::getInstance()->update();
 
 	// Drawing----------------
-
-	SystemHandler::getInstance().getRenderSystem().draw(framebuffer1);
-
 	//GameObjectManager::getInstance()->renderAll(width, height);
 
 	Framebuffer& swapChainBuffer = GraphicsEngine::getInstance()->getSwapChain().getBuffer();
 	FramebufferProfile swapChainBufferInfo = swapChainBuffer.getInfo();
 	
-	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)swapChainBufferInfo.Width,
-																	  (float)swapChainBufferInfo.Height);
+	// GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)swapChainBufferInfo.Width,
+	// 																  (float)swapChainBufferInfo.Height);
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
+	// 															&swapChainBuffer.getDepthStencil());
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(swapChainBuffer.getRenderTarget(),
+	// 																	Color(0.8f, 0.4f, 0.7f, 1.0f));
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(swapChainBuffer.getDepthStencil());
 
-	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
-																&swapChainBuffer.getDepthStencil());
+	SystemHandler::getInstance().getRenderSystem().draw(&swapChainBuffer);
 
-	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(swapChainBuffer.getRenderTarget(),
-																		Color(0.8f, 0.4f, 0.7f, 1.0f));
-
-	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(swapChainBuffer.getDepthStencil());
-
-	// Draw quad with texture of the framebuffer
-	renderQuad->draw(framebuffer1->getFrame());
+	// // Draw quad with texture of the framebuffer
+	// renderQuad->draw(framebuffer1->getFrame());
 
 	UIManager::getInstance()->drawAllUI();
 

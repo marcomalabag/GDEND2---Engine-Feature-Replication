@@ -1,6 +1,9 @@
 #include "UIManager.h"
 #include <iostream>
 
+#include "EditorViewportScreen.h"
+#include "GameViewportScreen.h"
+
 UIManager* UIManager::sharedInstance = NULL;
 
 UIManager::UIManager(HWND windowHandle)
@@ -36,6 +39,14 @@ UIManager::UIManager(HWND windowHandle)
 	CreditsScreen* creditsScreen          = new CreditsScreen();
 	this->uiTable[uiNames.CREDITS_SCREEN] = creditsScreen;
 	this->uiList.push_back(creditsScreen);
+
+	EditorViewportScreen* editorViewportScreen = new EditorViewportScreen();
+	this->uiTable["EditorViewportScreen"]      = editorViewportScreen;
+	this->uiList.push_back(editorViewportScreen);
+
+	GameViewportScreen* gameViewportScreen = new GameViewportScreen();
+	this->uiTable["GameViewportScreen"]    = gameViewportScreen;
+	this->uiList.push_back(gameViewportScreen);
 }
 
 void UIManager::initialize(HWND windowHandle)
@@ -53,6 +64,8 @@ void UIManager::drawAllUI()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+
+	ImGui::DockSpaceOverViewport();
 	UINames uiNames;
 
 	for (int i = 0; i < uiList.size(); i++)

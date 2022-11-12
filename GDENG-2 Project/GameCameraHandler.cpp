@@ -28,8 +28,7 @@ void GameCameraHandler::destroy()
 
 void GameCameraHandler::update()
 {
-	// TODO: implement update
-	// this->gameCamera->update(EngineTime::getDeltaTime());
+	this->gameCamera->update(EngineTime::getDeltaTime());
 }
 
 Matrix4x4 GameCameraHandler::getSceneCameraViewMatrix()

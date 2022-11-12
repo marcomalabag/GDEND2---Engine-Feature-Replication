@@ -9,6 +9,10 @@ Camera::Camera(const std::string_view name) :
 	this->updateViewMatrix();
 }
 
+Camera::~Camera()
+{
+}
+
 void Camera::updateViewMatrix()
 {
 	Matrix4x4 worldCam;
@@ -41,6 +45,8 @@ Matrix4x4 Camera::getViewMatrix()
 	return this->localMatrix;
 }
 
-Camera::~Camera()
+
+void Camera::update(float deltaTime)
 {
+	updateViewMatrix();
 }

@@ -243,12 +243,15 @@
     <ClInclude Include="GDENG-2 Project\System\TransformSystem.h" />
     <ClInclude Include="GDENG-2 Project\UI\AUIScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\CreditsScreen.h" />
+    <ClInclude Include="GDENG-2 Project\UI\EditorViewportScreen.h" />
+    <ClInclude Include="GDENG-2 Project\UI\GameViewportScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\HierarchyScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\InspectorScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\MenuScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\ProfilerScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\UIManager.h" />
     <ClInclude Include="GDENG-2 Project\UI\UINames.h" />
+    <ClInclude Include="GDENG-2 Project\UI\AViewportScreen.h" />
     <ClInclude Include="GDENG-2 Project\Utils.h" />
     <ClInclude Include="GDENG-2 Project\Window.h" />
   </ItemGroup>
@@ -2053,6 +2056,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\EditorViewportScreen.cpp" />
+    <ClCompile Include="GDENG-2 Project\UI\GameViewportScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\UI\HierarchyScreen.cpp">
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -2423,6 +2428,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\AViewportScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\Utils.cpp" />
     <ClCompile Include="GDENG-2 Project\Window.cpp" />
     <ClCompile Include="GDENG-2 Project\main.cpp" />

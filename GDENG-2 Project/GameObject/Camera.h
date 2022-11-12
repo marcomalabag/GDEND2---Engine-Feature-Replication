@@ -9,6 +9,8 @@ public:
 	explicit Camera(std::string_view name);
 	~Camera() override;
 
+	virtual void update(float deltaTime);
+
 	Matrix4x4 getViewMatrix();
 
 	void updateViewMatrix();
