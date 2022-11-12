@@ -7,7 +7,7 @@
 class CameraMovement : public Camera, public InputListener
 {
 public:
-	CameraMovement(string name);
+	CameraMovement(std::string name);
 	~CameraMovement();
 
 	void update(float deltaTime) override;

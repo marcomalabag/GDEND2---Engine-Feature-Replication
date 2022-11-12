@@ -1,5 +1,8 @@
 #include "GameCameraHandler.h"
 
+#include "EngineTime.h"
+#include "GameObjectManager.h"
+
 GameCameraHandler* GameCameraHandler::sharedInstance = NULL;
 
 GameCameraHandler::GameCameraHandler()

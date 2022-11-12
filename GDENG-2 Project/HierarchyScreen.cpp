@@ -20,10 +20,10 @@ void HierarchyScreen::generateButtons()
 
 	for (int i = 0; i < GameObjectManager::getInstance()->activeObjects(); i++)
 	{
-		if (ImGui::Button(manager->getAllObjects()[i]->getName().c_str(), ImVec2(160.0f, 0.0f)))
+		if (ImGui::Button(manager->getAllObjects()[i]->Name.c_str(), ImVec2(160.0f, 0.0f)))
 		{
 			AGameObject* selectedObject = manager->getAllObjects()[i];
-			manager->setSelectedObject(selectedObject->getName());
+			manager->setSelectedObject(selectedObject->Name);
 		}
 
 	}

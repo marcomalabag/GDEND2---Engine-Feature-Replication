@@ -1,6 +1,5 @@
 #pragma once
 #include <unordered_map>
-#include <vector>
 
 #include "Debug.h"
 #include "Matrix4x4.h"

@@ -1,7 +1,7 @@
 #include "CameraMovement.h"
 #include <iostream>
 
-CameraMovement::CameraMovement(string name):Camera(name)
+CameraMovement::CameraMovement(std::string name):Camera(name)
 {
 	InputSystem::getInstance()->addListener(this);
 }

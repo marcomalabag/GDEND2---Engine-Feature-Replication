@@ -27,6 +27,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GDENG-2 Project\AGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GDENG-2 Project\AUIScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -34,6 +37,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\CameraMovement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Color.h">
@@ -66,6 +72,9 @@
     <ClInclude Include="GDENG-2 Project\EngineTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GDENG-2 Project\GameCameraHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameObject\AGameObject.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
@@ -86,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameObject\Triangle.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\GameObjectManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameWindow.h">
       <Filter>Header Files</Filter>
@@ -180,9 +192,6 @@
     <ClInclude Include="GDENG-2 Project\SwapChain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\System\ComponentStorage.h">
-      <Filter>GDENG-2 Project\System</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\System\RenderSystem.h">
       <Filter>GDENG-2 Project\System</Filter>
     </ClInclude>
@@ -236,6 +245,9 @@
     <ClCompile Include="GDENG-2 Project\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\CameraMovement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GDENG-2 Project\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -266,6 +278,9 @@
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameCameraHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameObject\AGameObject.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
@@ -286,6 +301,9 @@
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameObject\Triangle.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameObjectManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameWindow.cpp">
       <Filter>Source Files</Filter>
@@ -370,9 +388,6 @@
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\SwapChain.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\System\ComponentStorage.cpp">
-      <Filter>GDENG-2 Project\System</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\System\RenderSystem.cpp">
       <Filter>GDENG-2 Project\System</Filter>

@@ -1,6 +1,6 @@
 #pragma once
-#include "Camera.h"
-#include "CameraMovement.h"
+#include "GameObject/Camera.h"
+#include "GameObject/CameraMovement.h"
 
 
 class SceneCameraHandler

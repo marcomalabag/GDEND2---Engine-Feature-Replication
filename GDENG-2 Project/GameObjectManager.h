@@ -1,17 +1,12 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+
 #include <vector>
-#include "AGameObject.h"
+#include "GameObject/AGameObject.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
-#include "Cube.h"
-#include "Cylinder.h"
-#include "Plane.h"
-#include "Sphere.h"
-#include "Camera.h"
-
-
+#include "GameObject/Camera.h"
 
 typedef std::string String;
 typedef std::vector<AGameObject*> ObjectList;
@@ -34,7 +29,7 @@ public:
 	static void initialize();
 	static void destroy();
 
-	AGameObject* findObjectByName(string name);
+	AGameObject* findObjectByName(String name);
 	ObjectList getAllObjects();
 	int activeObjects();
 	void updateAll();
@@ -42,8 +37,8 @@ public:
 	void addObject(AGameObject* gameObject);
 	void createObject(PrimitiveType type);
 	void deleteObject(AGameObject* gameObject);
-	void deleteObjectByName(string name);
-	void setSelectedObject(string name);
+	void deleteObjectByName(String name);
+	void setSelectedObject(String name);
 	void setSelectedObject(AGameObject* gameObject);
 	AGameObject* getSelectedObject();
 	Camera* createGameCamera();

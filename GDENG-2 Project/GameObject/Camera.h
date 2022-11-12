@@ -1,12 +1,11 @@
 #pragma once
 #include "GameObject/AGameObject.h"
-#include "InputListener.h"
 
-class Camera: public AGameObject
+class Camera : public AGameObject
 {
 public:
 	Camera(std::string name);
-	~Camera();
+	virtual ~Camera();
 
 	void update(float deltaTime) override;
 	void draw(int width, int height, VertexShader* vertexshader, PixelShader* pixelshader) override;

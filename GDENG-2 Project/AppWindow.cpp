@@ -90,7 +90,7 @@ void AppWindow::onUpdate()
 
 	SystemHandler::getInstance().getRenderSystem().draw(framebuffer1);
 
-	GameObjectManager::getInstance()->renderAll(width, height);
+	//GameObjectManager::getInstance()->renderAll(width, height);
 
 	Framebuffer& swapChainBuffer = GraphicsEngine::getInstance()->getSwapChain().getBuffer();
 	FramebufferProfile swapChainBufferInfo = swapChainBuffer.getInfo();

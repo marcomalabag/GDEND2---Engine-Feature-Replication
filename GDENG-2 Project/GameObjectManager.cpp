@@ -6,7 +6,6 @@ GameObjectManager* GameObjectManager::sharedInstance = NULL;
 GameObjectManager::GameObjectManager()
 {
 	this->SelectedObject = NULL;
-	
 }
 
 void GameObjectManager::initialize()
@@ -24,7 +23,7 @@ void GameObjectManager::destroy()
 	delete sharedInstance;
 }
 
-AGameObject* GameObjectManager::findObjectByName(string name)
+AGameObject* GameObjectManager::findObjectByName(String name)
 {
 	return this->GameObjectTable.at(name);
 }
@@ -57,103 +56,103 @@ void GameObjectManager::renderAll(int viewportWidth, int viewportHeight)
 
 void GameObjectManager::addObject(AGameObject* gameObject)
 {
-	this->GameObjectTable[gameObject->getName()] = gameObject;
+	this->GameObjectTable[gameObject->Name] = gameObject;
 	this->GameObjectList.push_back(gameObject);
 }
 
 void GameObjectManager::createObject(PrimitiveType type)
 {
-	GraphicsEngine::getInstance()->compileVertexShader(L"Assets/VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	this->vertexShader = GraphicsEngine::getInstance()->createVertexShader(shader_byte_code, size_shader);
-	if(type == PrimitiveType::CUBE)
-	{
-		String cubename;
-		if(this->cubeCounter == 0)
-		{
-			cubename = "Cube";
-		}
-		else
-		{
-			String number = "(" + std::to_string(this->cubeCounter) + ")";
-			cubename = "Cube" + number;
-		}
-		Cube* cube = new Cube(cubename, shader_byte_code, size_shader);
-		cube->setPosition(0.0f, 1.0f, 0.0f);
-		cube->setScale(1.0f, 1.0f, 1.0f);
-		this->addObject(cube);
-		this->cubeCounter++;
-	}
-	else if (type == PrimitiveType::PLANE)
-	{
-		String planename;
-		if (this->planeCounter == 0)
-		{
-			planename = "Plane";
-		}
-		else
-		{
-			String number = "(" + std::to_string(this->planeCounter) + ")";
-			planename = "Plane" + number;
-		}
-		Plane* plane = new Plane(planename, shader_byte_code, size_shader);
-		plane->setPosition(0.0f, 1.0f, 0.0f);
-		plane->setScale(1.0f, 1.0f, 1.0f);
-		this->addObject(plane);
-		this->planeCounter++;
-	}
-	else if (type == PrimitiveType::CYLINDER)
-	{
-		String cylindername;
-		if (this->cylinderCounter == 0)
-		{
-			cylindername = "Cylinder";
-		}
-		else
-		{
-			String number = "(" + std::to_string(this->cylinderCounter) + ")";
-			cylindername = "Cylinder" + number;
-		}
-		Cylinder* cylinder = new Cylinder(cylindername, shader_byte_code, size_shader);
-		cylinder->setPosition(0.0f, 1.0f, 0.0f);
-		cylinder->setScale(1.0f, 1.0f, 1.0f);
-		this->addObject(cylinder);
-		this->cylinderCounter++;
-	}
-	else if (type == PrimitiveType::SPHERE)
-	{
-		String spherename;
-		if (this->sphereCounter == 0)
-		{
-			spherename = "Sphere";
-		}
-		else
-		{
-			String number = "(" + std::to_string(this->sphereCounter) + ")";
-			spherename = "Sphere" + number;
-		}
-		Sphere* sphere = new Sphere(spherename, shader_byte_code, size_shader);
-		sphere->setPosition(0.0f, 1.0f, 0.0f);
-		sphere->setScale(1.0f, 1.0f, 1.0f);
-		this->addObject(sphere);
-		this->sphereCounter++;
-	}
-
-	GraphicsEngine::getInstance()->releaseCompiledShader();
-	GraphicsEngine::getInstance()->compilePixelShader(L"Assets/PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	this->PixelShader = GraphicsEngine::getInstance()->createPixelShader(shader_byte_code, size_shader);
-
-
-	GraphicsEngine::getInstance()->releaseCompiledShader();
+	// GraphicsEngine::getInstance()->compileVertexShader(L"Assets/VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	// this->vertexShader = GraphicsEngine::getInstance()->createVertexShader(shader_byte_code, size_shader);
+	// if(type == PrimitiveType::CUBE)
+	// {
+	// 	String cubename;
+	// 	if(this->cubeCounter == 0)
+	// 	{
+	// 		cubename = "Cube";
+	// 	}
+	// 	else
+	// 	{
+	// 		String number = "(" + std::to_string(this->cubeCounter) + ")";
+	// 		cubename = "Cube" + number;
+	// 	}
+	// 	Cube* cube = new Cube(cubename, shader_byte_code, size_shader);
+	// 	cube->setPosition(0.0f, 1.0f, 0.0f);
+	// 	cube->setScale(1.0f, 1.0f, 1.0f);
+	// 	this->addObject(cube);
+	// 	this->cubeCounter++;
+	// }
+	// else if (type == PrimitiveType::PLANE)
+	// {
+	// 	String planename;
+	// 	if (this->planeCounter == 0)
+	// 	{
+	// 		planename = "Plane";
+	// 	}
+	// 	else
+	// 	{
+	// 		String number = "(" + std::to_string(this->planeCounter) + ")";
+	// 		planename = "Plane" + number;
+	// 	}
+	// 	Plane* plane = new Plane(planename, shader_byte_code, size_shader);
+	// 	plane->setPosition(0.0f, 1.0f, 0.0f);
+	// 	plane->setScale(1.0f, 1.0f, 1.0f);
+	// 	this->addObject(plane);
+	// 	this->planeCounter++;
+	// }
+	// else if (type == PrimitiveType::CYLINDER)
+	// {
+	// 	String cylindername;
+	// 	if (this->cylinderCounter == 0)
+	// 	{
+	// 		cylindername = "Cylinder";
+	// 	}
+	// 	else
+	// 	{
+	// 		String number = "(" + std::to_string(this->cylinderCounter) + ")";
+	// 		cylindername = "Cylinder" + number;
+	// 	}
+	// 	Cylinder* cylinder = new Cylinder(cylindername, shader_byte_code, size_shader);
+	// 	cylinder->setPosition(0.0f, 1.0f, 0.0f);
+	// 	cylinder->setScale(1.0f, 1.0f, 1.0f);
+	// 	this->addObject(cylinder);
+	// 	this->cylinderCounter++;
+	// }
+	// else if (type == PrimitiveType::SPHERE)
+	// {
+	// 	String spherename;
+	// 	if (this->sphereCounter == 0)
+	// 	{
+	// 		spherename = "Sphere";
+	// 	}
+	// 	else
+	// 	{
+	// 		String number = "(" + std::to_string(this->sphereCounter) + ")";
+	// 		spherename = "Sphere" + number;
+	// 	}
+	// 	Sphere* sphere = new Sphere(spherename, shader_byte_code, size_shader);
+	// 	sphere->setPosition(0.0f, 1.0f, 0.0f);
+	// 	sphere->setScale(1.0f, 1.0f, 1.0f);
+	// 	this->addObject(sphere);
+	// 	this->sphereCounter++;
+	// }
+	//
+	// GraphicsEngine::getInstance()->releaseCompiledShader();
+	// GraphicsEngine::getInstance()->compilePixelShader(L"Assets/PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	// this->PixelShader = GraphicsEngine::getInstance()->createPixelShader(shader_byte_code, size_shader);
+	//
+	//
+	// GraphicsEngine::getInstance()->releaseCompiledShader();
 	
 }
 
 void GameObjectManager::deleteObject(AGameObject* gameObject)
 {
-	this->GameObjectTable.erase(gameObject->getName());
+	this->GameObjectTable.erase(gameObject->Name);
 	int index = -1;
 	for(int i = 0; i < this->GameObjectList.size(); i++)
 	{
-		if(this->GameObjectList[i]->getName() == gameObject->getName())
+		if(this->GameObjectList[i]->Name == gameObject->Name)
 		{
 			index = i;
 			this->GameObjectList.erase(this->GameObjectList.begin() + index);
@@ -162,12 +161,12 @@ void GameObjectManager::deleteObject(AGameObject* gameObject)
 	}
 }
 
-void GameObjectManager::deleteObjectByName(string name)
+void GameObjectManager::deleteObjectByName(String name)
 {
 	this->deleteObject(this->GameObjectTable.at(name));
 }
 
-void GameObjectManager::setSelectedObject(string name)
+void GameObjectManager::setSelectedObject(String name)
 {
 	this->setSelectedObject(this->GameObjectTable.at(name));
 }
@@ -189,8 +188,6 @@ Camera* GameObjectManager::createGameCamera()
 	this->addObject(GameCamera);
 	return GameCamera;
 }
-
-
 
 GameObjectManager::~GameObjectManager()
 {

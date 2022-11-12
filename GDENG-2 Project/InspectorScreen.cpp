@@ -17,7 +17,7 @@ void InspectorScreen::generateEditor()
 {
 	if (GameObjectManager::getInstance()->getSelectedObject() != NULL)
 	{
-		ImGui::Text("Selected Object: %s", GameObjectManager::getInstance()->getSelectedObject()->getName().c_str());
+		ImGui::Text("Selected Object: %s", GameObjectManager::getInstance()->getSelectedObject()->Name.c_str());
 		this->TransformUpdate();
 		if (ImGui::DragFloat3("Position", this->SelectedObjectposition, 0.01))
 		{
@@ -33,7 +33,7 @@ void InspectorScreen::generateEditor()
 		}
 		if (ImGui::Button("Delete", ImVec2(70.0f, 0.0f)))
 		{
-			GameObjectManager::getInstance()->deleteObjectByName(GameObjectManager::getInstance()->getSelectedObject()->getName());
+			GameObjectManager::getInstance()->deleteObjectByName(GameObjectManager::getInstance()->getSelectedObject()->Name);
 			GameObjectManager::getInstance()->setSelectedObject(NULL);
 		}
 	}

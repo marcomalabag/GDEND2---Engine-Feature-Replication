@@ -1,9 +1,7 @@
 #pragma once
-#include "Camera.h"
-#include "EngineTime.h"
-#include "GameObjectManager.h"
+#include "GameObject/Camera.h"
 
-class GameCameraHandler
+class GameCameraHandler final
 {
 public:
 	static GameCameraHandler* getInstance();
