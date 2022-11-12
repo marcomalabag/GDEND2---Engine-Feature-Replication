@@ -192,17 +192,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GDENG-2 Project\AGameObject.h" />
     <ClInclude Include="GDENG-2 Project\AUIScreen.h" />
     <ClInclude Include="GDENG-2 Project\AppWindow.h" />
-    <ClInclude Include="GDENG-2 Project\Camera.h" />
+    <ClInclude Include="GDENG-2 Project\Color.h" />
+    <ClInclude Include="GDENG-2 Project\Component\AComponent.h" />
+    <ClInclude Include="GDENG-2 Project\Component\RenderComponent.h" />
+    <ClInclude Include="GDENG-2 Project\Component\TagComponent.h" />
+    <ClInclude Include="GDENG-2 Project\Component\TransformComponent.h" />
     <ClInclude Include="GDENG-2 Project\ConstantBuffer.h" />
     <ClInclude Include="GDENG-2 Project\CreditsScreen.h" />
-    <ClInclude Include="GDENG-2 Project\Cube.h" />
-    <ClInclude Include="GDENG-2 Project\Cylinder.h" />
+    <ClInclude Include="GDENG-2 Project\Debug.h" />
     <ClInclude Include="GDENG-2 Project\DeviceContext.h" />
     <ClInclude Include="GDENG-2 Project\EngineTime.h" />
-    <ClInclude Include="GDENG-2 Project\GameWindow.h" />
+    <ClInclude Include="GDENG-2 Project\GameCameraHandler.h" />
+    <ClInclude Include="GDENG-2 Project\GameObject\AGameObject.h" />
+    <ClInclude Include="GDENG-2 Project\GameObject\Camera.h" />
+    <ClInclude Include="GDENG-2 Project\GameObject\CameraMovement.h" />
+    <ClInclude Include="GDENG-2 Project\GameObject\Cube.h" />
+    <ClInclude Include="GDENG-2 Project\GameObjectManager.h" />
     <ClInclude Include="GDENG-2 Project\GraphicsEngine.h" />
     <ClInclude Include="GDENG-2 Project\HierarchyScreen.h" />
     <ClInclude Include="GDENG-2 Project\ImGui\imconfig.h" />
@@ -221,35 +228,198 @@
     <ClInclude Include="GDENG-2 Project\Matrix4x4.h" />
     <ClInclude Include="GDENG-2 Project\MenuScreen.h" />
     <ClInclude Include="GDENG-2 Project\PixelShader.h" />
-    <ClInclude Include="GDENG-2 Project\Plane.h" />
     <ClInclude Include="GDENG-2 Project\Point.h" />
+    <ClInclude Include="GDENG-2 Project\Primitive.h" />
     <ClInclude Include="GDENG-2 Project\ProfilerScreen.h" />
-    <ClInclude Include="GDENG-2 Project\Rectangle.h" />
+    <ClInclude Include="GDENG-2 Project\Random.h" />
+    <ClInclude Include="GDENG-2 Project\RenderData.h" />
+    <ClInclude Include="GDENG-2 Project\RenderView\Framebuffer.h" />
+    <ClInclude Include="GDENG-2 Project\RenderView\RenderQuad.h" />
+    <ClInclude Include="GDENG-2 Project\RenderView\RenderView.h" />
+    <ClInclude Include="GDENG-2 Project\RenderView\SceneViewScreen.h" />
     <ClInclude Include="GDENG-2 Project\SceneCameraHandler.h" />
-    <ClInclude Include="GDENG-2 Project\Sphere.h" />
+    <ClInclude Include="GDENG-2 Project\ShaderLibrary.h" />
     <ClInclude Include="GDENG-2 Project\SwapChain.h" />
-    <ClInclude Include="GDENG-2 Project\Triangle.h" />
+    <ClInclude Include="GDENG-2 Project\System\RenderSystem.h" />
+    <ClInclude Include="GDENG-2 Project\System\SystemHandler.h" />
+    <ClInclude Include="GDENG-2 Project\System\TagSystem.h" />
+    <ClInclude Include="GDENG-2 Project\System\TransformSystem.h" />
+    <ClInclude Include="GDENG-2 Project\SystemManager.h" />
     <ClInclude Include="GDENG-2 Project\UIManager.h" />
     <ClInclude Include="GDENG-2 Project\UINames.h" />
+    <ClInclude Include="GDENG-2 Project\Utils.h" />
+    <ClInclude Include="GDENG-2 Project\Vector2Da.h" />
     <ClInclude Include="GDENG-2 Project\Vector3D.h" />
     <ClInclude Include="GDENG-2 Project\Vector4D.h" />
     <ClInclude Include="GDENG-2 Project\VertexBuffer.h" />
     <ClInclude Include="GDENG-2 Project\VertexShader.h" />
-    <ClInclude Include="GDENG-2 Project\Viewport.h" />
     <ClInclude Include="GDENG-2 Project\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GDENG-2 Project\AGameObject.cpp" />
     <ClCompile Include="GDENG-2 Project\AUIScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp" />
-    <ClCompile Include="GDENG-2 Project\Camera.cpp" />
+    <ClCompile Include="GDENG-2 Project\Color.cpp" />
+    <ClCompile Include="GDENG-2 Project\Component\AComponent.cpp" />
+    <ClCompile Include="GDENG-2 Project\Component\RenderComponent.cpp" />
+    <ClCompile Include="GDENG-2 Project\Component\TagComponent.cpp" />
+    <ClCompile Include="GDENG-2 Project\Component\TransformComponent.cpp" />
     <ClCompile Include="GDENG-2 Project\ConstantBuffer.cpp" />
     <ClCompile Include="GDENG-2 Project\CreditsScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\Cube.cpp" />
-    <ClCompile Include="GDENG-2 Project\Cylinder.cpp" />
+    <ClCompile Include="GDENG-2 Project\Debug.cpp" />
     <ClCompile Include="GDENG-2 Project\DeviceContext.cpp" />
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp" />
-    <ClCompile Include="GDENG-2 Project\GameWindow.cpp" />
+    <ClCompile Include="GDENG-2 Project\GameCameraHandler.cpp" />
+    <ClCompile Include="GDENG-2 Project\GameObject\AGameObject.cpp" />
+    <ClCompile Include="GDENG-2 Project\GameObject\Camera.cpp">
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>obj\Win64\Debug\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>obj\Win64\Debug\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <ConformanceMode>Default</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>obj\Win64\Debug\</ModuleDependenciesFile>
+      <ModuleOutputFile>obj\Win64\Debug\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>obj\Win64\Debug\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>obj\Win64\Debug\vc143.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>obj\Win64\Debug\GDENG-2 Project.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>obj\Win64\Debug\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>obj\Win64\Debug\GDENG-2 Project.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>obj\Win64\Debug\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>DEBUG;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>GDENG-2 Project;</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameObject\CameraMovement.cpp">
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>obj\Win64\Debug\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>obj\Win64\Debug\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <ConformanceMode>Default</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>obj\Win64\Debug\</ModuleDependenciesFile>
+      <ModuleOutputFile>obj\Win64\Debug\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>obj\Win64\Debug\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>obj\Win64\Debug\vc143.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>obj\Win64\Debug\GDENG-2 Project.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>obj\Win64\Debug\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>obj\Win64\Debug\GDENG-2 Project.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>obj\Win64\Debug\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>DEBUG;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>GDENG-2 Project;</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameObject\Cube.cpp" />
+    <ClCompile Include="GDENG-2 Project\GameObjectManager.cpp" />
     <ClCompile Include="GDENG-2 Project\GraphicsEngine.cpp" />
     <ClCompile Include="GDENG-2 Project\HierarchyScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\ImGui\imgui.cpp" />
@@ -266,20 +436,29 @@
     <ClCompile Include="GDENG-2 Project\Matrix4x4.cpp" />
     <ClCompile Include="GDENG-2 Project\MenuScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\PixelShader.cpp" />
-    <ClCompile Include="GDENG-2 Project\Plane.cpp" />
     <ClCompile Include="GDENG-2 Project\Point.cpp" />
+    <ClCompile Include="GDENG-2 Project\Primitive.cpp" />
     <ClCompile Include="GDENG-2 Project\ProfilerScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\Rectangle.cpp" />
+    <ClCompile Include="GDENG-2 Project\Random.cpp" />
+    <ClCompile Include="GDENG-2 Project\RenderView\Framebuffer.cpp" />
+    <ClCompile Include="GDENG-2 Project\RenderView\RenderQuad.cpp" />
+    <ClCompile Include="GDENG-2 Project\RenderView\RenderView.cpp" />
+    <ClCompile Include="GDENG-2 Project\RenderView\SceneViewScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\SceneCameraHandler.cpp" />
-    <ClCompile Include="GDENG-2 Project\Sphere.cpp" />
+    <ClCompile Include="GDENG-2 Project\ShaderLibrary.cpp" />
     <ClCompile Include="GDENG-2 Project\SwapChain.cpp" />
-    <ClCompile Include="GDENG-2 Project\Triangle.cpp" />
+    <ClCompile Include="GDENG-2 Project\System\RenderSystem.cpp" />
+    <ClCompile Include="GDENG-2 Project\System\SystemHandler.cpp" />
+    <ClCompile Include="GDENG-2 Project\System\TagSystem.cpp" />
+    <ClCompile Include="GDENG-2 Project\System\TransformSystem.cpp" />
+    <ClCompile Include="GDENG-2 Project\SystemManager.cpp" />
     <ClCompile Include="GDENG-2 Project\UIManager.cpp" />
+    <ClCompile Include="GDENG-2 Project\Utils.cpp" />
+    <ClCompile Include="GDENG-2 Project\Vector2Da.cpp" />
     <ClCompile Include="GDENG-2 Project\Vector3D.cpp" />
     <ClCompile Include="GDENG-2 Project\Vector4D.cpp" />
     <ClCompile Include="GDENG-2 Project\VertexBuffer.cpp" />
     <ClCompile Include="GDENG-2 Project\VertexShader.cpp" />
-    <ClCompile Include="GDENG-2 Project\Viewport.cpp" />
     <ClCompile Include="GDENG-2 Project\Window.cpp" />
     <ClCompile Include="GDENG-2 Project\main.cpp" />
   </ItemGroup>

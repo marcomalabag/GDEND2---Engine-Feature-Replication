@@ -6,21 +6,31 @@
 class DeviceContext;
 class GraphicsEngine;
 
-class PixelShader
+class PixelShader final
 {
 public:
-	PixelShader();
-	void release();
+	explicit PixelShader(ID3DBlob* pixelShaderBlob);
+
 	~PixelShader();
 
-private:
-	bool init(const void* shader_byte, size_t byte_code_size);
+	[[nodiscard]]
+	void* getByteCodeData() const;
+
+	[[nodiscard]]
+	unsigned int getByteCodeSizeData() const;
+
+	PixelShader(const PixelShader&) = delete;
+
+	PixelShader& operator=(const PixelShader&) = delete;
+
+	PixelShader(const PixelShader&&) = delete;
+
+	PixelShader& operator=(const PixelShader&&) = delete;
 
 private:
-	ID3D11PixelShader* pixelshader;
+	ID3DBlob* blob;
+	ID3D11PixelShader* data;
 
-private:
 	friend class GraphicsEngine;
 	friend class DeviceContext;
 };
-

@@ -1,51 +1,45 @@
 #include "ConstantBuffer.h"
+#include "Debug.h"
+#include "GraphicsEngine.h"
+#include "DeviceContext.h"
 
-ConstantBuffer::ConstantBuffer()
+ConstantBuffer::ConstantBuffer(const void* buffer,
+                               const UINT sizeBuffer)
 {
+	D3D11_BUFFER_DESC constantBufferDesc   = {};
+	constantBufferDesc.ByteWidth           = sizeBuffer;
+	constantBufferDesc.Usage               = D3D11_USAGE_DEFAULT;
+	constantBufferDesc.BindFlags           = D3D11_BIND_CONSTANT_BUFFER;
+	constantBufferDesc.CPUAccessFlags      = 0;
+	constantBufferDesc.MiscFlags           = 0;
+	constantBufferDesc.StructureByteStride = 0;
+
+	D3D11_SUBRESOURCE_DATA constantBufferInitData = {};
+	constantBufferInitData.pSysMem                = buffer;
+
+	const HRESULT result = GraphicsEngine::getInstance()->getDevice().CreateBuffer(&constantBufferDesc,
+	                                                                               &constantBufferInitData,
+	                                                                               &this->buffer);
+
+	Debug::Assert(SUCCEEDED(result), "Failed to create Constant buffer!");
 }
 
-bool ConstantBuffer::load(void* buffer, UINT sizeBuffer)
+void ConstantBuffer::update(const DeviceContext& deviceContext,
+                            const void* updatedBufferData) const
 {
-	if(this->Buffer)
-	{
-		this->Buffer->Release();
-	}
-
-	D3D11_BUFFER_DESC buff_desc = {};
-	buff_desc.Usage = D3D11_USAGE_DEFAULT;
-	buff_desc.ByteWidth = sizeBuffer;
-	buff_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	buff_desc.CPUAccessFlags = 0;
-	buff_desc.MiscFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA init_data = {};
-	init_data.pSysMem = buffer;
-
-	if (FAILED(GraphicsEngine::getInstance()->getD3Ddevice()->CreateBuffer(&buff_desc, &init_data, &this->Buffer)))
-	{
-		std::cout << "Failed to create constant buffer";
-		return false;
-	}
-
-	return true;
-}
-
-void ConstantBuffer::update(DeviceContext* context, void* buffer)
-{
-	context->Devicecontext->UpdateSubresource(this->Buffer, NULL, NULL, buffer, NULL, NULL);
-}
-
-bool ConstantBuffer::release()
-{
-	if(this->Buffer)
-	{
-		this->Buffer->Release();
-		delete this;
-	}
-
-	return true;
+	deviceContext.deviceContext->UpdateSubresource(this->buffer,
+	                                               NULL,
+	                                               nullptr,
+	                                               updatedBufferData,
+	                                               NULL,
+	                                               NULL);
 }
 
 ConstantBuffer::~ConstantBuffer()
 {
+	if (this->buffer != nullptr)
+	{
+		this->buffer->Release();
+		delete this;
+	}
 }

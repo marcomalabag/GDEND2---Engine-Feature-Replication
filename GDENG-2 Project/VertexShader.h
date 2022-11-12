@@ -1,24 +1,36 @@
 #pragma once
-#include "GraphicsEngine.h"
 #include <d3d11.h>
-#include <iostream>
 
 class GraphicsEngine;
 class DeviceContext;
 
-class VertexShader
+class VertexShader final
 {
 public:
-	VertexShader();
-	bool release();
+	explicit VertexShader(ID3DBlob* vertexShaderBlob);
+	
 	~VertexShader();
 
-private:
-	bool init(const void* shader_byte_code, size_t byte_code_size);
-	ID3D11VertexShader* vertexShader;;
+	[[nodiscard]]
+	void* getByteCodeData() const;
+
+	[[nodiscard]]
+	unsigned int getByteCodeSizeData() const;
+
+	VertexShader(const VertexShader&) = delete;
+
+	VertexShader& operator=(const VertexShader&) = delete;
+
+	VertexShader(const VertexShader&&) = delete;
+
+	VertexShader& operator=(const VertexShader&&) = delete;
 
 private:
+	ID3DBlob* blob;
+	ID3D11VertexShader* data;
+
 	friend class GraphicsEngine;
+	
 	friend class DeviceContext;
 
 };

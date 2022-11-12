@@ -1,29 +1,33 @@
 #pragma once
 #include <d3d11.h>
-#include "GraphicsEngine.h"
-#include <iostream>
-#include "DeviceContext.h"
+#include "RenderData.h"
 
 class DeviceContext;
 
-class IndexBuffer
+class IndexBuffer final
 {
 public:
-	IndexBuffer();
-	bool load(void* list_indices, UINT size_list);
-	UINT getSizeIndexList();
-	bool release();
+	IndexBuffer(RenderData& renderData);
+
 	~IndexBuffer();
 
-private:
-	UINT SizeList;
+	[[nodiscard]]
+	ID3D11Buffer* getBuffer() const;
+
+	[[nodiscard]]
+	size_t getBufferSize() const;
+
+	[[nodiscard]]
+	unsigned int getElementCount() const;
 
 private:
-	ID3D11Buffer* m_buffer = nullptr;
+	ID3D11Buffer* buffer = nullptr;
 
-private:
+	size_t dataTypeSize;
+
+	size_t bufferSize;
+
+	unsigned int elementCount;
+
 	friend class DeviceContext;
-
-
 };
-

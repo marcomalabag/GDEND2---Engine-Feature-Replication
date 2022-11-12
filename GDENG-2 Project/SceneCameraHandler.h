@@ -1,5 +1,6 @@
 #pragma once
-#include "Camera.h"
+#include "GameObject/Camera.h"
+#include "GameObject/CameraMovement.h"
 
 
 class SceneCameraHandler
@@ -16,10 +17,11 @@ public:
 private:
 	SceneCameraHandler();
 	~SceneCameraHandler();
-	SceneCameraHandler(SceneCameraHandler const&) {};
-	SceneCameraHandler& operator=(SceneCameraHandler const&) {};
+	SceneCameraHandler(SceneCameraHandler const&) {}
+	SceneCameraHandler& operator=(SceneCameraHandler const&) {}
 	static SceneCameraHandler* sharedInstance;
 
 	Camera* sceneCamera;
+	CameraMovement* cam;
 };
 

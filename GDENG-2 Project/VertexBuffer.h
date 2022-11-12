@@ -1,33 +1,48 @@
 #pragma once
 #include "GraphicsEngine.h"
 #include <d3d11.h>
-#include <iostream>
 
+struct RenderData;
 class DeviceContext;
 
-class VertexBuffer
+class VertexBuffer final
 {
 public:
-	VertexBuffer();
-	bool load(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, size_t size_byte_shader);
-	bool release();
+	VertexBuffer(RenderData& renderData,
+	             VertexShader& vertexShader);
+
 	~VertexBuffer();
 
-public:
-	ID3D11Buffer* getBuffer();
-	ID3D11InputLayout* getLayout();
-	UINT getSizeVertexBuffer();
-	UINT getSizeVertexList();
+	[[nodiscard]]
+	ID3D11Buffer* getBuffer() const;
+
+	[[nodiscard]]
+	ID3D11InputLayout* getLayout() const;
+
+	[[nodiscard]]
+	size_t getBufferSize() const;
+
+	[[nodiscard]]
+	unsigned int getElementCount() const;
+
+	VertexBuffer(const VertexBuffer&) = delete;
+
+	VertexBuffer& operator=(const VertexBuffer&) = delete;
+
+	VertexBuffer(const VertexBuffer&&) = delete;
+
+	VertexBuffer& operator=(const VertexBuffer&&) = delete;
 
 private:
-	UINT sizeVertexBuffer;
-	UINT sizeVertexList;
+	ID3D11Buffer* buffer = nullptr;
 
-private:
-	ID3D11Buffer* Buffer = nullptr;
-	ID3D11InputLayout* Layout;
+	ID3D11InputLayout* layout = nullptr;
 
-private:
+	size_t dataTypeSize;
+
+	size_t bufferSize;
+
+	unsigned int elementCount;
+
 	friend class DeviceContext;
 };
-

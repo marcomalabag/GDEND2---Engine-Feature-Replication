@@ -1,231 +1,125 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include <d3dcompiler.h>
+#include <vector>
 
-GraphicsEngine* GraphicsEngine::sharedInstance = NULL;
-GraphicsEngine::GraphicsEngine()
-{
-}
+#include "Debug.h"
 
-bool GraphicsEngine::init()
+GraphicsEngine* GraphicsEngine::instance = nullptr;
+
+GraphicsEngine::GraphicsEngine(const HWND windowHandle,
+                               const unsigned int width,
+                               const unsigned int height) :
+	swapChain{nullptr},
+	immDeviceContext{nullptr},
+	d3dDevice{nullptr},
+	dxgiDevice{nullptr},
+	dxgiAdapter{nullptr},
+	dxgiFactory{nullptr}
 {
-	D3D_DRIVER_TYPE driver_types[] =
+	const std::vector<D3D_DRIVER_TYPE> driverTypes =
 	{
 		D3D_DRIVER_TYPE_HARDWARE,
 		D3D_DRIVER_TYPE_WARP,
 		D3D_DRIVER_TYPE_REFERENCE
 	};
 
-	UINT num_driver_types = ARRAYSIZE(driver_types);
-
-	D3D_FEATURE_LEVEL feature_levels[] =
+	const std::vector<D3D_FEATURE_LEVEL> featureLevels =
 	{
 		D3D_FEATURE_LEVEL_11_0
 	};
 
-	UINT num_feature_levels = ARRAYSIZE(feature_levels);
-
 	HRESULT result = 0;
-	
-	for (UINT driver_type_index = 0; driver_type_index < num_driver_types;)
-	{
-		result = D3D11CreateDevice(NULL, driver_types[driver_type_index], NULL, NULL,
-			feature_levels, num_feature_levels, D3D11_SDK_VERSION, &m_d3d_device, &m_feature_level,
-			&this->m_imm_context);
 
+	ID3D11DeviceContext* deviceContext = nullptr;
+
+	for (const auto driverType : driverTypes)
+	{
+		result = D3D11CreateDevice(nullptr,
+		                           driverType,
+		                           nullptr,NULL,
+		                           featureLevels.data(),
+		                           (UINT)featureLevels.size(),
+		                           D3D11_SDK_VERSION,
+		                           &this->d3dDevice,
+		                           &this->featureLevel,
+		                           &deviceContext);
 		if (SUCCEEDED(result))
 		{
 			break;
-			driver_type_index++;
 		}
 	}
 
-	if (FAILED(result))
-	{
-		return false;
-	}
+	Debug::Assert(SUCCEEDED(result), "Failed to create device!");
 
-	this->m_imm_device_context = new DeviceContext(this->m_imm_context);
+	this->immDeviceContext = new DeviceContext(deviceContext);
 
-	m_d3d_device->QueryInterface(__uuidof(IDXGIDevice), (void**) &m_dxgi_device);
-	m_dxgi_device->GetParent(__uuidof(IDXGIAdapter), (void**)&m_dxgi_adapter);
-	m_dxgi_adapter->GetParent(__uuidof(IDXGIFactory), (void**)&m_dxgi_factory);
-	
+	this->d3dDevice->QueryInterface(__uuidof(IDXGIDevice),
+	                                (void**)&this->dxgiDevice);
+	this->dxgiDevice->GetParent(__uuidof(IDXGIAdapter),
+	                            (void**)&this->dxgiAdapter);
+	this->dxgiAdapter->GetParent(__uuidof(IDXGIFactory),
+	                             (void**)&this->dxgiFactory);
 
-	return true;
-}
-
-bool GraphicsEngine::release()
-{
-	if(this->VertexShader)
-	{
-		this->VertexShader->Release();
-	}
-
-	if (this->pixelshader)
-	{
-		this->pixelshader->Release();
-	}
-
-	if(this->VertexShaderBlob)
-	{
-		this->VertexShaderBlob->Release();
-	}
-
-	if (this->PixelShaderBlob)
-	{
-		this->PixelShaderBlob->Release();
-	}
-
-	m_dxgi_device->Release();
-	m_dxgi_adapter->Release();
-	m_dxgi_factory->Release();
-
-	
-	this->m_imm_device_context->release();
-	m_d3d_device->Release();
-	return true;
-}
-
-ID3D11Device* GraphicsEngine::getD3Ddevice()
-{
-	return this->m_d3d_device;
-}
-
-D3D_FEATURE_LEVEL GraphicsEngine::getFeatureLevel()
-{
-	return this->m_feature_level;
-}
-
-IDXGIFactory* GraphicsEngine::getFactory()
-{
-	return this->m_dxgi_factory;
-}
-
-DeviceContext* GraphicsEngine::getImmediateDeviceContext()
-{
-	return this->m_imm_device_context;
-}
-
-VertexBuffer* GraphicsEngine::createVertexBuffer()
-{
-	return new VertexBuffer();
-}
-
-IndexBuffer* GraphicsEngine::createIndexBuffer()
-{
-	return new IndexBuffer();
-}
-
-ConstantBuffer* GraphicsEngine::createConstantBuffer()
-{
-	return new ConstantBuffer();
-}
-
-VertexShader* GraphicsEngine::createVertexShader(const void* shader_byte_code, size_t byte_code_size)
-{
-	class VertexShader* vs = new class VertexShader();
-
-	if(!vs->init(shader_byte_code, byte_code_size))
-	{
-		vs->release();
-		return nullptr;
-	}
-
-	return vs;
-}
-
-PixelShader* GraphicsEngine::createPixelShader(const void* shader_byte_code, size_t byte_code_size)
-{
-	PixelShader* ps = new PixelShader();
-
-	if (!ps->init(shader_byte_code, byte_code_size)) {
-		ps->release();
-		return nullptr;
-	}
-
-	return ps;
-}
-
-bool GraphicsEngine::compileVertexShader(const wchar_t* Filename, const char* EntryPointName, void** shader_byte_code, size_t* byte_code_size)
-{
-	ID3DBlob* errorBlob = nullptr;
-	if(!SUCCEEDED(D3DCompileFromFile(Filename, nullptr, nullptr, EntryPointName, "vs_5_0", 0, 0, &this->m_blob, &errorBlob)))
-	{
-		if(errorBlob)
-		{
-			std::cout<<"Faied to compile vertex shader";
-			errorBlob->Release();
-			return false;
-		}
-	}
-
-	*shader_byte_code = this->m_blob->GetBufferPointer();
-	*byte_code_size = this->m_blob->GetBufferSize();
-
-	return true;
-}
-
-bool GraphicsEngine::compilePixelShader(const wchar_t* Filename, const char* EntryPointName, void** shader_byte_code, size_t* byte_code_size)
-{
-	ID3DBlob* errorBlob = nullptr;
-	if (!SUCCEEDED(D3DCompileFromFile(Filename, nullptr, nullptr, EntryPointName, "ps_5_0", 0, 0, &this->m_blob, &errorBlob)))
-	{
-		if (errorBlob)
-		{
-			std::cout << "Faied to compile pixel shader";
-			errorBlob->Release();
-			return false;
-		}
-	}
-
-	*shader_byte_code = this->m_blob->GetBufferPointer();
-	*byte_code_size = this->m_blob->GetBufferSize();
-
-	return true;
-}
-
-void GraphicsEngine::releaseCompiledShader()
-{
-	if(this->m_blob)
-	{
-		this->m_blob->Release();
-	}
+	this->swapChain = new SwapChain(windowHandle,
+	                                width,
+	                                height,
+	                                this->d3dDevice,
+	                                this->dxgiFactory);
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
+	delete this->swapChain;
+	this->dxgiAdapter->Release();
+	this->dxgiDevice->Release();
+	this->dxgiFactory->Release();
+	delete this->immDeviceContext;
+	this->d3dDevice->Release();
 }
 
-
-
-SwapChain* GraphicsEngine::createSwapChain()
+void GraphicsEngine::init(const HWND windowHandle,
+                          const unsigned int width,
+                          const unsigned int height)
 {
-	return new SwapChain();
+	if (instance == nullptr)
+	{
+		instance = new GraphicsEngine(windowHandle, width, height);
+	}
 }
 
-
+void GraphicsEngine::release()
+{
+	if (instance != nullptr)
+	{
+		delete instance;
+		instance = nullptr;
+	}
+}
 
 GraphicsEngine* GraphicsEngine::getInstance()
 {
-	if(sharedInstance != NULL)
+	if (instance != nullptr)
 	{
-		return sharedInstance;
+		return instance;
 	}
-
-
+	return nullptr;
 }
 
-void GraphicsEngine::initialize()
+ID3D11Device& GraphicsEngine::getDevice() const
 {
-	sharedInstance = new GraphicsEngine();
-	sharedInstance->init();
+	return *this->d3dDevice;
 }
 
-void GraphicsEngine::destroy()
+DeviceContext& GraphicsEngine::getDeviceContext() const
 {
-	if(sharedInstance != NULL)
-	{
-		sharedInstance->release();
-	}
+	return *this->immDeviceContext;
+}
+IDXGIFactory& GraphicsEngine::getFactory() const
+{
+	return *this->dxgiFactory;
+}
+SwapChain& GraphicsEngine::getSwapChain() const
+{
+	return *this->swapChain;
 }
