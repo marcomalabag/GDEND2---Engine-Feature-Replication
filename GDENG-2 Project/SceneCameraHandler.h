@@ -1,5 +1,6 @@
 #pragma once
 #include "Camera.h"
+#include "CameraMovement.h"
 
 
 class SceneCameraHandler
@@ -21,5 +22,6 @@ private:
 	static SceneCameraHandler* sharedInstance;
 
 	Camera* sceneCamera;
+	CameraMovement* cam;
 };
 

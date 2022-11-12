@@ -105,6 +105,11 @@ Matrix4x4 AGameObject::getLocalMatrix()
 	return summation;
 }
 
+String AGameObject::getName()
+{
+	return this->name;
+}
+
 AGameObject::~AGameObject()
 {
 }

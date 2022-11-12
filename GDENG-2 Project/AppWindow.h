@@ -13,6 +13,8 @@
 #include "EngineTime.h"
 #include "InputListener.h"
 #include "InputSystem.h"
+#include "GameObjectManager.h"
+#include "GameCameraHandler.h"
 
 class RenderQuad;
 class Cube;

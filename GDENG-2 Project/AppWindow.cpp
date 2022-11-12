@@ -43,6 +43,8 @@ void AppWindow::initializeEngine()
 	ShaderLibrary::init(5);
 	EngineTime::initialize();
 	SceneCameraHandler::initialize();
+	GameCameraHandler::initialize();
+	GameObjectManager::initialize();
 
 	SystemHandler::init();
 
@@ -65,6 +67,9 @@ void AppWindow::initializeEngine()
 
 	// Initial Entities
 	// Goal: Draw at least 1 Cube using ECS
+	//GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
+	GameCameraHandler::getInstance()->initializeGameCamera();
+	
 }
 
 void AppWindow::createInterface()
@@ -84,6 +89,8 @@ void AppWindow::onUpdate()
 	// Drawing----------------
 
 	SystemHandler::getInstance().getRenderSystem().draw(framebuffer1);
+
+	GameObjectManager::getInstance()->renderAll(width, height);
 
 	Framebuffer& swapChainBuffer = GraphicsEngine::getInstance()->getSwapChain().getBuffer();
 	FramebufferProfile swapChainBufferInfo = swapChainBuffer.getInfo();
