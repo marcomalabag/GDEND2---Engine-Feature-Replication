@@ -1,6 +1,6 @@
 ﻿#include "RenderComponent.h"
 
-#include "Camera.h"
+#include "GameObject/Camera.h"
 #include "Debug.h"
 
 #include "GameObject/AGameObject.h"
