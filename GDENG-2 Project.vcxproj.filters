@@ -10,14 +10,20 @@
     <Filter Include="GDENG-2 Project\GameObject">
       <UniqueIdentifier>{A020DE4D-8C30-8A1E-F5E9-EE3CE11879B7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GDENG-2 Project\Graphics">
+      <UniqueIdentifier>{6026B5FE-4C4B-047F-7596-E90E611A039D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GDENG-2 Project\ImGui">
       <UniqueIdentifier>{4A877936-B6F3-3431-7FE7-CC8EEB125799}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GDENG-2 Project\RenderView">
-      <UniqueIdentifier>{CAD8F31F-B6E8-9FF0-1FA2-040F0BD18E89}</UniqueIdentifier>
+    <Filter Include="GDENG-2 Project\Math">
+      <UniqueIdentifier>{F9B20576-E541-8F3F-8E60-A33A7ACE9FE5}</UniqueIdentifier>
     </Filter>
     <Filter Include="GDENG-2 Project\System">
       <UniqueIdentifier>{3449EF1D-2043-1870-09B0-AE80F5487EDC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GDENG-2 Project\UI">
+      <UniqueIdentifier>{4D191E76-39FD-DECB-A25D-D91E8E60C94D}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{21EB8090-0D4E-1035-B6D3-48EBA215DCB7}</UniqueIdentifier>
@@ -27,22 +33,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GDENG-2 Project\AGameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\AUIScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\AppWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\CameraMovement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Component\AComponent.h">
@@ -57,16 +48,7 @@
     <ClInclude Include="GDENG-2 Project\Component\TransformComponent.h">
       <Filter>GDENG-2 Project\Component</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\ConstantBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\CreditsScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\Debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\DeviceContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\EngineTime.h">
@@ -78,10 +60,19 @@
     <ClInclude Include="GDENG-2 Project\GameObject\AGameObject.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="GDENG-2 Project\GameObject\Camera.h">
+      <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\GameObject\CameraMovement.h">
+      <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameObject\Cube.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameObject\Cylinder.h">
+      <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\GameObject\GameObjectManager.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameObject\Plane.h">
@@ -96,17 +87,44 @@
     <ClInclude Include="GDENG-2 Project\GameObject\Triangle.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameObjectManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Graphics\ConstantBuffer.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameWindow.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Graphics\DeviceContext.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GraphicsEngine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Graphics\Framebuffer.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\HierarchyScreen.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Graphics\GraphicsEngine.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\HalfRenderQuad.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\IndexBuffer.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\PixelShader.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\Primitive.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\RenderQuad.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\ShaderLibrary.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\SwapChain.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\VertexBuffer.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Graphics\VertexShader.h">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\ImGui\imconfig.h">
       <Filter>GDENG-2 Project\ImGui</Filter>
@@ -132,64 +150,43 @@
     <ClInclude Include="GDENG-2 Project\ImGui\imstb_truetype.h">
       <Filter>GDENG-2 Project\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\IndexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\InputListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\InputSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\InspectorScreen.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Math\Color.h">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Mathf.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Math\Mathf.h">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Matrix4x4.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Math\Matrix4.h">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\MenuScreen.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Math\Matrix4x4.h">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\PixelShader.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\Math\Random.h">
+      <Filter>GDENG-2 Project\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Math\Vector2D.h">
+      <Filter>GDENG-2 Project\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Math\Vector3D.h">
+      <Filter>GDENG-2 Project\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\Math\Vector4D.h">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Point.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Primitive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\ProfilerScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\RenderData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\RenderView\Framebuffer.h">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\RenderView\RenderQuad.h">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\RenderView\RenderView.h">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\RenderView\SceneViewScreen.h">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\SceneCameraHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\ShaderLibrary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\SwapChain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\System\RenderSystem.h">
@@ -204,31 +201,40 @@
     <ClInclude Include="GDENG-2 Project\System\TransformSystem.h">
       <Filter>GDENG-2 Project\System</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\SystemManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\UI\AUIScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\UIManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\UI\AViewportScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\UINames.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GDENG-2 Project\UI\CreditsScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\EditorViewportScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\GameViewportScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\HierarchyScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\InspectorScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\MenuScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\ProfilerScreen.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\UIManager.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\UINames.h">
+      <Filter>GDENG-2 Project\UI</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Vector2Da.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Vector3D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Vector4D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\VertexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\VertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Window.h">
@@ -236,19 +242,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GDENG-2 Project\AUIScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\CameraMovement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Component\AComponent.cpp">
@@ -263,16 +257,7 @@
     <ClCompile Include="GDENG-2 Project\Component\TransformComponent.cpp">
       <Filter>GDENG-2 Project\Component</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\ConstantBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\CreditsScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GDENG-2 Project\Debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\DeviceContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp">
@@ -284,10 +269,19 @@
     <ClCompile Include="GDENG-2 Project\GameObject\AGameObject.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameObject\Camera.cpp">
+      <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameObject\CameraMovement.cpp">
+      <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameObject\Cube.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameObject\Cylinder.cpp">
+      <Filter>GDENG-2 Project\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\GameObject\GameObjectManager.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameObject\Plane.cpp">
@@ -302,17 +296,44 @@
     <ClCompile Include="GDENG-2 Project\GameObject\Triangle.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameObjectManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Graphics\ConstantBuffer.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameWindow.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Graphics\DeviceContext.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GraphicsEngine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Graphics\Framebuffer.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\HierarchyScreen.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Graphics\GraphicsEngine.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\HalfRenderQuad.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\IndexBuffer.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\PixelShader.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\Primitive.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\RenderQuad.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\ShaderLibrary.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\SwapChain.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\VertexBuffer.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Graphics\VertexShader.cpp">
+      <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\ImGui\imgui.cpp">
       <Filter>GDENG-2 Project\ImGui</Filter>
@@ -335,58 +356,37 @@
     <ClCompile Include="GDENG-2 Project\ImGui\imgui_widgets.cpp">
       <Filter>GDENG-2 Project\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\IndexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GDENG-2 Project\InputSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\InspectorScreen.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Math\Color.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Mathf.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Math\Mathf.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Matrix4x4.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Math\Matrix4.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\MenuScreen.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Math\Matrix4x4.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\PixelShader.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\Math\Random.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Math\Vector2D.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Math\Vector3D.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\Math\Vector4D.cpp">
+      <Filter>GDENG-2 Project\Math</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Primitive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\ProfilerScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Random.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\RenderView\Framebuffer.cpp">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\RenderView\RenderQuad.cpp">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\RenderView\RenderView.cpp">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\RenderView\SceneViewScreen.cpp">
-      <Filter>GDENG-2 Project\RenderView</Filter>
-    </ClCompile>
     <ClCompile Include="GDENG-2 Project\SceneCameraHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\ShaderLibrary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\SwapChain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\System\RenderSystem.cpp">
@@ -401,28 +401,37 @@
     <ClCompile Include="GDENG-2 Project\System\TransformSystem.cpp">
       <Filter>GDENG-2 Project\System</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\SystemManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\UI\AUIScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\UIManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GDENG-2 Project\UI\AViewportScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\CreditsScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\EditorViewportScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\GameViewportScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\HierarchyScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\InspectorScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\MenuScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\ProfilerScreen.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\UIManager.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Vector2Da.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Vector3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Vector4D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\VertexBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\VertexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Window.cpp">
