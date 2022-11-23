@@ -1,6 +1,6 @@
 ﻿#include "AComponent.h"
 
-#include "GameObject/AGameObject.h"
+#include "ECS/GameObject/AGameObject.h"
 
 AComponent::AComponent(AGameObject& owner) :
 	ownerRef{owner}
@@ -19,6 +19,7 @@ bool AComponent::operator==(const AComponent& other) const
 	return getName() == other.getName() &&
 	       ownerRef.Name == other.getOwner().Name;
 }
+
 bool AComponent::operator!=(const AComponent& other) const
 {
 	return getName() != other.getName() ||

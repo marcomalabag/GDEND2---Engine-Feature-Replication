@@ -1,12 +1,11 @@
 #include "PixelShader.h"
 #include "Debug.h"
 
-PixelShader::PixelShader(ID3DBlob* pixelShaderBlob) :
+PixelShader::PixelShader(ID3D11Device& device, ID3DBlob* pixelShaderBlob) :
 	blob{std::move(pixelShaderBlob)},
 	data{nullptr}
 {
-	HRESULT result = GraphicsEngine::getInstance()->
-	                 getDevice().CreatePixelShader(blob->GetBufferPointer(),
+	HRESULT result = device.CreatePixelShader(blob->GetBufferPointer(),
 	                                               blob->GetBufferSize(),
 	                                               nullptr,
 	                                               &data);

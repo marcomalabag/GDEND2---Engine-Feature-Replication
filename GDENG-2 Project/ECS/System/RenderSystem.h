@@ -34,7 +34,6 @@ public:
 	RenderSystem& operator=(RenderSystem&&) noexcept = delete;
 
 private:
-	// If entity ID is a string, what if an entity's name is changed?
 	std::unordered_map<EntityID, RenderComponent*> componentMap;
 	std::vector<RenderComponent*> componentList;
 };

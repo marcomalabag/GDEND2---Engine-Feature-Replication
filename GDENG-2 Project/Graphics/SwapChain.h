@@ -5,11 +5,11 @@ class DeviceContext;
 class SwapChain final
 {
 public:
-	SwapChain(HWND windowHandle,
+	SwapChain(ID3D11Device& device,
+			  IDXGIFactory& factory,
+			  HWND windowHandle,
 	          unsigned int width,
-	          unsigned int height,
-	          ID3D11Device* device,
-	          IDXGIFactory* factory);
+	          unsigned int height);
 
 	~SwapChain();
 
@@ -24,8 +24,8 @@ public:
 	SwapChain& operator=(SwapChain&&) noexcept = delete;
 
 private:
-	IDXGISwapChain* swapChain;
-	Framebuffer* framebuffer;
+	IDXGISwapChain* swapChain = nullptr;
+	Framebuffer* framebuffer = nullptr;
 
 	friend class DeviceContext;
 };

@@ -3,7 +3,7 @@
 
 #include "Debug.h"
 
-#include "System/SystemHandler.h"
+#include "SystemHandler.h"
 
 //Remember:
 //GameObject is an ID
@@ -11,7 +11,6 @@
 //Systems are DataProcessors
 
 class AComponent;
-class TransformComponent;
 class AGameObject
 {
 public:
@@ -28,22 +27,14 @@ public:
 	template <class T>
 	T* getComponent();
 
-	TransformComponent& transform() const;
-
 	// TODO: What to do for copying
 	// Idea is that all component's data will be copied
-	AGameObject(const AGameObject&) = delete;
-
-	AGameObject& operator=(const AGameObject& v) = delete;
-
-	AGameObject(AGameObject&&) noexcept = delete;
-
+	AGameObject(const AGameObject&)                = delete;
+	AGameObject& operator=(const AGameObject&)     = delete;
+	AGameObject(AGameObject&&) noexcept            = delete;
 	AGameObject& operator=(AGameObject&&) noexcept = delete;
 
 	std::string Name;
-
-private:
-	TransformComponent* localTransform;
 };
 
 template <typename T, typename ... Args>

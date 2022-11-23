@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "Component/RenderComponent.h"
+#include "ECS/Component/RenderComponent.h"
 
-#include "RenderSystem.h"
+#include "ECS/System/RenderSystem.h"
 
 class SystemHandler final
 {
@@ -38,7 +38,7 @@ private:
 	static SystemHandler* instance;
 
 	// TransformSystem
-	// TagSystem
+	
 	RenderSystem* renderSystem;
 };
 

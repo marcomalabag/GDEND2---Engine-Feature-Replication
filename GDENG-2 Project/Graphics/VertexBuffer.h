@@ -8,7 +8,8 @@ class DeviceContext;
 class VertexBuffer final
 {
 public:
-	VertexBuffer(RenderData& renderData,
+	explicit VertexBuffer(ID3D11Device& device,
+	             RenderData& renderData,
 	             VertexShader& vertexShader);
 
 	~VertexBuffer();
@@ -25,23 +26,16 @@ public:
 	[[nodiscard]]
 	unsigned int getElementCount() const;
 
-	VertexBuffer(const VertexBuffer&) = delete;
-
-	VertexBuffer& operator=(const VertexBuffer&) = delete;
-
-	VertexBuffer(const VertexBuffer&&) = delete;
-
+	VertexBuffer(const VertexBuffer&)             = delete;
+	VertexBuffer& operator=(const VertexBuffer&)  = delete;
+	VertexBuffer(const VertexBuffer&&)            = delete;
 	VertexBuffer& operator=(const VertexBuffer&&) = delete;
 
 private:
-	ID3D11Buffer* buffer = nullptr;
-
+	ID3D11Buffer* buffer      = nullptr;
 	ID3D11InputLayout* layout = nullptr;
-
 	size_t dataTypeSize;
-
 	size_t bufferSize;
-
 	unsigned int elementCount;
 
 	friend class DeviceContext;

@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include <d3d11.h>
+
 struct FramebufferProfile
 {
-	unsigned int Width;
-	unsigned int Height;
+	unsigned int Width = 512;
+	unsigned int Height = 512;
 	ID3D11Texture2D* TargetRenderTexture = nullptr;
 	bool SwapChainFramebuffer            = false;
 };
@@ -11,8 +12,8 @@ struct FramebufferProfile
 class Framebuffer final
 {
 public:
-	explicit Framebuffer(const FramebufferProfile& profile,
-	                     ID3D11Device* device);
+	explicit Framebuffer(ID3D11Device& device,
+	                     const FramebufferProfile& profile);
 	~Framebuffer();
 
 	[[nodiscard]]

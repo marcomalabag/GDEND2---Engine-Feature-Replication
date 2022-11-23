@@ -8,8 +8,7 @@ class AGameObject;
 class AComponent
 {
 public:
-	explicit AComponent(AGameObject& owner); 
-
+	explicit AComponent(AGameObject& owner);
 	virtual ~AComponent();
 
 	[[nodiscard]]
@@ -19,15 +18,11 @@ public:
 	virtual std::string getName() const = 0;
 
 	bool operator==(const AComponent& other) const;
-
 	bool operator!=(const AComponent& other) const;
 
-	AComponent(const AComponent&) = delete;
-	
-	AComponent& operator=(const AComponent&) = delete;
-	
-	AComponent(AComponent&&) noexcept = delete;
-	
+	AComponent(const AComponent&)                = delete;
+	AComponent& operator=(const AComponent&)     = delete;
+	AComponent(AComponent&&) noexcept            = delete;
 	AComponent& operator=(AComponent&&) noexcept = delete;
 
 protected:

@@ -7,7 +7,7 @@ class DeviceContext;
 class IndexBuffer final
 {
 public:
-	IndexBuffer(RenderData& renderData);
+	explicit IndexBuffer(ID3D11Device& device, RenderData& renderData);
 
 	~IndexBuffer();
 
@@ -20,14 +20,16 @@ public:
 	[[nodiscard]]
 	unsigned int getElementCount() const;
 
+	IndexBuffer(const IndexBuffer&)                = delete;
+	IndexBuffer& operator=(const IndexBuffer&)     = delete;
+	IndexBuffer(IndexBuffer&&) noexcept            = delete;
+	IndexBuffer& operator=(IndexBuffer&&) noexcept = delete;
+	
 private:
 	ID3D11Buffer* buffer = nullptr;
-
 	size_t dataTypeSize;
-
 	size_t bufferSize;
-
-	unsigned int elementCount;
+	size_t elementCount;
 
 	friend class DeviceContext;
 };
