@@ -31,6 +31,9 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{E9C7FDCE-D52A-8D73-7EB0-C5296AF258F6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GDENG-2 Project\Camera">
+      <UniqueIdentifier>{f02b8daa-9b99-4e47-a494-98329f5b1093}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GDENG-2 Project\AppWindow.h">
@@ -69,22 +72,7 @@
     <ClInclude Include="GDENG-2 Project\GameObject\Cube.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameObject\Cylinder.h">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\GameObject\GameObjectManager.h">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameObject\Plane.h">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameObject\Rectangle.h">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameObject\Sphere.h">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\GameObject\Triangle.h">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Graphics\ConstantBuffer.h">
@@ -240,6 +228,10 @@
     <ClInclude Include="GDENG-2 Project\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EditorCamera.h">
+      <Filter>GDENG-2 Project\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp">
@@ -278,22 +270,7 @@
     <ClCompile Include="GDENG-2 Project\GameObject\Cube.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameObject\Cylinder.cpp">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="GDENG-2 Project\GameObject\GameObjectManager.cpp">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameObject\Plane.cpp">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameObject\Rectangle.cpp">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameObject\Sphere.cpp">
-      <Filter>GDENG-2 Project\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\GameObject\Triangle.cpp">
       <Filter>GDENG-2 Project\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Graphics\ConstantBuffer.cpp">
@@ -440,5 +417,9 @@
     <ClCompile Include="GDENG-2 Project\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EditorCamera.cpp">
+      <Filter>GDENG-2 Project\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp" />
   </ItemGroup>
 </Project>

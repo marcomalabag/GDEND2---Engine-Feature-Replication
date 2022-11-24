@@ -11,6 +11,7 @@ public:
 protected:
 	void drawUI() override;
 	
+	
 	virtual Framebuffer& getFramebufferRef() = 0;
 
 private:

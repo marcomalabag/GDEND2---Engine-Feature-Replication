@@ -120,10 +120,11 @@ void AppWindow::onUpdate()
 
 	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(editorRenderTarget->getDepthStencil());
 
-	halfRenderQuad->draw();
+	
+    halfRenderQuad->draw();
 
-	// SystemHandler::getInstance().getRenderSystem().draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix(),
-	//                                                     SceneCameraHandler::getInstance()->getFramebuffer());
+	SystemHandler::getInstance().getRenderSystem().draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix(),
+		SceneCameraHandler::getInstance()->getFramebuffer());
 
 
 	// game framebuffer
@@ -144,17 +145,19 @@ void AppWindow::onUpdate()
 
 	halfRenderQuad->draw();
 	
-	// SystemHandler::getInstance().getRenderSystem().draw(GameCameraHandler::getInstance()->getGameCameraViewMatrix(),
-	//                                                     GameCameraHandler::getInstance()->getFramebuffer());
+	
+	SystemHandler::getInstance().getRenderSystem().draw(GameCameraHandler::getInstance()->getGameCameraViewMatrix(),
+	                                                     GameCameraHandler::getInstance()->getFramebuffer());
 
 	// return to swap buffer
 	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
 																		&swapChainBuffer.getDepthStencil());
 
 	// Draw quad with texture of the framebuffer
-	//renderQuad->draw(framebuffer1->getFrame());
+	renderQuad->draw(framebuffer1->getFrame());
 
 	halfRenderQuad->draw();
+	
 
 	UIManager::getInstance()->drawAllUI();
 

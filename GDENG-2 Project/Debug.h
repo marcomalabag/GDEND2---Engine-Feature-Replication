@@ -14,7 +14,7 @@ namespace Debug
 	         Args&&... args)
 	{
 #ifdef DEBUG
-		std::cout << std::vformat(message, std::make_format_args(args...)) << "\n";
+		//std::cout << std::vformat(message, std::make_format_args(args...)) << "\n";
 #endif
 	}
 
@@ -58,7 +58,7 @@ namespace Debug
 		if (!successCondition)
 		{
 			Log("Assertion Failed: {0} | {1} @ ({2} Line: {3})",
-			    std::vformat(message, std::make_format_args(args...)),
+			    //std::vformat(message, std::make_format_args(args...)),
 			    loc.function_name(),
 			    loc.file_name(),
 			    loc.line());

@@ -1,7 +1,7 @@
 ﻿#include "AViewportScreen.h"
 
 #include "Graphics/Framebuffer.h"
-
+#include <iostream>
 #include "IMGUI/imgui.h"
 
 AViewportScreen::AViewportScreen(UILabel viewportID) :
@@ -23,8 +23,11 @@ void AViewportScreen::drawUI()
 		// TODO: Resizing viewports
 		ImGui::Image(&framebufferRef->getFrame(),
 		             ImVec2(16 * 40, 9 * 40));
+		
 	}
 	ImGui::Text("Placeholder");
 
 	ImGui::End();
 }
+
+

@@ -20,6 +20,7 @@ void InspectorScreen::generateEditor()
 {
 	if (GameObjectManager::getInstance()->getSelectedObject() != NULL)
 	{
+		
 		ImGui::Text("Selected Object: %s", GameObjectManager::getInstance()->getSelectedObject()->Name.c_str());
 		this->TransformUpdate();
 		if (ImGui::DragFloat3("Position", this->SelectedObjectposition, 0.01))

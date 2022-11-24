@@ -3,6 +3,7 @@
 #include "Debug.h"
 #include "GraphicsEngine.h"
 
+
 Framebuffer::Framebuffer(const FramebufferProfile& profile,
                          ID3D11Device* device) :
 	profile{profile},

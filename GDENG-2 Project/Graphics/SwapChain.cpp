@@ -1,7 +1,7 @@
 #include "SwapChain.h"
 #include "Debug.h"
 
-#include "RenderView/Framebuffer.h"
+#include "Graphics/Framebuffer.h"
 
 SwapChain::SwapChain(HWND windowHandle,
                      unsigned int width,
