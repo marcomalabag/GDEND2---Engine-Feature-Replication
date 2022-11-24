@@ -3,7 +3,7 @@
 #include "Debug.h"
 #include "TransformComponent.h"
 
-#include "ECS/GameObject/AGameObject.h"
+#include "ECS/Core/AGameObject.h"
 
 __declspec(align(16))
 struct RenderObjectData
@@ -14,13 +14,17 @@ struct RenderObjectData
 
 RenderComponent::RenderComponent(AGameObject& owner,
                                  RenderData* renderData,
-                                 Material* material) :
+                                 VertexShader* vertexShaderRef,
+                                 PixelShader* pixelShaderRef,
+                                 TransformComponent& transformComponent) :
 	AComponent{owner},
 	renderData{renderData},
-	material{material},
+	vertexShader{vertexShaderRef},
+	pixelShader{pixelShaderRef},
 	vertexBuffer{nullptr},
 	indexBuffer{nullptr},
-	constantBuffer{nullptr}
+	constantBuffer{nullptr},
+	transform{transformComponent}
 {
 	if (this->renderData == nullptr)
 	{

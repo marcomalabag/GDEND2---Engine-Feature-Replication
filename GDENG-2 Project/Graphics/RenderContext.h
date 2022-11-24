@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11.h>
+#include <vector>
 
 #include "Math/Color.h"
 #include "VertexShader.h"
@@ -16,22 +17,12 @@ class VertexShader;
 class PixelShader;
 class IndexBuffer;
 
-class DeviceContext final
+class RenderContext final
 {
 public:
-	explicit DeviceContext(ID3D11DeviceContext* deviceContext);
+	explicit RenderContext(ID3D11DeviceContext* deviceContext);
 
-	~DeviceContext();
-
-	// void clearRenderTargetColor(SwapChain* swapchain,
-	//                             float red,
-	//                             float green,
-	//                             float blue,
-	//                             float alpha);
-
-	// Rendering pipeline
-	// Render Begin
-	void setViewportSize(D3D11_VIEWPORT viewport) const;
+	~RenderContext();
 
 	void setViewportSize(float width, float height) const;
 
@@ -40,8 +31,8 @@ public:
 
 	void clearDepthStencilView(ID3D11DepthStencilView& depthStencil) const;
 
-	void setRenderTargetTo(ID3D11RenderTargetView* renderTarget,
-	                       ID3D11DepthStencilView* depthStencil) const;
+	void setRenderTarget(ID3D11RenderTargetView* renderTarget,
+	                     ID3D11DepthStencilView* depthStencil) const;
 
 	void updateBufferResource(ID3D11Buffer* bufferResource,
 	                          const void* updatedBufferData) const;
@@ -65,9 +56,6 @@ public:
 	void drawIndexed(unsigned int indexCount,
 	                 unsigned int startingIndexID,
 	                 int startingVertexID) const;
-	// Render End (Unbind render targets)
-
-	ID3D11DeviceContext* getContext() const;
 
 private:
 	ID3D11DeviceContext* deviceContext;
@@ -77,22 +65,30 @@ private:
 };
 
 template <typename Shader>
-void DeviceContext::uploadShaderData(ConstantBuffer& dataToUpload)
-{
-}
+void RenderContext::uploadShaderData(ConstantBuffer& dataToUpload) {}
 
 template <>
-inline void DeviceContext::uploadShaderData<VertexShader>(ConstantBuffer& dataToUpload)
+inline void RenderContext::uploadShaderData<VertexShader>(ConstantBuffer& dataToUpload)
 {
+	const std::vector<ID3D11Buffer*> bufferData
+	{
+		&dataToUpload.getBuffer()
+	};
+
 	this->deviceContext->VSSetConstantBuffers(0,
 	                                          1,
-	                                          &dataToUpload.buffer);
+	                                          bufferData.data());
 }
 
 template <>
-inline void DeviceContext::uploadShaderData<PixelShader>(ConstantBuffer& dataToUpload)
+inline void RenderContext::uploadShaderData<PixelShader>(ConstantBuffer& dataToUpload)
 {
+	const std::vector<ID3D11Buffer*> bufferData
+	{
+		&dataToUpload.getBuffer()
+	};
+
 	this->deviceContext->PSSetConstantBuffers(0,
 	                                          1,
-	                                          &dataToUpload.buffer);
+	                                          bufferData.data());
 }

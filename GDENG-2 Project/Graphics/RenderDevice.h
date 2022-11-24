@@ -16,19 +16,19 @@ public:
 	explicit RenderDevice(ID3D11Device* device);
 	~RenderDevice();
 
-	SwapChain* CreateSwapChain(HWND windowHandle, unsigned int width, unsigned int height) const;
+	SwapChain* createSwapChain(HWND windowHandle, unsigned int width, unsigned int height) const;
 
-	VertexBuffer* CreateVertexBuffer(RenderData& renderData,
+	VertexBuffer* createVertexBuffer(RenderData& renderData,
 	                                 VertexShader& vertexShader) const;
 
-	IndexBuffer* CreateIndexBuffer(RenderData& renderData) const;
+	IndexBuffer* createIndexBuffer(RenderData& renderData) const;
 
-	ConstantBuffer* CreateConstantBuffer(const void* bufferData,
+	ConstantBuffer* createConstantBuffer(const void* bufferData,
 	                                     size_t bufferSize) const;
 
-	VertexShader* CreateVertexShader(ID3DBlob* vertexShaderBlob) const;
+	VertexShader* createVertexShader(ID3DBlob* vertexShaderBlob) const;
 
-	PixelShader* CreatePixelShader(ID3DBlob* pixelShaderBlob) const;
+	PixelShader* createPixelShader(ID3DBlob* pixelShaderBlob) const;
 
 	// UniquePtr<Texture> CreateTexture(const Texture::Specification& specs) const;
 

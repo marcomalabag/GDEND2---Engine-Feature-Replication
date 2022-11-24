@@ -1,15 +1,15 @@
 #include "AppWindow.h"
 
-int main() {
-
+int main()
+{
 	AppWindow::initialize();
-	AppWindow* runningApp = (AppWindow*)AppWindow::getInstance();
+	AppWindow* runningApp = AppWindow::getInstance();
 	runningApp->initializeEngine();
 	runningApp->createInterface();
 	while(runningApp->isRun())
 	{
 		runningApp->broadcast();
 	}
-
+	AppWindow::terminate();
 	return 0;
 }

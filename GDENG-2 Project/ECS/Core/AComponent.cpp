@@ -1,6 +1,6 @@
 ﻿#include "AComponent.h"
 
-#include "ECS/GameObject/AGameObject.h"
+#include "ECS/Core/AGameObject.h"
 
 AComponent::AComponent(AGameObject& owner) :
 	ownerRef{owner}

@@ -1,37 +1,20 @@
-#include "DeviceContext.h"
+#include "RenderContext.h"
 
 #include <vector>
 
 #include "SwapChain.h"
 
-DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext)
+RenderContext::RenderContext(ID3D11DeviceContext* deviceContext) :
+	deviceContext{deviceContext} {}
+
+RenderContext::~RenderContext()
 {
-	this->deviceContext = deviceContext;
+	if (this->deviceContext != nullptr)
+		this->deviceContext->Release();
 }
 
-DeviceContext::~DeviceContext()
-{
-	this->deviceContext->Release();
-}
-
-// void DeviceContext::clearRenderTargetColor(SwapChain* swapchain,
-//                                            float red,
-//                                            float green,
-//                                            float blue,
-//                                            float alpha)
-// {
-// 	FLOAT clear_color[] = {red, green, blue, alpha};
-// 	this->deviceContext->ClearRenderTargetView(swapchain->renderTargetView, clear_color);
-// 	this->deviceContext->OMSetRenderTargets(1, &swapchain->renderTargetView, NULL);
-// }
-
-void DeviceContext::setViewportSize(const D3D11_VIEWPORT viewport) const
-{
-	this->deviceContext->RSSetViewports(1, &viewport);
-}
-
-void DeviceContext::setViewportSize(float width,
-                                    float height) const
+void RenderContext::setViewportSize(const float width,
+                                    const float height) const
 {
 	D3D11_VIEWPORT viewport = {};
 	viewport.Width          = width;
@@ -41,21 +24,21 @@ void DeviceContext::setViewportSize(float width,
 	this->deviceContext->RSSetViewports(1, &viewport);
 }
 
-void DeviceContext::clearRenderTargetView(ID3D11RenderTargetView& renderTarget,
+void RenderContext::clearRenderTargetView(ID3D11RenderTargetView& renderTarget,
                                           const Color& clearColor) const
 {
 	this->deviceContext->ClearRenderTargetView(&renderTarget,
 	                                           (const float*)clearColor);
 }
 
-void DeviceContext::clearDepthStencilView(ID3D11DepthStencilView& depthStencil) const
+void RenderContext::clearDepthStencilView(ID3D11DepthStencilView& depthStencil) const
 {
 	this->deviceContext->ClearDepthStencilView(&depthStencil,
 	                                           D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 }
 
-void DeviceContext::setRenderTargetTo(ID3D11RenderTargetView* renderTarget,
-                                      ID3D11DepthStencilView* depthStencil) const
+void RenderContext::setRenderTarget(ID3D11RenderTargetView* renderTarget,
+                                    ID3D11DepthStencilView* depthStencil) const
 {
 	int numOfRenderTarget = 1;
 	if (renderTarget == nullptr)
@@ -68,7 +51,7 @@ void DeviceContext::setRenderTargetTo(ID3D11RenderTargetView* renderTarget,
 	                                        renderTargetViews.data(),
 	                                        depthStencil);
 }
-void DeviceContext::updateBufferResource(ID3D11Buffer* bufferResource,
+void RenderContext::updateBufferResource(ID3D11Buffer* bufferResource,
                                          const void* updatedBufferData) const
 {
 	this->deviceContext->UpdateSubresource(bufferResource,
@@ -79,59 +62,54 @@ void DeviceContext::updateBufferResource(ID3D11Buffer* bufferResource,
 	                                       NULL);
 }
 
-void DeviceContext::setVertexShader(const VertexShader& vertexShader) const
+void RenderContext::setVertexShader(const VertexShader& vertexShader) const
 {
 	this->deviceContext->VSSetShader(vertexShader.data,
 	                                 nullptr,
 	                                 0);
 }
 
-void DeviceContext::setPixelShader(const PixelShader& pixelShader) const
+void RenderContext::setPixelShader(const PixelShader& pixelShader) const
 {
 	this->deviceContext->PSSetShader(pixelShader.data,
 	                                 nullptr,
 	                                 0);
 }
 
-void DeviceContext::setVertexBuffer(VertexBuffer& vertexBuffer) const
+void RenderContext::setVertexBuffer(VertexBuffer& vertexBuffer) const
 {
 	UINT stride = vertexBuffer.getBufferSize();
 	UINT offset = 0;
 
 	this->deviceContext->IASetVertexBuffers(0,
 	                                        1,
-	                                        &vertexBuffer.buffer,
+	                                        &vertexBuffer.getBuffer(),
 	                                        &stride,
 	                                        &offset);
 	this->deviceContext->IASetInputLayout(vertexBuffer.layout);
 }
 
-void DeviceContext::setIndexBuffer(const IndexBuffer& indexBuffer) const
+void RenderContext::setIndexBuffer(const IndexBuffer& indexBuffer) const
 {
-	this->deviceContext->IASetIndexBuffer(indexBuffer.buffer, DXGI_FORMAT_R32_UINT, 0);
+	this->deviceContext->IASetIndexBuffer(indexBuffer.getBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void DeviceContext::setTopology(const D3D11_PRIMITIVE_TOPOLOGY& topology) const
+void RenderContext::setTopology(const D3D11_PRIMITIVE_TOPOLOGY& topology) const
 {
 	this->deviceContext->IASetPrimitiveTopology(topology);
 }
 
-void DeviceContext::draw(const unsigned vertexCount,
+void RenderContext::draw(const unsigned vertexCount,
                          const unsigned startVertexID) const
 {
 	this->deviceContext->Draw(vertexCount, startVertexID);
 }
 
-void DeviceContext::drawIndexed(const unsigned int indexCount,
+void RenderContext::drawIndexed(const unsigned int indexCount,
                                 const unsigned int startingIndexID,
                                 const int startingVertexID) const
 {
 	this->deviceContext->DrawIndexed(indexCount,
 	                                 startingIndexID,
 	                                 0);
-}
-
-ID3D11DeviceContext* DeviceContext::getContext() const
-{
-	return this->deviceContext;
 }

@@ -9,9 +9,7 @@
 
 RenderSystem::RenderSystem() :
 	componentMap{},
-	componentList{}
-{
-}
+	componentList{} {}
 
 RenderSystem::~RenderSystem()
 {
@@ -26,6 +24,20 @@ RenderSystem::~RenderSystem()
 	                    componentList.end());
 	componentList.clear();
 	componentList.shrink_to_fit();
+}
+
+RenderComponent* RenderSystem::createRenderComponent(AGameObject& owner,
+                                                     RenderData* renderData,
+                                                     VertexShader* vertexShaderRef,
+                                                     PixelShader* pixelShaderRef,
+                                                     TransformComponent& transformComponent)
+{
+	RenderComponent* renderComponent = new RenderComponent(owner, renderData,
+	                                                       vertexShaderRef, pixelShaderRef,
+	                                                       transformComponent);
+
+	componentList.push_back(renderComponent);
+	return renderComponent;
 }
 
 RenderComponent& RenderSystem::registerComponent(AGameObject& gameObjRef,

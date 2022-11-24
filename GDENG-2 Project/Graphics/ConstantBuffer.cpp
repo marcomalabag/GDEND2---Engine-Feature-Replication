@@ -30,20 +30,20 @@ ConstantBuffer::ConstantBuffer(ID3D11Device& device,
 	              "Failed to create Constant buffer!");
 }
 
-void ConstantBuffer::update(const DeviceContext& deviceContext,
-                            const void* updatedBufferData) const
-{
-	deviceContext.deviceContext->UpdateSubresource(this->buffer,
-	                                               NULL,
-	                                               nullptr,
-	                                               updatedBufferData,
-	                                               NULL,
-	                                               NULL);
-}
+// void ConstantBuffer::update(const DeviceContext& deviceContext,
+//                             const void* updatedBufferData) const
+// {
+// 	deviceContext.deviceContext->UpdateSubresource(this->buffer,
+// 	                                               NULL,
+// 	                                               nullptr,
+// 	                                               updatedBufferData,
+// 	                                               NULL,
+// 	                                               NULL);
+// }
 
-ID3D11Buffer& ConstantBuffer::getBuffer() const
+ID3D11Buffer* ConstantBuffer::getBuffer() const
 {
-	return *buffer;
+	return buffer;
 }
 
 ConstantBuffer::~ConstantBuffer()

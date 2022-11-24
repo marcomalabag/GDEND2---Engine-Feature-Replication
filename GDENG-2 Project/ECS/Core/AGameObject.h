@@ -3,7 +3,7 @@
 
 #include "Debug.h"
 
-#include "SystemHandler.h"
+#include "SystemManager.h"
 
 //Remember:
 //GameObject is an ID
@@ -18,14 +18,14 @@ public:
 
 	virtual ~AGameObject();
 
-	template <typename T, typename... Args>
-	T& attachComponent(Args&&... args);
+	template <typename ComponentType, typename... Args>
+	ComponentType& attachComponent(Args&&... args);
 
-	template <typename T>
+	template <typename ComponentType>
 	void detachComponent();
 
-	template <class T>
-	T* getComponent();
+	template <class ComponentType>
+	ComponentType* getComponent();
 
 	// TODO: What to do for copying
 	// Idea is that all component's data will be copied
@@ -41,17 +41,17 @@ template <typename T, typename ... Args>
 T& AGameObject::attachComponent(Args&&... args)
 {
 	T* component = new T(std::forward<Args>(args)...);
-	return SystemHandler::getInstance().registerComponent<T>(*this, *component);
+	return SystemManager::getInstance().registerComponent<T>(*this, *component);
 }
 
 template <typename T>
 void AGameObject::detachComponent()
 {
-	SystemHandler::getInstance().deregisterComponent<T>(*this);
+	SystemManager::getInstance().deregisterComponent<T>(*this);
 }
 
 template <class T>
 T* AGameObject::getComponent()
 {
-	return SystemHandler::getInstance().getComponent<T>(*this);
+	return SystemManager::getInstance().getComponent<T>(*this);
 }

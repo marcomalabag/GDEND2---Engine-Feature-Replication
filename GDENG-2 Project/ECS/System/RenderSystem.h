@@ -7,23 +7,32 @@
 
 #include "Math/Matrix4x4.h"
 
+#include "ECS/Component/RenderComponent.h"
+
+// RenderSystem has ownership of all RenderComponents
+
+// Constant Buffers (TODO)
+// Slot 0:
+
 class AGameObject;
-class RenderComponent;
-class Camera;
 
 class RenderSystem final
 {
-	using EntityID = std::string;
 public:
 	RenderSystem();
 	~RenderSystem();
 
-	RenderComponent& registerComponent(AGameObject& gameObjRef,
-	                                   RenderComponent& renderComponent);
-	void deregisterComponent(AGameObject& gameObjRef);
-	RenderComponent* getComponent(AGameObject& gameObjRef);
+	RenderComponent* createRenderComponent(AGameObject& owner,
+	                                       RenderData* renderData,
+	                                       VertexShader* vertexShaderRef,
+	                                       PixelShader* pixelShaderRef,
+	                                       TransformComponent& transformComponent);
 
-	// Control render targets?
+	void destroyRenderComponent(AGameObject& gameObject);
+
+	RenderComponent* getComponent(AGameObject& gameObject);
+
+	// Actual functionality of this system
 
 	void draw(const Matrix4x4& viewProj,
 	          const Framebuffer* framebuffer) const;
@@ -34,6 +43,8 @@ public:
 	RenderSystem& operator=(RenderSystem&&) noexcept = delete;
 
 private:
-	std::unordered_map<EntityID, RenderComponent*> componentMap;
 	std::vector<RenderComponent*> componentList;
+
+	// Callback list of OnRenderComponentCreate();
+	// Callback list of OnRenderComponentDestroy();
 };

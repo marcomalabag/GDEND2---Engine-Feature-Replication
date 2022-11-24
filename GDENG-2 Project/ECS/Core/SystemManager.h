@@ -4,15 +4,18 @@
 
 #include "ECS/System/RenderSystem.h"
 
-class SystemHandler final
+class SystemManager final
 {
 public:
 	static void init();
 	static void release();
 
-	~SystemHandler();
+	~SystemManager();
 
-	static SystemHandler& getInstance();
+	static SystemManager& getInstance();
+
+	template <typename ComponentType, typename... Args>
+	ComponentType& createComponent(Args&&...args);
 
 	template <typename T>
 	T& registerComponent(AGameObject& gameObjRef,
@@ -27,15 +30,15 @@ public:
 	[[nodiscard]]
 	RenderSystem& getRenderSystem() const;
 
-	SystemHandler(const SystemHandler&)                = delete;
-	SystemHandler& operator=(const SystemHandler&)     = delete;
-	SystemHandler(SystemHandler&&) noexcept            = delete;
-	SystemHandler& operator=(SystemHandler&&) noexcept = delete;
+	SystemManager(const SystemManager&)                = delete;
+	SystemManager& operator=(const SystemManager&)     = delete;
+	SystemManager(SystemManager&&) noexcept            = delete;
+	SystemManager& operator=(SystemManager&&) noexcept = delete;
 
 private:
-	SystemHandler();
+	SystemManager();
 
-	static SystemHandler* instance;
+	static SystemManager* instance;
 
 	// TransformSystem
 	
@@ -44,7 +47,7 @@ private:
 
 //---- REGISTER COMPONENT
 template <typename T>
-T& SystemHandler::registerComponent(AGameObject& gameObjRef,
+T& SystemManager::registerComponent(AGameObject& gameObjRef,
                                     T& component)
 {
 	Debug::Log("Please add an implementation to registerComponent() for {0} component in SystemHandler!",
@@ -53,7 +56,7 @@ T& SystemHandler::registerComponent(AGameObject& gameObjRef,
 }
 
 template <>
-inline RenderComponent& SystemHandler::registerComponent<RenderComponent>(AGameObject& gameObjRef,
+inline RenderComponent& SystemManager::registerComponent<RenderComponent>(AGameObject& gameObjRef,
                                                                           RenderComponent& component)
 {
 	return renderSystem->registerComponent(gameObjRef, component);
@@ -61,21 +64,21 @@ inline RenderComponent& SystemHandler::registerComponent<RenderComponent>(AGameO
 
 //---- DEREGISTER COMPONENT
 template <typename T>
-void SystemHandler::deregisterComponent(AGameObject& gameObjRef)
+void SystemManager::deregisterComponent(AGameObject& gameObjRef)
 {
 	Debug::Log("Please add an implementation to deregisterComponent() for {0} component in SystemHandler!",
 	           T::getStaticName());
 }
 
 template <>
-inline void SystemHandler::deregisterComponent<RenderComponent>(AGameObject& gameObjRef)
+inline void SystemManager::deregisterComponent<RenderComponent>(AGameObject& gameObjRef)
 {
 	renderSystem->deregisterComponent(gameObjRef);
 }
 
 //---- GET COMPONENT
 template <typename T>
-T* SystemHandler::getComponent(AGameObject& gameObjRef)
+T* SystemManager::getComponent(AGameObject& gameObjRef)
 {
 	Debug::Log("Please add an implementation to getComponent() for {0} component in SystemHandler!",
 	           T::getStaticName());
@@ -83,7 +86,7 @@ T* SystemHandler::getComponent(AGameObject& gameObjRef)
 }
 
 template <>
-inline RenderComponent* SystemHandler::getComponent<RenderComponent>(AGameObject& gameObjRef)
+inline RenderComponent* SystemManager::getComponent<RenderComponent>(AGameObject& gameObjRef)
 {
 	return renderSystem->getComponent(gameObjRef);
 }

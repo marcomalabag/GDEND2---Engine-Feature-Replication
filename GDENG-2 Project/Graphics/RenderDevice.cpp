@@ -24,36 +24,36 @@ RenderDevice::~RenderDevice()
 	device->Release();
 }
 
-SwapChain* RenderDevice::CreateSwapChain(const HWND windowHandle,
+SwapChain* RenderDevice::createSwapChain(const HWND windowHandle,
                                          const unsigned int width,
                                          const unsigned int height) const
 {
 	return new SwapChain(*device, *dxgiFactory, windowHandle, width, height);
 }
 
-VertexBuffer* RenderDevice::CreateVertexBuffer(RenderData& renderData,
+VertexBuffer* RenderDevice::createVertexBuffer(RenderData& renderData,
                                                VertexShader& vertexShader) const
 {
 	return new VertexBuffer(*device, renderData, vertexShader);
 }
 
-IndexBuffer* RenderDevice::CreateIndexBuffer(RenderData& renderData) const
+IndexBuffer* RenderDevice::createIndexBuffer(RenderData& renderData) const
 {
 	return new IndexBuffer(*device, renderData);
 }
 
-ConstantBuffer* RenderDevice::CreateConstantBuffer(const void* bufferData,
+ConstantBuffer* RenderDevice::createConstantBuffer(const void* bufferData,
                                                    const size_t bufferSize) const
 {
 	return new ConstantBuffer(*device, bufferData, bufferSize);
 }
 
-VertexShader* RenderDevice::CreateVertexShader(ID3DBlob* vertexShaderBlob) const
+VertexShader* RenderDevice::createVertexShader(ID3DBlob* vertexShaderBlob) const
 {
 	return new VertexShader(*device, vertexShaderBlob);
 }
 
-PixelShader* RenderDevice::CreatePixelShader(ID3DBlob* pixelShaderBlob) const
+PixelShader* RenderDevice::createPixelShader(ID3DBlob* pixelShaderBlob) const
 {
 	return new PixelShader(*device, pixelShaderBlob);
 }

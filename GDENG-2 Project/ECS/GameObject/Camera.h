@@ -1,4 +1,4 @@
-#pragma once
+	#pragma once
 #include "GameObject/AGameObject.h"
 
 #include "Math/Matrix4x4.h"

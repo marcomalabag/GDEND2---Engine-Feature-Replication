@@ -5,16 +5,12 @@
 #include "Graphics/GraphicsEngine.h"
 #include "SceneCameraHandler.h"
 
-#include "Component/TransformComponent.h"
-
 #include "Graphics/ShaderLibrary.h"
-
-#include "GameObject/Cube.h"
 
 #include "Graphics/HalfRenderQuad.h"
 #include "Graphics/RenderQuad.h"
 
-AppWindow* AppWindow::sharedInstance = NULL;
+AppWindow* AppWindow::sharedInstance = nullptr;
 
 AppWindow::AppWindow()
 {
@@ -29,6 +25,20 @@ void AppWindow::initialize()
 	sharedInstance = new AppWindow();
 	sharedInstance->initializeWC();
 	sharedInstance->initializeAppWindow();
+}
+
+void AppWindow::terminate()
+{
+	delete sharedInstance;
+}
+
+AppWindow* AppWindow::getInstance()
+{
+	if (sharedInstance != nullptr)
+	{
+		return sharedInstance;
+	}
+	return nullptr;
 }
 
 void AppWindow::onCreate()
@@ -218,11 +228,3 @@ void AppWindow::onRightMouseUp(const Point& mousePosition)
 {
 }
 
-AppWindow* AppWindow::getInstance()
-{
-	if (sharedInstance != NULL)
-	{
-		return sharedInstance;
-	}
-	return nullptr;
-}

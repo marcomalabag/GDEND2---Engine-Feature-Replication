@@ -1,20 +1,16 @@
 #include "Window.h"
 #include <iostream>
-#include "IMGUI\imgui.h"
-#include "IMGUI\imgui_impl_dx11.h"
-#include "IMGUI\imgui_impl_win32.h"
-#include <exception>
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_dx11.h"
+#include "ImGui/imgui_impl_win32.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //Window* window = nullptr;
-Window::Window()
-{
-}
+Window::Window() {}
 
-
-
-LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK wndProc(const HWND hwnd, const UINT msg,
+                         const WPARAM wparam, const LPARAM lparam)
 {
 	if (ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam))
 		return true;
@@ -23,16 +19,15 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		case WM_CREATE:
 		{
-				Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
-				SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
-				window->setHandle(hwnd);
-
-				window->onCreate();
-				break;
+			Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
+			SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
+			window->setHandle(hwnd);
+			window->onCreate();
+			break;
 		}
 		case WM_DESTROY:
 		{
-			Window* window = (Window*) GetWindowLongPtr(hwnd, GWLP_USERDATA);
+			Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 			window->onDestroy();
 			::PostQuitMessage(0);
 			break;
@@ -50,11 +45,15 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 			window->onKillFocus();
 			break;
 		}
+		case WM_SIZE:
+		{
+			Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+			window->onResize();
+		}
 		default:
 		{
 			return ::DefWindowProc(hwnd, msg, wparam, lparam);
 		}
-
 	}
 
 	return NULL;
@@ -63,31 +62,30 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 bool Window::initializeWC()
 {
 	WNDCLASSEX wc;
-	wc.cbClsExtra = NULL;
-	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.cbWndExtra = NULL;
+	wc.cbClsExtra    = NULL;
+	wc.cbSize        = sizeof(WNDCLASSEX);
+	wc.cbWndExtra    = NULL;
 	wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-	wc.hInstance = NULL;
+	wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+	wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hIconSm       = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hInstance     = NULL;
 	wc.lpszClassName = L"GDENG - 2 Project";
-	wc.lpszMenuName = L"";
-	wc.style = NULL;
-	wc.lpfnWndProc = &wndProc;
+	wc.lpszMenuName  = L"";
+	wc.style         = NULL;
+	wc.lpfnWndProc   = &wndProc;
 
 	if (!::RegisterClassEx(&wc))
 	{
-
 		return false;
 	}
 }
 
 bool Window::initializeAppWindow()
 {
-
-	this->hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"GDENG - 2 Project", L"DirectX Application", WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 1440, 900, NULL, NULL, NULL, this);
+	this->hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"GDENG - 2 Project", L"DirectX Application",
+	                              WS_OVERLAPPEDWINDOW,
+	                              CW_USEDEFAULT, CW_USEDEFAULT, 1440, 900, NULL, NULL, NULL, this);
 
 	if (!this->hwnd)
 	{
@@ -98,50 +96,22 @@ bool Window::initializeAppWindow()
 	::ShowWindow(this->hwnd, SW_SHOW);
 	::UpdateWindow(this->hwnd);
 
-
 	isRunning = true;
 
 	return true;
 }
 
-bool Window::initiazeGameWindow()
-{
-	
-	/*
-	this->m_gamewindow = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"GDENG - 2 Project", L"Game Window", WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 540, 960, NULL, NULL, NULL, this);
-
-	if (!this->m_gamewindow)
-	{
-		std::cout << "Game window not working";
-		return false;
-	}
-
-	::ShowWindow(this->m_gamewindow, SW_SHOW);
-	::UpdateWindow(this->m_gamewindow);
-
-	GameWindowRunning = true;
-	*/
-	return true;
-	
-}
-
-
-
 bool Window::broadcast()
 {
-
 	MSG msg;
 	EngineTime::LogFrameStart();
 	this->onUpdate();
 
-	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0 )
+	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-
-	
 
 	Sleep(1);
 	EngineTime::LogFrameEnd();
@@ -161,18 +131,11 @@ bool Window::release()
 	}
 	*/
 	return true;
-	
 }
 
 bool Window::isRun()
 {
 	return isRunning;
-}
-
-bool Window::isGameRun()
-{
-	//return GameWindowRunning;
-	return false;
 }
 
 HWND Window::gethwnd()
@@ -184,39 +147,27 @@ RECT Window::getClientWindowRect()
 {
 	RECT rc;
 	::GetClientRect(this->hwnd, &rc);
-
 	return rc;
 }
-
 
 void Window::setHandle(HWND hwnd)
 {
 	this->hwnd = hwnd;
 }
 
-Window::~Window()
-{
-}
+Window::~Window() {}
 
-void Window::onCreate()
-{
-}
+void Window::onCreate() {}
 
-void Window::onUpdate()
-{
-	
-}
+void Window::onUpdate() { }
 
-void Window::onFocus()
-{
-}
+void Window::onFocus() {}
 
-void Window::onKillFocus()
-{
-}
+void Window::onKillFocus() {}
+
+void Window::onResize(UINT width, UINT height) {}
 
 void Window::onDestroy()
 {
 	isRunning = false;
-	//GameWindowRunning = false;
 }
