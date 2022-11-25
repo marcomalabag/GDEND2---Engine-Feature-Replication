@@ -7,9 +7,6 @@
 
 #include "Graphics/ShaderLibrary.h"
 
-#include "Graphics/HalfRenderQuad.h"
-#include "Graphics/RenderQuad.h"
-
 #include "Graphics/GraphicsEngine.h"
 #include "Graphics/SwapChain.h"
 #include "Graphics/VertexBuffer.h"

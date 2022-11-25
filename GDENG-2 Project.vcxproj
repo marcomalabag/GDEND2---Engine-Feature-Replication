@@ -210,13 +210,11 @@
     <ClInclude Include="GDENG-2 Project\Graphics\Framebuffer.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\GraphicsEngine.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\IndexBuffer.h" />
-    <ClInclude Include="GDENG-2 Project\Graphics\Material.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\PixelShader.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\Primitive.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\RenderContext.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\RenderData.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\RenderDevice.h" />
-    <ClInclude Include="GDENG-2 Project\Graphics\RenderQuad.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\ShaderLibrary.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\SwapChain.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\VertexBuffer.h" />
@@ -277,12 +275,10 @@
     <ClCompile Include="GDENG-2 Project\Graphics\Framebuffer.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\GraphicsEngine.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\IndexBuffer.cpp" />
-    <ClCompile Include="GDENG-2 Project\Graphics\Material.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\PixelShader.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\Primitive.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\RenderContext.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\RenderDevice.cpp" />
-    <ClCompile Include="GDENG-2 Project\Graphics\RenderQuad.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\ShaderLibrary.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\SwapChain.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\VertexBuffer.cpp" />

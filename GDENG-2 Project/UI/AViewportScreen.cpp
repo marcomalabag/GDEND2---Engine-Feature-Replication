@@ -17,6 +17,8 @@ void AViewportScreen::drawUI()
 {
 	ImGui::Begin(name.c_str());
 
+	// ImGui::IsWindowFocused();
+
 	framebufferRef = &this->getFramebufferRef();
 	if (framebufferRef != nullptr)
 	{
