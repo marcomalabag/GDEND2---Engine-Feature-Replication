@@ -10,6 +10,19 @@
 #include "Graphics/HalfRenderQuad.h"
 #include "Graphics/RenderQuad.h"
 
+#include "Graphics/GraphicsEngine.h"
+#include "Graphics/SwapChain.h"
+#include "Graphics/VertexBuffer.h"
+#include "Graphics/ConstantBuffer.h"
+#include "Graphics/VertexShader.h"
+#include "Graphics/PixelShader.h"
+#include <vector>
+#include "UI/UIManager.h"
+#include "EngineTime.h"
+//#include "InputListener.h"
+//#include "InputSystem.h"
+#include "GameCameraHandler.h"
+
 AppWindow* AppWindow::sharedInstance = nullptr;
 
 AppWindow::AppWindow()
@@ -53,7 +66,7 @@ void AppWindow::initializeEngine()
 	int width  = rc.right - rc.left;
 	int height = rc.bottom - rc.top;
 
-	GraphicsEngine::init(this->hwnd, width, height);
+	GraphicsEngine::initialize(this->hwnd, width, height);
 	ShaderLibrary::init(5);
 	EngineTime::initialize();
 	SceneCameraHandler::init(width, height);
@@ -200,31 +213,31 @@ void AppWindow::onKillFocus()
 	InputSystem::getInstance()->removeListener(this);
 }
 
-void AppWindow::onKeyDown(int key)
-{
-}
-
-void AppWindow::onKeyUp(int key)
-{
-}
-
-void AppWindow::onMouseMove(const Point& deltaMousePos)
-{
-}
-
-void AppWindow::onLeftMouseDown(const Point& mousePosition)
-{
-}
-
-void AppWindow::onLeftMouseUp(const Point& mousePosition)
-{
-}
-
-void AppWindow::onRightMouseDown(const Point& mousePosition)
-{
-}
-
-void AppWindow::onRightMouseUp(const Point& mousePosition)
-{
-}
-
+// void AppWindow::onKeyDown(int key)
+// {
+// }
+//
+// void AppWindow::onKeyUp(int key)
+// {
+// }
+//
+// void AppWindow::onMouseMove(const Point& deltaMousePos)
+// {
+// }
+//
+// void AppWindow::onLeftMouseDown(const Point& mousePosition)
+// {
+// }
+//
+// void AppWindow::onLeftMouseUp(const Point& mousePosition)
+// {
+// }
+//
+// void AppWindow::onRightMouseDown(const Point& mousePosition)
+// {
+// }
+//
+// void AppWindow::onRightMouseUp(const Point& mousePosition)
+// {
+// }
+//

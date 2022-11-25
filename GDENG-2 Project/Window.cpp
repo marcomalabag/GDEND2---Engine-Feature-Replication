@@ -6,8 +6,6 @@
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-//Window* window = nullptr;
-Window::Window() {}
 
 LRESULT CALLBACK wndProc(const HWND hwnd, const UINT msg,
                          const WPARAM wparam, const LPARAM lparam)
@@ -47,8 +45,12 @@ LRESULT CALLBACK wndProc(const HWND hwnd, const UINT msg,
 		}
 		case WM_SIZE:
 		{
+			const UINT width  = LOWORD(lparam);
+			const UINT height = HIWORD(lparam);
+			
 			Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-			window->onResize();
+			window->onResize(width, height);
+			break;
 		}
 		default:
 		{
@@ -58,6 +60,8 @@ LRESULT CALLBACK wndProc(const HWND hwnd, const UINT msg,
 
 	return NULL;
 }
+
+Window::Window() {}
 
 bool Window::initializeWC()
 {
@@ -85,7 +89,12 @@ bool Window::initializeAppWindow()
 {
 	this->hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"GDENG - 2 Project", L"DirectX Application",
 	                              WS_OVERLAPPEDWINDOW,
-	                              CW_USEDEFAULT, CW_USEDEFAULT, 1440, 900, NULL, NULL, NULL, this);
+	                              CW_USEDEFAULT, CW_USEDEFAULT,
+	                              1440, 900,
+	                              nullptr,
+	                              nullptr,
+	                              nullptr,
+	                              this);
 
 	if (!this->hwnd)
 	{
@@ -107,7 +116,7 @@ bool Window::broadcast()
 	EngineTime::LogFrameStart();
 	this->onUpdate();
 
-	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
+	while (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0)
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -124,12 +133,6 @@ bool Window::release()
 	{
 		return false;
 	}
-
-	/*
-	if (!::DestroyWindow(this->m_gamewindow)) {
-		return false;
-	}
-	*/
 	return true;
 }
 
@@ -165,7 +168,10 @@ void Window::onFocus() {}
 
 void Window::onKillFocus() {}
 
-void Window::onResize(UINT width, UINT height) {}
+void Window::onResize(UINT width, UINT height)
+{
+	
+}
 
 void Window::onDestroy()
 {

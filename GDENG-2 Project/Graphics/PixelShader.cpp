@@ -1,14 +1,15 @@
 #include "PixelShader.h"
 #include "Debug.h"
 
-PixelShader::PixelShader(ID3D11Device& device, ID3DBlob* pixelShaderBlob) :
+PixelShader::PixelShader(ID3D11Device& device,
+                         ID3DBlob* pixelShaderBlob) :
 	blob{std::move(pixelShaderBlob)},
 	data{nullptr}
 {
-	HRESULT result = device.CreatePixelShader(blob->GetBufferPointer(),
-	                                               blob->GetBufferSize(),
-	                                               nullptr,
-	                                               &data);
+	const HRESULT result = device.CreatePixelShader(blob->GetBufferPointer(),
+	                                                blob->GetBufferSize(),
+	                                                nullptr,
+	                                                &this->data);
 
 	Debug::Assert(SUCCEEDED(result),
 	              "Failed to create Pixel shader!");
@@ -16,7 +17,10 @@ PixelShader::PixelShader(ID3D11Device& device, ID3DBlob* pixelShaderBlob) :
 
 PixelShader::~PixelShader()
 {
-	data->Release();
+	if (this->data != nullptr)
+	{
+		this->data->Release();
+	}
 }
 
 void* PixelShader::getByteCodeData() const
@@ -27,4 +31,9 @@ void* PixelShader::getByteCodeData() const
 unsigned PixelShader::getByteCodeSizeData() const
 {
 	return blob->GetBufferSize();
+}
+
+ID3D11PixelShader* PixelShader::getShader() const
+{
+	return this->data;
 }

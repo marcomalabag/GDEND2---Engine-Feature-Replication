@@ -1,9 +1,5 @@
 #pragma once
 #include <d3d11.h>
-#include "GraphicsEngine.h"
-
-class DeviceContext;
-class GraphicsEngine;
 
 class PixelShader final
 {
@@ -12,11 +8,11 @@ public:
 
 	~PixelShader();
 
-	[[nodiscard]]
 	void* getByteCodeData() const;
 
-	[[nodiscard]]
 	unsigned int getByteCodeSizeData() const;
+
+	ID3D11PixelShader* getShader() const;
 
 	PixelShader(const PixelShader&)             = delete;
 	PixelShader& operator=(const PixelShader&)  = delete;
@@ -26,7 +22,4 @@ public:
 private:
 	ID3DBlob* blob;
 	ID3D11PixelShader* data;
-
-	friend class GraphicsEngine;
-	friend class DeviceContext;
 };

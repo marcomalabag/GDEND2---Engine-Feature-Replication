@@ -4,8 +4,8 @@
 #include "RenderData.h"
 
 VertexBuffer::VertexBuffer(ID3D11Device& device,
-                           RenderData& renderData,
-                           VertexShader& vertexShader) :
+                           const RenderData& renderData,
+                           const VertexShader& vertexShader) :
 	buffer{nullptr},
 	layout{nullptr},
 	dataTypeSize{renderData.VertexSize},
@@ -14,7 +14,7 @@ VertexBuffer::VertexBuffer(ID3D11Device& device,
 {
 	D3D11_BUFFER_DESC bufferDesc = {};
 	bufferDesc.Usage             = D3D11_USAGE_DEFAULT;
-	bufferDesc.ByteWidth         = bufferSize;
+	bufferDesc.ByteWidth         = (UINT)this->bufferSize;
 	bufferDesc.BindFlags         = D3D11_BIND_VERTEX_BUFFER;
 	bufferDesc.CPUAccessFlags    = 0;
 	bufferDesc.MiscFlags         = 0;
@@ -25,6 +25,7 @@ VertexBuffer::VertexBuffer(ID3D11Device& device,
 	HRESULT result = device.CreateBuffer(&bufferDesc,
 	                                     &initData,
 	                                     &this->buffer);
+	
 	Debug::Assert(SUCCEEDED(result),
 	              "Failed to create Vertex buffer!");
 

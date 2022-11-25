@@ -1,28 +1,27 @@
 #include "ConstantBuffer.h"
 #include "Debug.h"
 #include "GraphicsEngine.h"
-#include "DeviceContext.h"
 
 ConstantBuffer::ConstantBuffer(ID3D11Device& device,
-                               const void* buffer,
-                               const UINT sizeBuffer) :
+                               const void* bufferData,
+                               const UINT bufferSize) :
 	buffer{nullptr},
-	dataTypeSize{sizeBuffer},
-	bufferSize{sizeBuffer},
+	dataTypeSize{bufferSize},
+	bufferSize{bufferSize},
 	elementCount{1}
 {
-	D3D11_BUFFER_DESC bufferDec   = {};
-	bufferDec.ByteWidth           = sizeBuffer;
-	bufferDec.Usage               = D3D11_USAGE_DEFAULT;
-	bufferDec.BindFlags           = D3D11_BIND_CONSTANT_BUFFER;
-	bufferDec.CPUAccessFlags      = 0;
-	bufferDec.MiscFlags           = 0;
-	bufferDec.StructureByteStride = 0;
+	D3D11_BUFFER_DESC bufferDesc   = {};
+	bufferDesc.ByteWidth           = this->bufferSize;
+	bufferDesc.Usage               = D3D11_USAGE_DEFAULT;
+	bufferDesc.BindFlags           = D3D11_BIND_CONSTANT_BUFFER;
+	bufferDesc.CPUAccessFlags      = 0;
+	bufferDesc.MiscFlags           = 0;
+	bufferDesc.StructureByteStride = 0;
 
 	D3D11_SUBRESOURCE_DATA initData = {};
-	initData.pSysMem                = buffer;
+	initData.pSysMem                = bufferData;
 
-	const HRESULT result = device.CreateBuffer(&bufferDec,
+	const HRESULT result = device.CreateBuffer(&bufferDesc,
 	                                           &initData,
 	                                           &this->buffer);
 
@@ -30,20 +29,9 @@ ConstantBuffer::ConstantBuffer(ID3D11Device& device,
 	              "Failed to create Constant buffer!");
 }
 
-// void ConstantBuffer::update(const DeviceContext& deviceContext,
-//                             const void* updatedBufferData) const
-// {
-// 	deviceContext.deviceContext->UpdateSubresource(this->buffer,
-// 	                                               NULL,
-// 	                                               nullptr,
-// 	                                               updatedBufferData,
-// 	                                               NULL,
-// 	                                               NULL);
-// }
-
 ID3D11Buffer* ConstantBuffer::getBuffer() const
 {
-	return buffer;
+	return this->buffer;
 }
 
 ConstantBuffer::~ConstantBuffer()

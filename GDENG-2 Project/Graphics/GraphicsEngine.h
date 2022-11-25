@@ -1,34 +1,18 @@
 #pragma once
-#include <d3d11.h>
-#include "DeviceContext.h"
-
-class SwapChain;
-class DeviceContext;
-class VertexBuffer;
-class ConstantBuffer;
+#include "RenderContext.h"
+#include "RenderDevice.h"
 
 class GraphicsEngine final
 {
 public:
-	static void init(HWND windowHandle,
-	                 unsigned int width,
-	                 unsigned int height);
-	static void release();
+	static void initialize();
+	static void terminate();
 
-	[[nodiscard]]
 	static GraphicsEngine* getInstance();
 
-	[[nodiscard]]
-	ID3D11Device& getDevice() const;
+	RenderDevice& getDevice() const;
 
-	[[nodiscard]]
-	DeviceContext& getDeviceContext() const;
-
-	[[nodiscard]]
-	IDXGIFactory& getFactory() const;
-
-	[[nodiscard]]
-	SwapChain& getSwapChain() const;
+	RenderContext& getDeviceContext() const;
 
 	GraphicsEngine(const GraphicsEngine&)                = delete;
 	GraphicsEngine& operator=(const GraphicsEngine&)     = delete;
@@ -36,23 +20,11 @@ public:
 	GraphicsEngine& operator=(GraphicsEngine&&) noexcept = delete;
 
 private:
-	GraphicsEngine(HWND windowHandle,
-					 unsigned int width,
-					 unsigned int height);
+	GraphicsEngine();
 	~GraphicsEngine();
 
 	static GraphicsEngine* instance;
 
-	SwapChain* swapChain            = nullptr;
-	DeviceContext* immDeviceContext = nullptr;
-
-	ID3D11Device* d3dDevice = nullptr;
-	D3D_FEATURE_LEVEL featureLevel;
-
-	IDXGIDevice* dxgiDevice   = nullptr;
-	IDXGIAdapter* dxgiAdapter = nullptr;
-	IDXGIFactory* dxgiFactory = nullptr;
-
-	friend class SwapChain;
-	friend class ConstantBuffer;
+	RenderDevice* renderDevice;
+	RenderContext* renderContext;
 };

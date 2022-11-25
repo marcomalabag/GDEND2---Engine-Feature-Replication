@@ -1,21 +1,14 @@
 #include "GraphicsEngine.h"
-#include "SwapChain.h"
+#include <d3d11.h>
 #include <d3dcompiler.h>
 #include <vector>
-
 #include "Debug.h"
 
 GraphicsEngine* GraphicsEngine::instance = nullptr;
 
-GraphicsEngine::GraphicsEngine(const HWND windowHandle,
-                               const unsigned int width,
-                               const unsigned int height) :
-	swapChain{nullptr},
-	immDeviceContext{nullptr},
-	d3dDevice{nullptr},
-	dxgiDevice{nullptr},
-	dxgiAdapter{nullptr},
-	dxgiFactory{nullptr}
+GraphicsEngine::GraphicsEngine() :
+	renderDevice{nullptr},
+	renderContext{nullptr}
 {
 	const std::vector<D3D_DRIVER_TYPE> driverTypes =
 	{
@@ -31,7 +24,9 @@ GraphicsEngine::GraphicsEngine(const HWND windowHandle,
 
 	HRESULT result = 0;
 
+	ID3D11Device* device = nullptr;
 	ID3D11DeviceContext* deviceContext = nullptr;
+	D3D_FEATURE_LEVEL featureLevel;
 
 	for (const auto driverType : driverTypes)
 	{
@@ -41,8 +36,8 @@ GraphicsEngine::GraphicsEngine(const HWND windowHandle,
 		                           featureLevels.data(),
 		                           (UINT)featureLevels.size(),
 		                           D3D11_SDK_VERSION,
-		                           &this->d3dDevice,
-		                           &this->featureLevel,
+		                           &device,
+		                           &featureLevel,
 		                           &deviceContext);
 		if (SUCCEEDED(result))
 		{
@@ -52,43 +47,25 @@ GraphicsEngine::GraphicsEngine(const HWND windowHandle,
 
 	Debug::Assert(SUCCEEDED(result), "Failed to create device!");
 
-	this->immDeviceContext = new DeviceContext(deviceContext);
-
-	this->d3dDevice->QueryInterface(__uuidof(IDXGIDevice),
-	                                (void**)&this->dxgiDevice);
-	this->dxgiDevice->GetParent(__uuidof(IDXGIAdapter),
-	                            (void**)&this->dxgiAdapter);
-	this->dxgiAdapter->GetParent(__uuidof(IDXGIFactory),
-	                             (void**)&this->dxgiFactory);
-
-	this->swapChain = new SwapChain(windowHandle,
-	                                width,
-	                                height,
-	                                this->d3dDevice,
-	                                this->dxgiFactory);
+	this->renderDevice = new RenderDevice(device);
+	this->renderContext = new RenderContext(deviceContext);
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
-	delete this->swapChain;
-	this->dxgiAdapter->Release();
-	this->dxgiDevice->Release();
-	this->dxgiFactory->Release();
-	delete this->immDeviceContext;
-	this->d3dDevice->Release();
+	delete renderContext;
+	delete renderDevice;
 }
 
-void GraphicsEngine::init(const HWND windowHandle,
-                          const unsigned int width,
-                          const unsigned int height)
+void GraphicsEngine::initialize()
 {
 	if (instance == nullptr)
 	{
-		instance = new GraphicsEngine(windowHandle, width, height);
+		instance = new GraphicsEngine();
 	}
 }
 
-void GraphicsEngine::release()
+void GraphicsEngine::terminate()
 {
 	if (instance != nullptr)
 	{
@@ -106,20 +83,13 @@ GraphicsEngine* GraphicsEngine::getInstance()
 	return nullptr;
 }
 
-ID3D11Device& GraphicsEngine::getDevice() const
+RenderDevice& GraphicsEngine::getDevice() const
 {
-	return *this->d3dDevice;
+	return *renderDevice;
 }
 
-DeviceContext& GraphicsEngine::getDeviceContext() const
+RenderContext& GraphicsEngine::getDeviceContext() const
 {
-	return *this->immDeviceContext;
+	return *renderContext;
 }
-IDXGIFactory& GraphicsEngine::getFactory() const
-{
-	return *this->dxgiFactory;
-}
-SwapChain& GraphicsEngine::getSwapChain() const
-{
-	return *this->swapChain;
-}
+
