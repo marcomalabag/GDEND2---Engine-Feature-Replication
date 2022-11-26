@@ -1,10 +1,10 @@
 #include "Cube.h"
 
 #include "Math/Vector3D.h"
-#include "Component/RenderComponent.h"
+#include "ECS/Component/RenderComponent.h"
 #include "Graphics/ShaderLibrary.h"
 
-#include "RenderData.h"
+#include "Graphics/RenderData.h"
 
 struct CubeVertex
 {

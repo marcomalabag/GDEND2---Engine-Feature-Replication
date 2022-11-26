@@ -34,6 +34,7 @@ SystemManager& SystemManager::getInstance()
 
 	return *instance;
 }
+
 RenderSystem& SystemManager::getRenderSystem() const
 {
 	return *renderSystem;

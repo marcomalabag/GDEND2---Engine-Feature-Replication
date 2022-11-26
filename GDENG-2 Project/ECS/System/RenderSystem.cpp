@@ -2,92 +2,54 @@
 #include "Debug.h"
 #include "Graphics/SwapChain.h"
 
-#include "Component/RenderComponent.h"
+#include "ECS/Component/RenderComponent.h"
 
-#include "GameObject/AGameObject.h"
-#include "GameObject/Camera.h"
+#include "ECS/Core/AGameObject.h"
 
-RenderSystem::RenderSystem() :
-	componentMap{},
-	componentList{} {}
+RenderSystem::RenderSystem()  = default;
 
 RenderSystem::~RenderSystem()
 {
-	componentMap.clear();
-
-	for (int i = 0; i < componentList.size(); i++)
-	{
-		delete componentList[i];
-	}
-
-	componentList.erase(componentList.begin(),
-	                    componentList.end());
 	componentList.clear();
 	componentList.shrink_to_fit();
 }
 
-RenderComponent* RenderSystem::createRenderComponent(AGameObject& owner,
-                                                     RenderData* renderData,
-                                                     VertexShader* vertexShaderRef,
-                                                     PixelShader* pixelShaderRef,
-                                                     TransformComponent& transformComponent)
+void RenderSystem::registerComponent(RenderComponent* component)
 {
-	RenderComponent* renderComponent = new RenderComponent(owner, renderData,
-	                                                       vertexShaderRef, pixelShaderRef,
-	                                                       transformComponent);
-
-	componentList.push_back(renderComponent);
-	return renderComponent;
-}
-
-RenderComponent& RenderSystem::registerComponent(AGameObject& gameObjRef,
-                                                 RenderComponent& renderComponent)
-{
-	// Check if this component is already added in the map and/or list
-	if (componentMap.contains(gameObjRef.Name))
+	if (component == nullptr)
 	{
-		Debug::Log("RenderComponent is already attached to game object {0}!", gameObjRef.Name);
-		return *componentMap[gameObjRef.Name];
-	}
-
-	componentList.emplace_back(&renderComponent);
-	componentMap[gameObjRef.Name] = &renderComponent;
-	return renderComponent;
-}
-
-void RenderSystem::deregisterComponent(AGameObject& gameObjRef)
-{
-	// Check if this component is already added in the map and/or list
-	if (!componentMap.contains(gameObjRef.Name))
-	{
-		Debug::Log("RenderComponent is not attached to game object {0}!", gameObjRef.Name);
 		return;
 	}
 
-	// TODO: Implement later (if this occurs)
-	// (if there are any dependencies, remove them from the components still attached)
-	int index = -1;
-	for (int i = 0; i < componentList.size(); i++)
+	for (const auto* renderComponent : this->componentList)
 	{
-		if (componentList[i]->getName() == gameObjRef.Name)
+		if (renderComponent->getOwner().Name == component->getOwner().Name)
 		{
-			index = i;
+			return;
 		}
 	}
 
-	componentList.erase(componentList.begin() + index);
-	componentList.shrink_to_fit();
-	componentMap.erase(gameObjRef.Name);
+	this->componentList.push_back(component);
 }
 
-RenderComponent* RenderSystem::getComponent(AGameObject& gameObjRef)
+void RenderSystem::deregisterComponent(const AGameObject& gameObject)
 {
-	if (!componentMap.contains(gameObjRef.Name))
+	int foundComponentIndex = -1;
+	for (size_t i = 0; i < this->componentList.size(); i++)
 	{
-		Debug::Log("RenderComponent is not attached to game object {0}!", gameObjRef.Name);
-		return nullptr;
+		if (this->componentList[i]->getOwner().Name == gameObject.Name)
+		{
+			foundComponentIndex = (int)i;
+		}
 	}
-	return componentMap[gameObjRef.Name];
+
+	if (foundComponentIndex == -1)
+	{
+		return;
+	}
+
+	this->componentList.erase(this->componentList.begin() + foundComponentIndex);
+	this->componentList.shrink_to_fit();
 }
 
 void RenderSystem::draw(const Matrix4x4& viewProj,

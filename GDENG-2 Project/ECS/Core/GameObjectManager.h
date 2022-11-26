@@ -1,49 +1,50 @@
 #pragma once
+#include <vector>
 #include <string>
 #include <unordered_map>
 
-#include <vector>
-#include "AGameObject.h"
 #include "AComponent.h"
 
+class AGameObject;
+class AComponent;
 
-using String =  std::string;
+using String = std::string;
 using EntityID = String;
 
 using ObjectList = std::vector<AGameObject*>;
 using ObjectTable = std::unordered_map<String, AGameObject*>;
 
 using ComponentList = std::vector<AComponent*>;
-using ComponentTable = std::unordered_map<String, AComponent*>;
 
-class Camera;
+template <typename ComponentType>
+using ComponentTypeList = std::vector<ComponentType*>;
+
+using ComponentTable = std::unordered_map<String, ComponentList>;
+using GameObjectComponentTable = std::unordered_map<EntityID, ComponentList>;
+
 class GameObjectManager final
 {
 public:
 	static GameObjectManager* getInstance();
 	static void initialize();
-	static void destroy();
+	static void terminate();
 
-	void addObject(AGameObject* gameObject);
-
+	//======GAME OBJECTS======//
 	template <typename GameObjectType, typename... Args>
 	GameObjectType* createObject(std::string_view name = "GameObject", Args&&...args);
 
-	void destroyObject(const AGameObject* gameObject);
-	void destroyObjectByName(String name);
+	void destroyObject(AGameObject* gameObject);
+	void destroyObjectByName(std::string_view name);
 
-	bool hasObject(std::string_view name) const;
 	AGameObject* findObjectByName(std::string_view name) const;
 
 	ObjectList getAllObjects();
 
-	// This works if there is no flag for gameObjects for active or inactiveness
-	int activeObjects() const;
-	
-	// Not sure if this should be here
-	// void setSelectedObject(String name);
-	// void setSelectedObject(AGameObject* gameObject);
-	// AGameObject* getSelectedObject();
+	//======COMPONENTS======//
+	ComponentList getGameObjectComponentList(const AGameObject* gameObject); // Usually for UI Display
+
+	template <typename ComponentType>
+	ComponentTypeList<ComponentType> getComponentListOfType();
 
 	GameObjectManager(const GameObjectManager&)                = delete;
 	GameObjectManager& operator=(const GameObjectManager&)     = delete;
@@ -51,12 +52,28 @@ public:
 	GameObjectManager& operator=(GameObjectManager&&) noexcept = delete;
 
 private:
-	static GameObjectManager* sharedInstance;
+	static GameObjectManager* instance;
 
 	GameObjectManager();
 	~GameObjectManager();
 
+	//======GAME OBJECTS======//
+	bool hasObject(std::string_view name) const;
+	AGameObject* addObject(AGameObject* gameObject); // may need to modify stuff
+	AGameObject* removeObject(AGameObject* gameObject); // Other code is responsible for destructors
+
 	String getNewGameObjectName(std::string_view name) const;
+
+	//======COMPONENTS======//
+	bool hasComponent(const AGameObject* gameObject, std::string_view componentTypeName);
+
+	AComponent* getComponent(const AGameObject* gameObject, std::string_view componentTypeName);
+
+	AComponent* attachComponent(const AGameObject* gameObject,
+	                            AComponent* component);
+
+	void detachComponent(const AGameObject* gameObject,
+	                     const AComponent* component);
 
 	// Not sure if this should be here
 	// AGameObject* SelectedObject;
@@ -64,8 +81,10 @@ private:
 	ObjectList gameObjectList;
 	ObjectTable gameObjectTable;
 
-	std::unordered_map<EntityID, RenderComponent*> componentMap;
-	std::vector<RenderComponent*> componentList;
+	GameObjectComponentTable gameObjectComponentMap;
+	ComponentTable componentMap;
+
+	friend class AGameObject;
 };
 
 template <typename GameObjectType, typename ... Args>
@@ -74,9 +93,23 @@ GameObjectType* GameObjectManager::createObject(const std::string_view name, Arg
 	String newGameObjectName = getNewGameObjectName(name);
 
 	GameObjectType* newGameObject = new GameObjectType(newGameObjectName,
-	                                               std::forward<Args>(args)...);
+	                                                   std::forward<Args>(args)...);
 
-	this->addObject((AGameObject*)newGameObject);
+	return this->addObject((AGameObject*)newGameObject);
+}
 
-	return newGameObject;
+template <typename ComponentType>
+ComponentTypeList<ComponentType> GameObjectManager::getComponentListOfType()
+{
+	ComponentTypeList<ComponentType> foundComponentList = ComponentTypeList<ComponentType>();
+
+	if (this->componentMap.contains(ComponentType::getStaticName()))
+	{
+		for (size_t i = 0; i < this->componentMap[ComponentType::getStaticName()].size(); i++)
+		{
+			foundComponentList.push_back(this->componentMap[ComponentType::getStaticName()][i]);
+		}
+	}
+
+	return foundComponentList;
 }

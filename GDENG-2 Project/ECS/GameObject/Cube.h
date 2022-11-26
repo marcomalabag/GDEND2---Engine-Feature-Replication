@@ -1,5 +1,5 @@
 #pragma once
-#include "AGameObject.h"
+#include "ECS/Core/AGameObject.h"
 
 class Cube final: public AGameObject
 {

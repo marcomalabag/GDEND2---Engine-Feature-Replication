@@ -1,16 +1,8 @@
 #pragma once
-#include <unordered_map>
-
 #include "Debug.h"
-
+#include "GameObjectManager.h"
 #include "SystemManager.h"
 
-//Remember:
-//GameObject is an ID
-//Components are Data
-//Systems are DataProcessors
-
-class AComponent;
 class AGameObject
 {
 public:
@@ -34,24 +26,41 @@ public:
 	AGameObject(AGameObject&&) noexcept            = delete;
 	AGameObject& operator=(AGameObject&&) noexcept = delete;
 
-	std::string Name;
+	std::string Name; // Might return to private due to need to keep track since this is an ID
 };
 
-template <typename T, typename ... Args>
-T& AGameObject::attachComponent(Args&&... args)
+template <typename ComponentType, typename ... Args>
+ComponentType& AGameObject::attachComponent(Args&&... args)
 {
-	T* component = new T(std::forward<Args>(args)...);
-	return SystemManager::getInstance().registerComponent<T>(*this, *component);
+	if (GameObjectManager::getInstance()->hasComponent(this, ComponentType::getStaticName()))
+	{
+		return GameObjectManager::getInstance()->getComponent(this, ComponentType::getStaticName());
+	}
+
+	ComponentType* newComponent = new ComponentType(*this, std::forward<Args>(args)...);
+	newComponent = GameObjectManager::getInstance()->attachComponent(this, newComponent);
+
+	SystemManager::getInstance().registerComponent<ComponentType>(newComponent);
+	return newComponent;
 }
 
-template <typename T>
+template <typename ComponentType>
 void AGameObject::detachComponent()
 {
-	SystemManager::getInstance().deregisterComponent<T>(*this);
+	const AComponent* hasComponent = GameObjectManager::getInstance()->getComponent(this,
+	                                                                                ComponentType::getStaticName());
+	if (hasComponent == nullptr)
+	{
+		return;
+	}
+	
+	SystemManager::getInstance().deregisterComponent<ComponentType>(*this);
+	GameObjectManager::getInstance()->detachComponent(this, hasComponent);
 }
 
-template <class T>
-T* AGameObject::getComponent()
+template <class ComponentType>
+ComponentType* AGameObject::getComponent()
 {
-	return SystemManager::getInstance().getComponent<T>(*this);
+	return GameObjectManager::getInstance()->getComponent(this,
+	                                                      ComponentType::getStaticName());
 }

@@ -200,10 +200,10 @@
     <ClInclude Include="GDENG-2 Project\ECS\Core\AGameObject.h" />
     <ClInclude Include="GDENG-2 Project\ECS\Core\GameObjectManager.h" />
     <ClInclude Include="GDENG-2 Project\ECS\Core\SystemManager.h" />
-    <ClInclude Include="GDENG-2 Project\ECS\GameObject\Camera.h" />
-    <ClInclude Include="GDENG-2 Project\ECS\GameObject\CameraMovement.h" />
     <ClInclude Include="GDENG-2 Project\ECS\GameObject\Cube.h" />
+    <ClInclude Include="GDENG-2 Project\ECS\System\CameraSystem.h" />
     <ClInclude Include="GDENG-2 Project\ECS\System\RenderSystem.h" />
+    <ClInclude Include="GDENG-2 Project\ECS\System\ViewportSystem.h" />
     <ClInclude Include="GDENG-2 Project\EngineTime.h" />
     <ClInclude Include="GDENG-2 Project\GameCameraHandler.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\ConstantBuffer.h" />
@@ -250,6 +250,7 @@
     <ClInclude Include="GDENG-2 Project\UI\ProfilerScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\UIManager.h" />
     <ClInclude Include="GDENG-2 Project\UI\UINames.h" />
+    <ClInclude Include="GDENG-2 Project\UI\UISystem.h" />
     <ClInclude Include="GDENG-2 Project\Utils.h" />
     <ClInclude Include="GDENG-2 Project\Window.h" />
   </ItemGroup>
@@ -265,10 +266,10 @@
     <ClCompile Include="GDENG-2 Project\ECS\Core\AGameObject.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\Core\GameObjectManager.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\Core\SystemManager.cpp" />
-    <ClCompile Include="GDENG-2 Project\ECS\GameObject\Camera.cpp" />
-    <ClCompile Include="GDENG-2 Project\ECS\GameObject\CameraMovement.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\GameObject\Cube.cpp" />
+    <ClCompile Include="GDENG-2 Project\ECS\System\CameraSystem.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\System\RenderSystem.cpp" />
+    <ClCompile Include="GDENG-2 Project\ECS\System\ViewportSystem.cpp" />
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp" />
     <ClCompile Include="GDENG-2 Project\GameCameraHandler.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\ConstantBuffer.cpp" />
@@ -311,6 +312,7 @@
     <ClCompile Include="GDENG-2 Project\UI\MenuScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\UI\ProfilerScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\UI\UIManager.cpp" />
+    <ClCompile Include="GDENG-2 Project\UI\UISystem.cpp" />
     <ClCompile Include="GDENG-2 Project\Utils.cpp" />
     <ClCompile Include="GDENG-2 Project\Window.cpp" />
     <ClCompile Include="GDENG-2 Project\main.cpp" />

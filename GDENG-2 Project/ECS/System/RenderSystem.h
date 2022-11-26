@@ -9,8 +9,6 @@
 
 #include "ECS/Component/RenderComponent.h"
 
-// RenderSystem has ownership of all RenderComponents
-
 // Constant Buffers (TODO)
 // Slot 0:
 
@@ -22,17 +20,11 @@ public:
 	RenderSystem();
 	~RenderSystem();
 
-	RenderComponent* createRenderComponent(AGameObject& owner,
-	                                       RenderData* renderData,
-	                                       VertexShader* vertexShaderRef,
-	                                       PixelShader* pixelShaderRef,
-	                                       TransformComponent& transformComponent);
+	void registerComponent(RenderComponent* component);
 
-	void destroyRenderComponent(AGameObject& gameObject);
+	void deregisterComponent(const AGameObject& gameObject);
 
-	RenderComponent* getComponent(AGameObject& gameObject);
-
-	// Actual functionality of this system
+	//=====ACTUAL FUNCTIONALITY=====//
 
 	void draw(const Matrix4x4& viewProj,
 	          const Framebuffer* framebuffer) const;
@@ -44,7 +36,4 @@ public:
 
 private:
 	std::vector<RenderComponent*> componentList;
-
-	// Callback list of OnRenderComponentCreate();
-	// Callback list of OnRenderComponentDestroy();
 };
