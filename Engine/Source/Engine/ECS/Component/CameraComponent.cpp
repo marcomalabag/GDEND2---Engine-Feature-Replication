@@ -16,7 +16,7 @@ namespace Engine
 		m_Transform{transform}
 	{
 		m_Up      = Vector3Float(0.0f, 1.0f, 0.0f);
-		m_Front   = Vector3Float(0.0f, 0.0f, -1.0f);
+		m_Front   = Vector3Float(0.0f, 0.0f, 0.0f);
 		m_WorldUp = m_Up;
 
 		InitRenderTarget(width, height);
@@ -30,6 +30,36 @@ namespace Engine
 		delete storedFramebuffer;
 
 		InitRenderTarget(width, height);
+	}
+
+	void CameraComponent::InitRenderTarget(uint64_t width, uint64_t height)
+	{
+		FramebufferProfile resizedFramebufferProfile;
+		resizedFramebufferProfile.Width  = width;
+		resizedFramebufferProfile.Height = height;
+
+		m_RenderTarget = Application::GetRenderer().
+		                 GetDevice().CreateFramebuffer(resizedFramebufferProfile);
+	}
+
+	void CameraComponent::SetPosition(const Vector3Float& position) const
+	{
+		m_Transform->Position = position;
+	}
+
+	void CameraComponent::SetRotation(const Vector3Float& rotation) const
+	{
+		m_Transform->Rotation = rotation;
+	}
+
+	const Vector3Float& CameraComponent::GetPosition() const
+	{
+		return m_Transform->Position;
+	}
+
+	const Vector3Float& CameraComponent::GetRotation() const
+	{
+		return m_Transform->Rotation;
 	}
 
 	Matrix4 CameraComponent::GetViewProjMatrix()
@@ -50,19 +80,6 @@ namespace Engine
 		UpdateViewMatrix();
 	}
 
-	Framebuffer& CameraComponent::GetRenderTarget() const
-	{
-		return *m_RenderTarget;
-	}
-
-	void CameraComponent::InitRenderTarget(uint64_t width, uint64_t height)
-	{
-		FramebufferProfile resizedFramebufferProfile;
-		resizedFramebufferProfile.Width = width;
-		resizedFramebufferProfile.Height = height;
-		m_RenderTarget = Application::GetRenderer().GetDevice().CreateFramebuffer(resizedFramebufferProfile);
-	}
-
 	void CameraComponent::UpdateViewMatrix()
 	{
 		m_ViewMatrix = m_Transform->GetLocalMatrix();
@@ -74,9 +91,11 @@ namespace Engine
 		float yaw   = m_Transform->Rotation.y;
 		float roll  = m_Transform->Rotation.z;
 
-		m_Front.x = std::cos(DegreesToRadians(yaw)) * std::cos(DegreesToRadians(pitch));
+		m_Front.x = std::cos(DegreesToRadians(yaw)) *
+		            std::cos(DegreesToRadians(pitch));
 		m_Front.y = std::sin(DegreesToRadians(pitch));
-		m_Front.z = std::sin(DegreesToRadians(yaw)) * std::cos(DegreesToRadians(pitch));
+		m_Front.z = std::sin(DegreesToRadians(yaw)) *
+		            std::cos(DegreesToRadians(pitch));
 		m_Front.Normalize();
 
 		m_Right = m_Front.Cross(m_WorldUp);
@@ -84,5 +103,10 @@ namespace Engine
 
 		m_Up = m_Right.Cross(m_Front);
 		m_Up.Normalize();
+	}
+
+	Framebuffer& CameraComponent::GetRenderTarget() const
+	{
+		return *m_RenderTarget;
 	}
 }

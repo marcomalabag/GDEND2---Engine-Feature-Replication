@@ -1,5 +1,6 @@
 ﻿#include "FileMenuBar.h"
 
+#include <Engine/ECS/ComponentSystem/ComponentSystemHandler.h>
 #include <Engine/ECS/Core/EntityManager.h>
 #include <Engine/ECS/Entity/EmptyEntity.h>
 #include <Engine/ECS/Entity/Camera.h>
@@ -51,10 +52,10 @@ namespace Editor
 					{
 						Engine::EntityManager::Create<Engine::Cube>("Cube");
 					}
-					
+
 					ImGui::EndMenu();
 				}
-				
+
 				ImGui::EndMenu();
 			}
 
@@ -74,6 +75,27 @@ namespace Editor
 				if (ImGui::MenuItem("Game Viewport"))
 				{
 					Engine::UISystem::Create<GameViewportScreen>();
+				}
+
+				ImGui::EndMenu();
+			}
+
+			if (ImGui::BeginMenu("Camera"))
+			{
+				if (ImGui::MenuItem("Align With View"))
+				{
+					using namespace Engine;
+					// Get Current Editor Camera
+					const auto currentEditorCamera = Application::GetComponentSystem()
+					                                 .GetCameraSystem().GetEditorCamera(0);
+
+					// Get Game Camera
+					const auto gameCamera = Application::GetComponentSystem()
+					                        .GetCameraSystem().GetGameCamera();
+
+					// Game Camera Transform = EditorCamera Transform
+					gameCamera->SetPosition(currentEditorCamera->GetPosition());
+					gameCamera->SetRotation(currentEditorCamera->GetRotation());
 				}
 
 				ImGui::EndMenu();

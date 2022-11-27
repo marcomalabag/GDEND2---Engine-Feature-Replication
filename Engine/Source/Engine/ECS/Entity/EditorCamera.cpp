@@ -5,7 +5,6 @@
 #include "Engine/ECS/Component/EditorCameraComponent.h"
 
 #include "Engine/Core/Application.h"
-#include "Engine/Core/Window.h"
 
 namespace Engine
 {

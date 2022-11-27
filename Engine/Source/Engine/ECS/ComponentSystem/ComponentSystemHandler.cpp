@@ -20,7 +20,7 @@ namespace Engine
 
 	void ComponentSystemHandler::Update()
 	{
-		m_CameraSystem->CameraUpdate();
+		m_CameraSystem->GameCameraUpdate();
 		m_CameraSystem->EditorCameraUpdate();
 	}
 

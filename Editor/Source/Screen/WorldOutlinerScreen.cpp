@@ -16,10 +16,10 @@ namespace Editor
 	{
 		using namespace Engine;
 
-        auto createEntityCallback = [this](const Entity* entity) { AddEntityEntry(entity); };
+		auto createEntityCallback = [this](const Entity* entity) { AddEntityEntry(entity); };
 		EntityManager::ListenToEntityCreateEvent(createEntityCallback);
 
-        auto destroyEntityCallback = [this](const Entity* entity) { RemoveEntityEntry(entity); };
+		auto destroyEntityCallback = [this](const Entity* entity) { RemoveEntityEntry(entity); };
 		EntityManager::ListenToEntityDestroyEvent(destroyEntityCallback);
 
 		// const List<Entity*>& entityListRef = EntityManager::GetAllEntities();
@@ -90,12 +90,16 @@ namespace Editor
 			m_SelectedEntity = 0;
 		}
 
-		auto foundEntry = std::ranges::remove_if(m_EntityEntryList,
-		                                         [entityID](const Entry& entry) -> bool
-		                                         {
-			                                         return entry.EntityID == entityID;
-		                                         });
-		m_EntityEntryList.erase(foundEntry.begin(), foundEntry.end());
+		int index = -1;
+		for (size_t i = 0; i < m_EntityEntryList.size(); i++)
+		{
+			if (m_EntityEntryList[i].EntityID == entityID)
+			{
+				index = (int)i;
+			}
+		}
+
+		m_EntityEntryList.erase(m_EntityEntryList.begin() + index);
 		m_EntityEntryList.shrink_to_fit();
 	}
 }

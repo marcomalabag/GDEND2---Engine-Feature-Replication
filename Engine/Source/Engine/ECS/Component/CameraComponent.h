@@ -6,7 +6,6 @@
 namespace Engine
 {
 	// Issue, what if the transform is deleted before camera component?
-
 	class TransformComponent;
 	class CameraComponent final : public AComponent
 	{
@@ -22,6 +21,14 @@ namespace Engine
 
 		void SetSize(uint64_t width, uint64_t height);
 
+		void SetPosition(const Vector3Float& position) const;
+
+		void SetRotation(const Vector3Float& rotation) const;
+
+		const Vector3Float& GetPosition() const;
+
+		const Vector3Float& GetRotation() const;
+		
 		Matrix4 GetViewProjMatrix();
 
 		void Update();

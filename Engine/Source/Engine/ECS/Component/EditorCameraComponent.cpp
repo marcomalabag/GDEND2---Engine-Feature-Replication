@@ -50,6 +50,26 @@ namespace Engine
 		UpdateViewMatrix();
 	}
 
+	void EditorCameraComponent::SetPosition(const Vector3Float& position) const
+	{
+		m_Transform->Position = position;
+	}
+
+	void EditorCameraComponent::SetRotation(const Vector3Float& rotation) const
+	{
+		m_Transform->Rotation = rotation;
+	}
+	
+	const Vector3Float& EditorCameraComponent::GetPosition() const
+	{
+		return m_Transform->Position;
+	}
+
+	const Vector3Float& EditorCameraComponent::GetRotation() const
+	{
+		return m_Transform->Rotation;
+	}
+
 	Framebuffer& EditorCameraComponent::GetRenderTarget() const
 	{
 		return *m_RenderTarget;
