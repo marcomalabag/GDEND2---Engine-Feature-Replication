@@ -33,6 +33,7 @@ void AppWindow::terminate()
 	delete sharedInstance;
 }
 
+
 AppWindow* AppWindow::getInstance()
 {
 	if (sharedInstance != nullptr)
@@ -56,8 +57,6 @@ void AppWindow::initializeEngine()
 	                                                                       this->width,
 	                                                                       this->height);
 	ShaderLibrary::init(5);
-	// SceneCameraHandler::init(width, height);
-	// GameCameraHandler::initialize(width, height);
 	GameObjectManager::initialize();
 	SystemManager::initialize();
 }
