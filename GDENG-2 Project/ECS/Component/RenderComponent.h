@@ -2,7 +2,7 @@
 #include "Debug.h"
 
 #include "ECS/Core/AComponent.h"
-#include "RenderData.h"
+#include "Graphics/RenderData.h"
 #include "TransformComponent.h"
 
 #include "Graphics/VertexBuffer.h"

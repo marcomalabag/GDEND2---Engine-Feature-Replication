@@ -3,7 +3,7 @@
 #include "Debug.h"
 #include "GraphicsEngine.h"
 
-Framebuffer::Framebuffer(ID3D11Device* device, const FramebufferProfile& profile) :
+Framebuffer::Framebuffer(ID3D11Device& device, const FramebufferProfile& profile) :
 	profile{profile},
 	frameTextureView{nullptr},
 	renderTarget{nullptr},
@@ -27,7 +27,7 @@ Framebuffer::Framebuffer(ID3D11Device* device, const FramebufferProfile& profile
 		renderTargetTextureDesc.CPUAccessFlags   = 0;
 		renderTargetTextureDesc.MiscFlags        = 0;
 
-		result = device->CreateTexture2D(&renderTargetTextureDesc,
+		result = device.CreateTexture2D(&renderTargetTextureDesc,
 		                                 nullptr,
 		                                 &renderTargetTexture);
 		Debug::Assert(SUCCEEDED(result), "Failed to create Frame texture!");
@@ -45,7 +45,7 @@ Framebuffer::Framebuffer(ID3D11Device* device, const FramebufferProfile& profile
 	renderTargetDesc.ViewDimension      = D3D11_RTV_DIMENSION_TEXTURE2D;
 	renderTargetDesc.Texture2D.MipSlice = 0;
 
-	result = device->CreateRenderTargetView(renderTargetTexture,
+	result = device.CreateRenderTargetView(renderTargetTexture,
 	                                        &renderTargetDesc,
 	                                        &renderTarget);
 	Debug::Assert(SUCCEEDED(result), "Failed to create Render Target View!");
@@ -66,12 +66,12 @@ Framebuffer::Framebuffer(ID3D11Device* device, const FramebufferProfile& profile
 	depthStencilTextureDesc.ArraySize          = 1;
 	depthStencilTextureDesc.CPUAccessFlags     = 0;
 
-	result = device->CreateTexture2D(&depthStencilTextureDesc,
+	result = device.CreateTexture2D(&depthStencilTextureDesc,
 	                                 nullptr,
 	                                 &depthStencilTexture);
 	Debug::Assert(SUCCEEDED(result), "Failed to create Depth Stencil View Texture!");
 
-	result = device->CreateDepthStencilView(depthStencilTexture,
+	result = device.CreateDepthStencilView(depthStencilTexture,
 	                                        nullptr,
 	                                        &depthStencilView);
 	Debug::Assert(SUCCEEDED(result), "Failed to create Depth Stencil View!");
@@ -92,7 +92,7 @@ Framebuffer::Framebuffer(ID3D11Device* device, const FramebufferProfile& profile
 	srvDesc.Texture2D.MipLevels       = 1;
 	srvDesc.Texture2D.MostDetailedMip = 0;
 
-	result = device->CreateShaderResourceView(renderTargetTexture,
+	result = device.CreateShaderResourceView(renderTargetTexture,
 	                                          &srvDesc,
 	                                          &frameTextureView);
 	Debug::Assert(SUCCEEDED(result), "Failed to create Frame Texture View!");

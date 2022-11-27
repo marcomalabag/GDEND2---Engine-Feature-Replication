@@ -8,7 +8,6 @@
 #include "HierarchyScreen.h"
 #include "CreditsScreen.h"
 
-
 class UIManager
 {
 public:
@@ -37,6 +36,5 @@ private:
 	UIList uiList;
 	UITable uiTable;
 	bool showCredits = false;
-
 };
 

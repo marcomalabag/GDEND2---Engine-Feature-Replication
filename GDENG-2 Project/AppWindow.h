@@ -1,32 +1,27 @@
 #pragma once
 #include "Window.h"
 
+#include "Graphics/SwapChain.h"
 
-class AppWindow final : public Window//, public InputListener
+class AppWindow final : public Window
 {
 public:
 	static void initialize();
 	static void terminate();
 	
 	static AppWindow* getInstance();
+
+	void initializeEngine();
+	void createInterface();
+
+	void createInitialObjects();
 	
 	void onCreate() override;
 	void onDestroy() override;
 	void onUpdate() override;
-	void onResize() override;
-	void onFocus() override;
-	void onKillFocus() override;
-
-	// virtual void onKeyDown(int key) override;
-	// virtual void onKeyUp(int key) override;
-	// virtual void onMouseMove(const Point& deltaMousePos) override;
-	// virtual void onLeftMouseDown(const Point& mousePosition) override;
-	// virtual void onLeftMouseUp(const Point& mousePosition) override;
-	// virtual void onRightMouseDown(const Point& mousePosition) override;
-	// virtual void onRightMouseUp(const Point& mousePosition) override;
-
-	void initializeEngine();
-	void createInterface();
+	void onResize(UINT width, UINT height) override;
+	// void onFocus() override;
+	// void onKillFocus() override;
 
 	AppWindow(const AppWindow&)                = delete;
 	AppWindow& operator=(const AppWindow&)     = delete;
@@ -39,6 +34,6 @@ private:
 
 private:
 	static AppWindow* sharedInstance;
-
+	SwapChain* swapChain;
 };
 

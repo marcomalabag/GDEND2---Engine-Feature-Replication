@@ -1,6 +1,7 @@
 #include "Cube.h"
 
 #include "Math/Vector3D.h"
+#include "ECS/Component/TransformComponent.h"
 #include "ECS/Component/RenderComponent.h"
 #include "Graphics/ShaderLibrary.h"
 
@@ -14,6 +15,8 @@ struct CubeVertex
 Cube::Cube(const std::string_view name) :
 	AGameObject(name)
 {
+	auto& transform = this->attachComponent<TransformComponent>();
+
 	std::vector<CubeVertex>* vertexList = new std::vector<CubeVertex>{
 		//FRONT FACE
 		{Vector3D(-0.5f, -0.5f, -0.5f)},
@@ -99,10 +102,10 @@ Cube::Cube(const std::string_view name) :
 	VertexShader* vertexShader = &ShaderLibrary::getShader<VertexShader>("SolidColor_VS");
 	PixelShader* pixelShader   = &ShaderLibrary::getShader<PixelShader>("SolidColor_PS");
 
-	this->attachComponent<RenderComponent>(*this,
-	                                       renderData,
+	this->attachComponent<RenderComponent>(renderData,
 	                                       vertexShader,
-	                                       pixelShader);
+	                                       pixelShader,
+	                                       transform);
 }
 
 Cube::~Cube() = default;

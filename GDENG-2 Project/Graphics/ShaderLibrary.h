@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include "Debug.h"
+#include "GraphicsEngine.h"
 #include "Utils.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
@@ -107,7 +108,7 @@ inline void ShaderLibrary::add<VertexShader>(const std::string_view filename)
 		}
 	}
 
-	instance.vertexShaderMap[shaderName] = new VertexShader(blob);
+	instance.vertexShaderMap[shaderName] = GraphicsEngine::getInstance()->getDevice().createVertexShader(blob);
 }
 
 template <>
@@ -147,7 +148,7 @@ inline void ShaderLibrary::add<PixelShader>(const std::string_view filename)
 		}
 	}
 
-	instance.pixelShaderMap[shaderName] = new PixelShader(blob);
+	instance.pixelShaderMap[shaderName] = GraphicsEngine::getInstance()->getDevice().createPixelShader(blob);
 }
 
 //---------- GET SHADER

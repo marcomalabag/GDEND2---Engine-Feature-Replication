@@ -2,6 +2,7 @@
 
 #include "Debug.h"
 #include "RenderData.h"
+#include "GraphicsEngine.h"
 
 VertexBuffer::VertexBuffer(ID3D11Device& device,
                            const RenderData& renderData,

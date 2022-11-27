@@ -1,9 +1,6 @@
 #pragma once
-#include <iostream>
 #include "InputListener.h"
 #include <vector>
-#include <Windows.h>
-#include <unordered_set>
 
 typedef std::vector<InputListener*> List;
 

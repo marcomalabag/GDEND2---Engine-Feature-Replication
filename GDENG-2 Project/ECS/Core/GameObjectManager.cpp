@@ -145,30 +145,30 @@ AComponent* GameObjectManager::getComponent(const AGameObject* gameObject,
 }
 
 AComponent* GameObjectManager::attachComponent(const AGameObject* gameObject,
-                                               AComponent* component)
+                                               AComponent** component)
 {
-	AComponent* newComponent = this->getComponent(gameObject, component->getName());
+	AComponent* newComponent = this->getComponent(gameObject, (*component)->getName());
 
 	if (newComponent != nullptr)
 	{
 		return newComponent;
 	}
 
-	newComponent = component;
+	newComponent = *component;
 
 	if (!this->gameObjectComponentMap.contains(gameObject->Name))
 	{
 		this->gameObjectComponentMap[gameObject->Name] = ComponentList();
 	}
 
-	this->gameObjectComponentMap[gameObject->Name].emplace_back(newComponent);
+	this->gameObjectComponentMap[gameObject->Name].push_back(newComponent);
 
-	if (!this->componentMap.contains(component->getName()))
+	if (!this->componentMap.contains((*component)->getName()))
 	{
-		this->componentMap[component->getName()] = ComponentList();
+		this->componentMap[(*component)->getName()] = ComponentList();
 	}
 
-	this->componentMap[component->getName()].emplace_back(newComponent);
+	this->componentMap[(*component)->getName()].emplace_back(newComponent);
 
 	return newComponent;
 }

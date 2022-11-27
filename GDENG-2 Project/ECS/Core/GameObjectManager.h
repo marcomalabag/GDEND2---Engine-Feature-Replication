@@ -70,7 +70,7 @@ private:
 	AComponent* getComponent(const AGameObject* gameObject, std::string_view componentTypeName);
 
 	AComponent* attachComponent(const AGameObject* gameObject,
-	                            AComponent* component);
+	                            AComponent** component);
 
 	void detachComponent(const AGameObject* gameObject,
 	                     const AComponent* component);

@@ -27,4 +27,6 @@ private:
 
 	RenderDevice* renderDevice;
 	RenderContext* renderContext;
+
+	
 };

@@ -3,13 +3,17 @@
 int main()
 {
 	AppWindow::initialize();
-	AppWindow* runningApp = AppWindow::getInstance();
-	runningApp->initializeEngine();
-	runningApp->createInterface();
-	while(runningApp->isRun())
+	
+	AppWindow::getInstance()->initializeEngine();
+	AppWindow::getInstance()->createInterface();
+	
+	AppWindow::getInstance()->createInitialObjects();
+	
+	while(AppWindow::getInstance()->isRun())
 	{
-		runningApp->broadcast();
+		AppWindow::getInstance()->broadcast();
 	}
+	
 	AppWindow::terminate();
 	return 0;
 }

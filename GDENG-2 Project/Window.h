@@ -1,6 +1,5 @@
 #pragma once
 #include <Windows.h>
-#include "EngineTime.h"
 
 class Window
 {
@@ -24,11 +23,9 @@ public:
 	virtual void onCreate();
 	virtual void onUpdate();
 	virtual void onDestroy();
-
 	virtual void onFocus();
 	virtual void onKillFocus();
-	virtual void onResize(UINT width,
-						  UINT height);
+	virtual void onResize(UINT width, UINT height);
 	
 protected:
 	HWND hwnd;

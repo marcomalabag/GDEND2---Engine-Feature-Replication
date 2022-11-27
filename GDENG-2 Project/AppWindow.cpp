@@ -1,34 +1,25 @@
 #include "AppWindow.h"
 
-#include "IMGUI/imgui.h"
+#include "ImGui/imgui.h"
 
-#include "Graphics/GraphicsEngine.h"
-#include "SceneCameraHandler.h"
-
-#include "Graphics/ShaderLibrary.h"
-
-#include "Graphics/GraphicsEngine.h"
-#include "Graphics/SwapChain.h"
-#include "Graphics/VertexBuffer.h"
-#include "Graphics/ConstantBuffer.h"
-#include "Graphics/VertexShader.h"
-#include "Graphics/PixelShader.h"
-#include <vector>
-#include "UI/UIManager.h"
 #include "EngineTime.h"
-//#include "InputListener.h"
-//#include "InputSystem.h"
-#include "GameCameraHandler.h"
+#include "Graphics/GraphicsEngine.h"
+#include "Graphics/ShaderLibrary.h"
+// #include "UI/UIManager.h"
+#include "Input/InputSystem.h"
+#include "ECS/Core/GameObjectManager.h"
+#include "ECS/Core/SystemManager.h"
+
+#include "UI/SampleScreen.h"
+#include "UI/UISystem.h"
+#include "UI/ViewportScreen.h"
 
 AppWindow* AppWindow::sharedInstance = nullptr;
 
-AppWindow::AppWindow()
-{
-}
+AppWindow::AppWindow() :
+	swapChain{nullptr} { }
 
-AppWindow::~AppWindow()
-{
-}
+AppWindow::~AppWindow() {}
 
 void AppWindow::initialize()
 {
@@ -55,186 +46,144 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 	InputSystem::initialize();
+	EngineTime::initialize();
 }
 
 void AppWindow::initializeEngine()
 {
-	RECT rc    = this->getClientWindowRect();
-	int width  = rc.right - rc.left;
-	int height = rc.bottom - rc.top;
-
-	GraphicsEngine::initialize(this->hwnd, width, height);
+	GraphicsEngine::initialize();
+	swapChain = GraphicsEngine::getInstance()->getDevice().createSwapChain(this->hwnd,
+	                                                                       this->width,
+	                                                                       this->height);
 	ShaderLibrary::init(5);
-	EngineTime::initialize();
-	SceneCameraHandler::init(width, height);
-	GameCameraHandler::initialize(width, height);
+	// SceneCameraHandler::init(width, height);
+	// GameCameraHandler::initialize(width, height);
 	GameObjectManager::initialize();
-
-	SystemHandler::init();
-
-	ShaderLibrary::add<VertexShader>("GDENG-2 Project/Assets/SolidColor_VS.hlsl");
-	ShaderLibrary::add<PixelShader>("GDENG-2 Project/Assets/SolidColor_PS.hlsl");
-
-	cube                    = new Cube("Testing cube");
-	cube->transform().Scale = Vector3D(5, 5, 5);
-
-	FramebufferProfile framebuffer1Profile;
-	framebuffer1Profile.Width  = width;
-	framebuffer1Profile.Height = height;
-
-	framebuffer1 = new Framebuffer(framebuffer1Profile,
-	                               &GraphicsEngine::getInstance()->getDevice());
-
-	renderQuad = new RenderQuad();
-	halfRenderQuad = new HalfRenderQuad();
-	// Initial Entities
-	// Goal: Draw at least 1 Cube using ECS
-	//GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
-	GameCameraHandler::getInstance()->initializeGameCamera();
+	SystemManager::initialize();
 }
 
 void AppWindow::createInterface()
 {
-	UIManager::initialize(this->hwnd);
+	UISystem::initialize(this->hwnd, this->width, this->height);
+}
+
+void AppWindow::createInitialObjects()
+{
+	//ShaderLibrary::add<VertexShader>("GDENG-2 Project/Assets/SolidColor_VS.hlsl");
+	//ShaderLibrary::add<PixelShader>("GDENG-2 Project/Assets/SolidColor_PS.hlsl");
+
+	UISystem::getInstance()->createUI<SampleScreen>();
+	UISystem::getInstance()->createUI<ViewportScreen>();
+	UISystem::getInstance()->createUI<ViewportScreen>();
+
+	// Initial Entities
+	// Goal: Draw at least 1 Cube using ECS
+	// GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE);
+	// GameCameraHandler::getInstance()->initializeGameCamera();
 }
 
 void AppWindow::onUpdate()
 {
+	//=====PROCESS INPUT=====//
 	//Window::onUpdate();
-	InputSystem::getInstance()->update();
+	InputSystem::getInstance()->update(); // May need refactoring if the InputSystem implementation changes.
 
-	this->ticks += EngineTime::getDeltaTime() * 1.0f;
+	//=====PROCESS GAME OBJECT AWAKE()/START()=====//
+	// TODO?
 
-	SceneCameraHandler::getInstance()->update();
-	GameCameraHandler::getInstance()->update();
+	//=====PROCESS GAME OBJECT UPDATE()=====//
+	// TODO?
 
-	// Drawing----------------
-	// Swap buffer clear
-	Framebuffer& swapChainBuffer           = GraphicsEngine::getInstance()->getSwapChain().getBuffer();
-	FramebufferProfile swapChainBufferInfo = swapChainBuffer.getInfo();
+	//=====PROCESS GAME OBJECT MOVEMENT AND RESOLVE COLLISIONS=====//
+	// Technically, we can have game camera have collisions and be moved here?
+	// TODO?
 
-	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)swapChainBufferInfo.Width,
-																	  (float)swapChainBufferInfo.Height);
+	//=====PROCESS CAMERA LOGIC=====//
+	// SystemManager::getCameraSystem().editorCameraUpdate(); // With given inputs to the focused camera, move and rotate accordingly.
+	// SystemManager::getCameraSystem().gameCameraUpdate(); // For this case, this is where the actual set of Align with View implementation takes place
 
-	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
-																		&swapChainBuffer.getDepthStencil());
+	//=====PROCESS POST-CAMERA LOGIC FOR GAME OBJECTS=====//
+	// SystemManager::update();
 
-	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(swapChainBuffer.getRenderTarget(),
-																			Color(0.8f, 0.4f, 0.7f, 1.0f));
+	//=====PROCESS VIEWPORT LOGIC=====//
+	// UISystem::getViewportSystem().update(); // Mainly, resize events
+	// If the viewport's size is not equal owned camera's size: set Viewport size to the owned camera size
 
-	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(swapChainBuffer.getDepthStencil());
+	//=====DRAWING=====//
+	const Framebuffer& swapChainFramebuffer = this->swapChain->getBuffer();
+	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)swapChainFramebuffer.getInfo().Width,
+	                                                                  (float)swapChainFramebuffer.getInfo().Height);
+	GraphicsEngine::getInstance()->getDeviceContext().setRenderTarget(&swapChainFramebuffer.getRenderTarget(),
+	                                                                  &swapChainFramebuffer.getDepthStencil());
+	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(swapChainFramebuffer.getRenderTarget(),
+	                                                                        Color(1.0, 0, 0, 1));
+	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(swapChainFramebuffer.getDepthStencil());
+
+	// Draw to Each Viewport using Camera's Framebuffer
+	// foreach (viewport : ViewportList)
+	// {
+	//		viewport.Camera.BindFramebuffer();
+	//		viewport.Camera.SetViewportSize();
+	//		viewport.Camera.ClearFramebuffer();
+	//
+	//		RenderSystem::DrawObjects(viewport.Camera());
+	//	
+	//		viewport.UnbindFramebuffer();
+	// }
+
+	GraphicsEngine::getInstance()->getDeviceContext().setRenderTarget(&swapChainFramebuffer.getRenderTarget(),
+																	  &swapChainFramebuffer.getDepthStencil());
 	
-	// editor frame buffer
-	auto* editorRenderTarget = SceneCameraHandler::getInstance()->getFramebuffer();
-	
-	const FramebufferProfile editorFramebufferInfo = editorRenderTarget->getInfo();
+	UISystem::getInstance()->drawAllUI(); 	// Draw each Viewport ImGui Image (included here)
 
-	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)editorFramebufferInfo.Width,
-																	  (float)editorFramebufferInfo.Height);
+	// If during draw shows that a ViewportSize is not equal to CameraSize
+	// Request camera resize in the next frame.
 
-	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&editorRenderTarget->getRenderTarget(),
-																		&editorRenderTarget->getDepthStencil());
+	swapChain->present(true);
+}
 
-	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(editorRenderTarget->getRenderTarget(),
-																			Color(0.8f, 0.4f, 0.7f, 1.0f));
+void AppWindow::onResize(const UINT width, const UINT height)
+{
+	Window::onResize(width, height);
 
-	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(editorRenderTarget->getDepthStencil());
+	if (GraphicsEngine::getInstance() != nullptr)
+	{
+		this->swapChain->resize(width, height,
+		                        GraphicsEngine::getInstance()->getDeviceContext(),
+		                        GraphicsEngine::getInstance()->getDevice());
+	}
 
-	halfRenderQuad->draw();
-
-	// SystemHandler::getInstance().getRenderSystem().draw(SceneCameraHandler::getInstance()->getSceneCameraViewMatrix(),
-	//                                                     SceneCameraHandler::getInstance()->getFramebuffer());
-
-
-	// game framebuffer
-	auto* gameViewRenderTarget = GameCameraHandler::getInstance()->getFramebuffer();
-	
-	const FramebufferProfile gameFramebufferInfo = gameViewRenderTarget->getInfo();
-
-	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)gameFramebufferInfo.Width,
-																	  (float)gameFramebufferInfo.Height);
-
-	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&gameViewRenderTarget->getRenderTarget(),
-																		&gameViewRenderTarget->getDepthStencil());
-
-	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(gameViewRenderTarget->getRenderTarget(),
-																			Color(0.8f, 0.0f, 0.7f, 1.0f));
-
-	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(gameViewRenderTarget->getDepthStencil());
-
-	halfRenderQuad->draw();
-	
-	// SystemHandler::getInstance().getRenderSystem().draw(GameCameraHandler::getInstance()->getGameCameraViewMatrix(),
-	//                                                     GameCameraHandler::getInstance()->getFramebuffer());
-
-	// return to swap buffer
-	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&swapChainBuffer.getRenderTarget(),
-																		&swapChainBuffer.getDepthStencil());
-
-	// Draw quad with texture of the framebuffer
-	//renderQuad->draw(framebuffer1->getFrame());
-
-	halfRenderQuad->draw();
-
-	UIManager::getInstance()->drawAllUI();
-
-	GraphicsEngine::getInstance()->getSwapChain().present(true);
+	if (UISystem::getInstance() != nullptr)
+	{
+		UISystem::getInstance()->resizeContext(this->width, this->height);
+	}
 }
 
 void AppWindow::onDestroy()
 {
-	delete framebuffer1;
+	SystemManager::terminate();
 
-	// delete renderQuad;
-
-	SystemHandler::release();
-
-	Window::onDestroy();
-
-	InputSystem::destroy();
+	GameObjectManager::terminate();
 
 	ShaderLibrary::release();
 
-	GraphicsEngine::getInstance()->release();
+	// UIManager::destroy();
 
-	UIManager::getInstance()->destroy();
+	delete swapChain;
+
+	GraphicsEngine::terminate();
+
+	InputSystem::destroy();
+
+	Window::onDestroy();
 }
 
-void AppWindow::onFocus()
-{
-	InputSystem::getInstance()->addListener(this);
-}
-
-void AppWindow::onKillFocus()
-{
-	InputSystem::getInstance()->removeListener(this);
-}
-
-// void AppWindow::onKeyDown(int key)
+// void AppWindow::onFocus()
 // {
+// 	InputSystem::getInstance()->addListener(this);
 // }
 //
-// void AppWindow::onKeyUp(int key)
+// void AppWindow::onKillFocus()
 // {
+// 	InputSystem::getInstance()->removeListener(this);
 // }
-//
-// void AppWindow::onMouseMove(const Point& deltaMousePos)
-// {
-// }
-//
-// void AppWindow::onLeftMouseDown(const Point& mousePosition)
-// {
-// }
-//
-// void AppWindow::onLeftMouseUp(const Point& mousePosition)
-// {
-// }
-//
-// void AppWindow::onRightMouseDown(const Point& mousePosition)
-// {
-// }
-//
-// void AppWindow::onRightMouseUp(const Point& mousePosition)
-// {
-// }
-//

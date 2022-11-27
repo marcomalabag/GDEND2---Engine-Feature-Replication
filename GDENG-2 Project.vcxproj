@@ -205,7 +205,6 @@
     <ClInclude Include="GDENG-2 Project\ECS\System\RenderSystem.h" />
     <ClInclude Include="GDENG-2 Project\ECS\System\ViewportSystem.h" />
     <ClInclude Include="GDENG-2 Project\EngineTime.h" />
-    <ClInclude Include="GDENG-2 Project\GameCameraHandler.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\ConstantBuffer.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\Framebuffer.h" />
     <ClInclude Include="GDENG-2 Project\Graphics\GraphicsEngine.h" />
@@ -238,29 +237,18 @@
     <ClInclude Include="GDENG-2 Project\Math\Vector3D.h" />
     <ClInclude Include="GDENG-2 Project\Math\Vector4D.h" />
     <ClInclude Include="GDENG-2 Project\Point.h" />
-    <ClInclude Include="GDENG-2 Project\SceneCameraHandler.h" />
+    <ClInclude Include="GDENG-2 Project\UIIDGenerator.h" />
     <ClInclude Include="GDENG-2 Project\UI\AUIScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\AViewportScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\CreditsScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\EditorViewportScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\GameViewportScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\HierarchyScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\InspectorScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\MenuScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\ProfilerScreen.h" />
-    <ClInclude Include="GDENG-2 Project\UI\UIManager.h" />
-    <ClInclude Include="GDENG-2 Project\UI\UINames.h" />
+    <ClInclude Include="GDENG-2 Project\UI\SampleScreen.h" />
     <ClInclude Include="GDENG-2 Project\UI\UISystem.h" />
+    <ClInclude Include="GDENG-2 Project\UI\ViewportScreen.h" />
     <ClInclude Include="GDENG-2 Project\Utils.h" />
     <ClInclude Include="GDENG-2 Project\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp" />
-    <ClCompile Include="GDENG-2 Project\Component\RenderComponent.cpp" />
     <ClCompile Include="GDENG-2 Project\Debug.cpp" />
-    <ClCompile Include="GDENG-2 Project\ECS\Component\RenderComponent.cpp">
-      <ObjectFileName>$(IntDir)\RenderComponent1.obj</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\ECS\Component\RenderComponent.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\Component\TransformComponent.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\Core\AComponent.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\Core\AGameObject.cpp" />
@@ -271,7 +259,6 @@
     <ClCompile Include="GDENG-2 Project\ECS\System\RenderSystem.cpp" />
     <ClCompile Include="GDENG-2 Project\ECS\System\ViewportSystem.cpp" />
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp" />
-    <ClCompile Include="GDENG-2 Project\GameCameraHandler.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\ConstantBuffer.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\Framebuffer.cpp" />
     <ClCompile Include="GDENG-2 Project\Graphics\GraphicsEngine.cpp" />
@@ -301,18 +288,11 @@
     <ClCompile Include="GDENG-2 Project\Math\Vector3D.cpp" />
     <ClCompile Include="GDENG-2 Project\Math\Vector4D.cpp" />
     <ClCompile Include="GDENG-2 Project\Point.cpp" />
-    <ClCompile Include="GDENG-2 Project\SceneCameraHandler.cpp" />
+    <ClCompile Include="GDENG-2 Project\UIIDGenerator.cpp" />
     <ClCompile Include="GDENG-2 Project\UI\AUIScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\AViewportScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\CreditsScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\EditorViewportScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\GameViewportScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\HierarchyScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\InspectorScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\MenuScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\ProfilerScreen.cpp" />
-    <ClCompile Include="GDENG-2 Project\UI\UIManager.cpp" />
+    <ClCompile Include="GDENG-2 Project\UI\SampleScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\UI\UISystem.cpp" />
+    <ClCompile Include="GDENG-2 Project\UI\ViewportScreen.cpp" />
     <ClCompile Include="GDENG-2 Project\Utils.cpp" />
     <ClCompile Include="GDENG-2 Project\Window.cpp" />
     <ClCompile Include="GDENG-2 Project\main.cpp" />

@@ -4,7 +4,7 @@
 
 SystemManager* SystemManager::instance = nullptr;
 
-void SystemManager::init()
+void SystemManager::initialize()
 {
 	if (instance == nullptr)
 	{
@@ -12,7 +12,7 @@ void SystemManager::init()
 	}
 }
 
-void SystemManager::release()
+void SystemManager::terminate()
 {
 	delete instance;
 }

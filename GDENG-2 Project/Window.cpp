@@ -1,4 +1,6 @@
 #include "Window.h"
+#include "EngineTime.h"
+
 #include <iostream>
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_dx11.h"
@@ -168,9 +170,10 @@ void Window::onFocus() {}
 
 void Window::onKillFocus() {}
 
-void Window::onResize(UINT width, UINT height)
+void Window::onResize(const UINT width, const UINT height)
 {
-	
+	this->width = width;
+	this->height = height;
 }
 
 void Window::onDestroy()

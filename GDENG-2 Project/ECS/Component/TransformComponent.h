@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "AComponent.h"
+#include "ECS/Core/AComponent.h"
 #include "Math/Matrix4x4.h"
 
 class TransformComponent final : AComponent

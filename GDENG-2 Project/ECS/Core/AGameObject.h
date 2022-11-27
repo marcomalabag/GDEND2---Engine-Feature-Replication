@@ -34,14 +34,17 @@ ComponentType& AGameObject::attachComponent(Args&&... args)
 {
 	if (GameObjectManager::getInstance()->hasComponent(this, ComponentType::getStaticName()))
 	{
-		return GameObjectManager::getInstance()->getComponent(this, ComponentType::getStaticName());
+		ComponentType* existingComponent = (ComponentType*)GameObjectManager::getInstance()->
+				getComponent(this, ComponentType::getStaticName());
+		return *existingComponent;
 	}
 
 	ComponentType* newComponent = new ComponentType(*this, std::forward<Args>(args)...);
-	newComponent = GameObjectManager::getInstance()->attachComponent(this, newComponent);
+	AComponent* newCom = (AComponent*)newComponent;
+	newComponent = (ComponentType*)GameObjectManager::getInstance()->attachComponent(this, &newCom);
 
 	SystemManager::getInstance().registerComponent<ComponentType>(newComponent);
-	return newComponent;
+	return *newComponent;
 }
 
 template <typename ComponentType>
@@ -53,7 +56,7 @@ void AGameObject::detachComponent()
 	{
 		return;
 	}
-	
+
 	SystemManager::getInstance().deregisterComponent<ComponentType>(*this);
 	GameObjectManager::getInstance()->detachComponent(this, hasComponent);
 }

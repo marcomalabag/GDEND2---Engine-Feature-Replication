@@ -4,9 +4,6 @@
     <Filter Include="GDENG-2 Project">
       <UniqueIdentifier>{20FA1509-8C85-83CD-9596-06C201A1DFCD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GDENG-2 Project\Component">
-      <UniqueIdentifier>{82FADEDA-EEBC-1265-376D-A1F1A36EEB42}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GDENG-2 Project\ECS">
       <UniqueIdentifier>{6AFEE039-D65F-BE47-5FCD-04FACB2DF506}</UniqueIdentifier>
     </Filter>
@@ -78,7 +75,13 @@
     <ClInclude Include="GDENG-2 Project\ECS\GameObject\Cube.h">
       <Filter>GDENG-2 Project\ECS\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="GDENG-2 Project\ECS\System\CameraSystem.h">
+      <Filter>GDENG-2 Project\ECS\System</Filter>
+    </ClInclude>
     <ClInclude Include="GDENG-2 Project\ECS\System\RenderSystem.h">
+      <Filter>GDENG-2 Project\ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="GDENG-2 Project\ECS\System\ViewportSystem.h">
       <Filter>GDENG-2 Project\ECS\System</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\EngineTime.h">
@@ -96,13 +99,7 @@
     <ClInclude Include="GDENG-2 Project\Graphics\GraphicsEngine.h">
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Graphics\HalfRenderQuad.h">
-      <Filter>GDENG-2 Project\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GDENG-2 Project\Graphics\IndexBuffer.h">
-      <Filter>GDENG-2 Project\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Graphics\Material.h">
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Graphics\PixelShader.h">
@@ -118,9 +115,6 @@
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Graphics\RenderDevice.h">
-      <Filter>GDENG-2 Project\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GDENG-2 Project\Graphics\RenderQuad.h">
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GDENG-2 Project\Graphics\ShaderLibrary.h">
@@ -228,6 +222,9 @@
     <ClInclude Include="GDENG-2 Project\UI\UINames.h">
       <Filter>GDENG-2 Project\UI</Filter>
     </ClInclude>
+    <ClInclude Include="GDENG-2 Project\UI\UISystem.h">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClInclude>
     <ClInclude Include="GDENG-2 Project\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -238,9 +235,6 @@
   <ItemGroup>
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Component\RenderComponent.cpp">
-      <Filter>GDENG-2 Project\Component</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Debug.cpp">
       <Filter>Source Files</Filter>
@@ -272,7 +266,13 @@
     <ClCompile Include="GDENG-2 Project\ECS\GameObject\Cube.cpp">
       <Filter>GDENG-2 Project\ECS\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="GDENG-2 Project\ECS\System\CameraSystem.cpp">
+      <Filter>GDENG-2 Project\ECS\System</Filter>
+    </ClCompile>
     <ClCompile Include="GDENG-2 Project\ECS\System\RenderSystem.cpp">
+      <Filter>GDENG-2 Project\ECS\System</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\ECS\System\ViewportSystem.cpp">
       <Filter>GDENG-2 Project\ECS\System</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\EngineTime.cpp">
@@ -290,13 +290,7 @@
     <ClCompile Include="GDENG-2 Project\Graphics\GraphicsEngine.cpp">
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Graphics\HalfRenderQuad.cpp">
-      <Filter>GDENG-2 Project\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GDENG-2 Project\Graphics\IndexBuffer.cpp">
-      <Filter>GDENG-2 Project\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Graphics\Material.cpp">
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Graphics\PixelShader.cpp">
@@ -309,9 +303,6 @@
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Graphics\RenderDevice.cpp">
-      <Filter>GDENG-2 Project\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GDENG-2 Project\Graphics\RenderQuad.cpp">
       <Filter>GDENG-2 Project\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Graphics\ShaderLibrary.cpp">
@@ -408,6 +399,9 @@
       <Filter>GDENG-2 Project\UI</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\UI\UIManager.cpp">
+      <Filter>GDENG-2 Project\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GDENG-2 Project\UI\UISystem.cpp">
       <Filter>GDENG-2 Project\UI</Filter>
     </ClCompile>
     <ClCompile Include="GDENG-2 Project\Utils.cpp">

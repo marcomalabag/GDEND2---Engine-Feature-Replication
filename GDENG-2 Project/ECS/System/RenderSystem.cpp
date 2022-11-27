@@ -1,6 +1,5 @@
 ﻿#include "RenderSystem.h"
 #include "Debug.h"
-#include "Graphics/SwapChain.h"
 
 #include "ECS/Component/RenderComponent.h"
 
@@ -55,21 +54,21 @@ void RenderSystem::deregisterComponent(const AGameObject& gameObject)
 void RenderSystem::draw(const Matrix4x4& viewProj,
                         const Framebuffer* framebuffer) const
 {
-	const FramebufferProfile info = framebuffer->getInfo();
-
-	GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)info.Width,
-	                                                                  (float)info.Height);
-
-	GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&framebuffer->getRenderTarget(),
-	                                                                    &framebuffer->getDepthStencil());
-
-	GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(framebuffer->getRenderTarget(),
-	                                                                        Color(0.8f, 0.4f, 0.7f, 1.0f));
-
-	GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(framebuffer->getDepthStencil());
-
-	for (const RenderComponent* component : componentList)
-	{
-		component->draw(viewProj);
-	}
+	// const FramebufferProfile info = framebuffer->getInfo();
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().setViewportSize((float)info.Width,
+	//                                                                   (float)info.Height);
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().setRenderTargetTo(&framebuffer->getRenderTarget(),
+	//                                                                     &framebuffer->getDepthStencil());
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().clearRenderTargetView(framebuffer->getRenderTarget(),
+	//                                                                         Color(0.8f, 0.4f, 0.7f, 1.0f));
+	//
+	// GraphicsEngine::getInstance()->getDeviceContext().clearDepthStencilView(framebuffer->getDepthStencil());
+	//
+	// for (const RenderComponent* component : componentList)
+	// {
+	// 	component->draw(viewProj);
+	// }
 }

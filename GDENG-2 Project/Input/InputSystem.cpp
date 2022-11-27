@@ -1,4 +1,5 @@
 #include "InputSystem.h"
+#include <Windows.h>
 
 InputSystem* InputSystem::sharedInstance = NULL;
 InputSystem::InputSystem()

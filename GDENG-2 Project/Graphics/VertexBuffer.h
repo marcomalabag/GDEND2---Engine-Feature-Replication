@@ -1,7 +1,8 @@
 #pragma once
-#include "GraphicsEngine.h"
 #include <d3d11.h>
 
+struct RenderData;
+class VertexShader;
 class VertexBuffer final
 {
 public:

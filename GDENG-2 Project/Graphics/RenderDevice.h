@@ -2,6 +2,7 @@
 #include <d3d11.h>
 #include "SwapChain.h"
 
+#include "RenderData.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
@@ -30,10 +31,6 @@ public:
 
 	PixelShader* createPixelShader(ID3DBlob* pixelShaderBlob) const;
 
-	// UniquePtr<Texture> CreateTexture(const Texture::Specification& specs) const;
-
-	// UniquePtr<Framebuffer> CreateFramebuffer(const FramebufferProfile& profile) const;
-
 	RenderDevice(const RenderDevice&)                = delete;
 	RenderDevice& operator=(const RenderDevice&)     = delete;
 	RenderDevice(RenderDevice&&) noexcept            = delete;
@@ -44,4 +41,7 @@ private:
 	IDXGIDevice* dxgiDevice;
 	IDXGIAdapter* dxgiAdapter;
 	IDXGIFactory* dxgiFactory;
+
+	friend class UISystem;
+	friend class SwapChain;
 };

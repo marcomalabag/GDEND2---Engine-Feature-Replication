@@ -62,6 +62,8 @@ private:
 
 private:
 	friend class ConstantBuffer;
+	friend class UISystem;
+	friend class SwapChain;
 };
 
 template <typename Shader>
@@ -72,7 +74,7 @@ inline void RenderContext::uploadShaderData<VertexShader>(ConstantBuffer& dataTo
 {
 	const std::vector<ID3D11Buffer*> bufferData
 	{
-		&dataToUpload.getBuffer()
+		dataToUpload.getBuffer()
 	};
 
 	this->deviceContext->VSSetConstantBuffers(0,
@@ -85,7 +87,7 @@ inline void RenderContext::uploadShaderData<PixelShader>(ConstantBuffer& dataToU
 {
 	const std::vector<ID3D11Buffer*> bufferData
 	{
-		&dataToUpload.getBuffer()
+		dataToUpload.getBuffer()
 	};
 
 	this->deviceContext->PSSetConstantBuffers(0,

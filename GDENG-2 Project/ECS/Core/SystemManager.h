@@ -6,8 +6,8 @@
 class SystemManager final
 {
 public:
-	static void init();
-	static void release();
+	static void initialize();
+	static void terminate();
 
 	~SystemManager();
 

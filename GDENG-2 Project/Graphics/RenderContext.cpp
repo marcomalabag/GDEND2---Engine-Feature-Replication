@@ -64,14 +64,14 @@ void RenderContext::updateBufferResource(ID3D11Buffer* bufferResource,
 
 void RenderContext::setVertexShader(const VertexShader& vertexShader) const
 {
-	this->deviceContext->VSSetShader(vertexShader.data,
+	this->deviceContext->VSSetShader(vertexShader.getShader(),
 	                                 nullptr,
 	                                 0);
 }
 
 void RenderContext::setPixelShader(const PixelShader& pixelShader) const
 {
-	this->deviceContext->PSSetShader(pixelShader.data,
+	this->deviceContext->PSSetShader(pixelShader.getShader(),
 	                                 nullptr,
 	                                 0);
 }
@@ -81,12 +81,17 @@ void RenderContext::setVertexBuffer(VertexBuffer& vertexBuffer) const
 	UINT stride = vertexBuffer.getBufferSize();
 	UINT offset = 0;
 
+	const std::vector<ID3D11Buffer*> vertexBuffers =
+	{
+		vertexBuffer.getBuffer()
+	};
+
 	this->deviceContext->IASetVertexBuffers(0,
 	                                        1,
-	                                        &vertexBuffer.getBuffer(),
+	                                        vertexBuffers.data(),
 	                                        &stride,
 	                                        &offset);
-	this->deviceContext->IASetInputLayout(vertexBuffer.layout);
+	this->deviceContext->IASetInputLayout(vertexBuffer.getLayout());
 }
 
 void RenderContext::setIndexBuffer(const IndexBuffer& indexBuffer) const
