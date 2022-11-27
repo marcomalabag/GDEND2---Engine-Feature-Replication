@@ -192,8 +192,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EditorCamera.h" />
-    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GDENG-2 Project\AppWindow.h" />
     <ClInclude Include="GDENG-2 Project\Component\AComponent.h" />
     <ClInclude Include="GDENG-2 Project\Component\RenderComponent.h" />
@@ -260,8 +258,6 @@
     <ClInclude Include="GDENG-2 Project\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EditorCamera.cpp" />
-    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GDENG-2 Project\AppWindow.cpp" />
     <ClCompile Include="GDENG-2 Project\Component\AComponent.cpp" />
     <ClCompile Include="GDENG-2 Project\Component\RenderComponent.cpp" />
