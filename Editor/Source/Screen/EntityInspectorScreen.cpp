@@ -206,6 +206,14 @@ namespace Editor
 				render->SetTexture(texture);
 			}
 
+			const String buttonSetShiori = std::vformat("Set Shiori Texture##Render{0}",
+													   std::make_format_args(entityNameID));
+			if (ImGui::Button(buttonSetShiori.c_str()))
+			{
+				const auto texture = Application::GetResourceSystem().Get<TextureResource>("image0-42");
+				render->SetTexture(texture);
+			}
+
 			const String buttonRemoveTexture = std::vformat("Remove Texture##Render{0}",
 													   std::make_format_args(entityNameID));
 			if (ImGui::Button(buttonRemoveTexture.c_str()))

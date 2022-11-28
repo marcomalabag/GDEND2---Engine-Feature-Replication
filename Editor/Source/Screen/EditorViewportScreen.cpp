@@ -34,6 +34,8 @@ namespace Editor
 
 		ImGui::Begin(GetNameAndIDLabel());
 
+		editorCameraComponent->SetFocus(ImGui::IsWindowFocused());
+
 		ImVec2 displaySize = ImGui::GetContentRegionAvail();
 		m_ViewportSize.x = displaySize.x;
 		m_ViewportSize.y = displaySize.y;

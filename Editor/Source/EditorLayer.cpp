@@ -9,6 +9,7 @@
 #include <Engine/ECS/Entity/Camera.h>
 #include <Engine/ECS/Entity/EditorCamera.h>
 #include <Engine/ECS/Entity/Cube.h>
+#include <Engine/ECS/Entity/Plane.h>
 #include <Engine/ResourceManagement/Core/ResourceSystem.h>
 
 #include "Screen/EditorViewportScreen.h"
@@ -30,8 +31,7 @@ namespace Editor
 	{
 		using namespace Engine;
 		Application::GetResourceSystem().Load<Texture>("Assets/Brick1024x1024.jpg");
-		
-		// m_TextureResource = Application::GetResourceSystem().Get<TextureResource>("Brick1024x1024");
+		Application::GetResourceSystem().Load<Texture>("Assets/image0-42.png");
 		
 		auto* editorCamera = EntityManager::Create<EditorCamera>("EditorCamera", 512, 512);
 		UISystem::Create<EditorViewportScreen>(editorCamera);
@@ -41,6 +41,11 @@ namespace Editor
 		EntityManager::Create<Camera>("GameCamera", 512, 512);
 
 		EntityManager::Create<Cube>("Cube");
+
+		auto plane = EntityManager::Create<Plane>("Plane");
+		auto planeTransform = plane->GetComponent<TransformComponent>();
+		planeTransform->Scale = Vector3Float(100.0f, 100.0f, 100.0f);
+		
 	}
 
 	void EditorLayer::OnPollInput() { }

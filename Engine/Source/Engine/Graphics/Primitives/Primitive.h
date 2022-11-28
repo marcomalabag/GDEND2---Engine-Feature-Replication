@@ -80,12 +80,12 @@ namespace Engine::Primitive
 			Vertex vertex;
 			for (const auto& index : shape.mesh.indices)
 			{
-				vertex.Position.x    = attributes.vertices[3 * index.vertex_index + 0];
-				vertex.Position.y    = attributes.vertices[3 * index.vertex_index + 1];
-				vertex.Position.z    = attributes.vertices[3 * index.vertex_index + 2];
-				
-				vertex.UV.x          = attributes.texcoords[2 * index.texcoord_index + 0];
-				vertex.UV.y          = 1.0f - attributes.texcoords[2 * index.texcoord_index + 1];
+				vertex.Position.x = attributes.vertices[3 * index.vertex_index + 0];
+				vertex.Position.y = attributes.vertices[3 * index.vertex_index + 1];
+				vertex.Position.z = attributes.vertices[3 * index.vertex_index + 2];
+
+				vertex.UV.x = attributes.texcoords[2 * index.texcoord_index + 0];
+				vertex.UV.y = 1.0f - attributes.texcoords[2 * index.texcoord_index + 1];
 				vertices->push_back(vertex);
 
 				indices->push_back(currentIndex);
@@ -249,43 +249,49 @@ namespace Engine::Primitive
 		return cubeRenderData;
 	}
 
-	// inline RenderData* Plane()
-	// {
-	// 	Vertex* vertices = new Vertex[4]
-	// 	{
-	// 		{Vector3Float{-0.5f, 0, -0.5f}},
-	// 		{Vector3Float{-0.5f, 0, 0.5f}},
-	// 		{Vector3Float{0.5f, 0.0f, 0.5f}},
-	// 		{Vector3Float{0.5f, 0.0f, -0.5f}},
-	// 	};
-	//
-	// 	D3D11_INPUT_ELEMENT_DESC* layout = new D3D11_INPUT_ELEMENT_DESC[1]
-	// 	{
-	// 		{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-	// 	};
-	//
-	// 	uint32_t* indices = new uint32_t[6]
-	// 	{
-	// 		0,
-	// 		1,
-	// 		2,
-	// 		2,
-	// 		3,
-	// 		0
-	// 	};
-	//
-	// 	RenderData* planeRenderData               = new RenderData();
-	// 	planeRenderData->Vertices                 = vertices;
-	// 	planeRenderData->VertexCount              = sizeof(*vertices);
-	// 	planeRenderData->VertexSize               = sizeof(Vertex);
-	// 	planeRenderData->VertexLayout             = layout;
-	// 	planeRenderData->VertexLayoutElementCount = 1U;
-	// 	planeRenderData->Indices                  = indices;
-	// 	planeRenderData->IndexCount               = sizeof(indices);
-	// 	planeRenderData->Topology                 = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-	//
-	// 	return planeRenderData;
-	// }
+	inline RenderData* Plane()
+	{
+		const Vector2Float uvList[] =
+		{
+			{Vector2Float(0.0f, 0.0f)},
+			{Vector2Float(0.0f, 1.0f)},
+			{Vector2Float(1.0f, 0.0f)},
+			{Vector2Float(1.0f, 1.0f)}
+		};
+
+		List<Vertex>* vertices = new List<Vertex>{
+			{Vector3Float{-0.5f, 0, -0.5f}, uvList[0]},
+			{Vector3Float{-0.5f, 0, 0.5f}, uvList[1]},
+			{Vector3Float{0.5f, 0.0f, 0.5f}, uvList[3]},
+			{Vector3Float{0.5f, 0.0f, -0.5f}, uvList[2]},
+		};
+
+		List<D3D11_INPUT_ELEMENT_DESC>* layout = new List<D3D11_INPUT_ELEMENT_DESC>{
+			{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+			{"UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		};
+
+		List<uint32_t>* indices = new List<uint32_t>{
+			0,
+			1,
+			2,
+			2,
+			3,
+			0
+		};
+
+		RenderData* planeRenderData               = new RenderData();
+		planeRenderData->Vertices                 = vertices->data();
+		planeRenderData->VertexCount              = vertices->size();
+		planeRenderData->VertexSize               = sizeof(Vertex);
+		planeRenderData->VertexLayout             = layout->data();
+		planeRenderData->VertexLayoutElementCount = layout->size();
+		planeRenderData->Indices                  = indices->data();
+		planeRenderData->IndexCount               = indices->size();
+		planeRenderData->Topology                 = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
+		return planeRenderData;
+	}
 
 	// inline RenderData* Capsule(const int sectors,
 	//                            const int meridians,

@@ -21,12 +21,6 @@ namespace Editor
 
 		auto destroyEntityCallback = [this](const Entity* entity) { RemoveEntityEntry(entity); };
 		EntityManager::ListenToEntityDestroyEvent(destroyEntityCallback);
-
-		// const List<Entity*>& entityListRef = EntityManager::GetAllEntities();
-		// for (auto* entity : entityListRef)
-		// {
-		// 	AddEntityEntry(entity->GetID(), entity->GetName());
-		// }
 	}
 
 	WorldOutlinerScreen::~WorldOutlinerScreen() { }

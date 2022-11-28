@@ -36,6 +36,7 @@ namespace Engine
 
 	Application::Profile Application::GetInfo()
 	{
+		s_Instance->m_Profile.Time = s_Instance->m_Timer->GetInfo();
 		return s_Instance->m_Profile;
 	}
 
@@ -172,7 +173,7 @@ namespace Engine
 	void Application::PollEvents() const
 	{
 		m_Window->PollEvents();
-		// Input::PollInputEvents();
+		m_Input->PollInputEvents();
 	}
 
 	void Application::Render() const

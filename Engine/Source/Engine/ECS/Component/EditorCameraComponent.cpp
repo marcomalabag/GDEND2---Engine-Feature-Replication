@@ -5,6 +5,7 @@
 
 #include "Engine/Core/Application.h"
 #include "Engine/Graphics/Renderer.h"
+#include "Engine/Input/Input.h"
 
 namespace Engine
 {
@@ -47,6 +48,65 @@ namespace Engine
 	void EditorCameraComponent::Update()
 	{
 		UpdateCameraVectors();
+
+		if (m_IsFocused)
+		{
+			const KeyboardInput keyInput = Input::Keyboard();
+			if (keyInput.KeyState == KeyState::KeyDown)
+			{
+				if (keyInput.KeyCode == KeyCode::Q)
+				{
+					m_Transform->Position.z -= 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::E)
+				{
+					m_Transform->Position.z += 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::A)
+				{
+					m_Transform->Position.x += 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::D)
+				{
+					m_Transform->Position.x -= 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::W)
+				{
+					m_Transform->Position.y += 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::S)
+				{
+					m_Transform->Position.y -= 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				// Rotation
+				if (keyInput.KeyCode == KeyCode::J)
+				{
+					m_Transform->Rotation.y += 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::L)
+				{
+					m_Transform->Rotation.y -= 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::K)
+				{
+					m_Transform->Rotation.x -= 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+
+				if (keyInput.KeyCode == KeyCode::I)
+				{
+					m_Transform->Rotation.x += 50.0f * Application::GetInfo().Time.DeltaTimeSec;
+				}
+			}
+		}
+		
 		UpdateViewMatrix();
 	}
 
@@ -60,6 +120,11 @@ namespace Engine
 		m_Transform->Rotation = rotation;
 	}
 	
+	void EditorCameraComponent::SetFocus(bool flag)
+	{
+		m_IsFocused = flag;	
+	}
+
 	const Vector3Float& EditorCameraComponent::GetPosition() const
 	{
 		return m_Transform->Position;

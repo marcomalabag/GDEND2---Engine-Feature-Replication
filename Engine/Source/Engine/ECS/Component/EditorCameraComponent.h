@@ -26,6 +26,8 @@ namespace Engine
 
 		void SetRotation(const Vector3Float& rotation) const;
 
+		void SetFocus(bool flag);
+
 		const Vector3Float& GetPosition() const;
 
 		const Vector3Float& GetRotation() const;
@@ -63,5 +65,7 @@ namespace Engine
 		Vector3Float m_WorldUp;
 
 		UniquePtr<Framebuffer> m_RenderTarget;
+
+		bool m_IsFocused = false;
 	};
 }
