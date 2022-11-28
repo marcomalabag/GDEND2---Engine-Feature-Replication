@@ -20,44 +20,29 @@ namespace Editor
 		using namespace Engine;
 
 		auto gameCameraComponent = Application::GetComponentSystem().GetCameraSystem().GetGameCamera();
-		auto& renderTarget = gameCameraComponent->GetRenderTarget();
+
+		if (gameCameraComponent == nullptr)
+		{
+			return;
+		}
+		
+		auto* renderTarget = &gameCameraComponent->GetRenderTarget();
 
 		if ((m_ViewportSize.x > 0.0f && m_ViewportSize.y > 0.0f) &&
-			(m_ViewportSize.x != renderTarget.GetInfo().Width ||
-			m_ViewportSize.y != renderTarget.GetInfo().Height))
+			(m_ViewportSize.x != renderTarget->GetInfo().Width ||
+			m_ViewportSize.y != renderTarget->GetInfo().Height))
 		{
-			m_ViewportSize.x = renderTarget.GetInfo().Width;
-			m_ViewportSize.y = renderTarget.GetInfo().Height;
+			gameCameraComponent->SetSize(m_ViewportSize.x, m_ViewportSize.y);
+			renderTarget = &gameCameraComponent->GetRenderTarget();
 		}
 		
 		ImGui::Begin(GetNameAndIDLabel());
 
-		auto displaySize = ImGui::GetContentRegionAvail();
-		float ratio = (float)displaySize.x / (float)renderTarget.GetInfo().Width;
-		if (displaySize.x > renderTarget.GetInfo().Width)
-		{
-			ratio = (float)displaySize.x / (float)renderTarget.GetInfo().Width;
-			m_ViewportSize.x = displaySize.x * ratio;
-			m_ViewportSize.y = displaySize.y * ratio;
-		}
-		else if (displaySize.y > renderTarget.GetInfo().Height)
-		{
-			ratio = (float)displaySize.y / (float)renderTarget.GetInfo().Height;
-			m_ViewportSize.x = displaySize.x * ratio;
-			m_ViewportSize.y = displaySize.y * ratio;
-		}
-		else
-		{
-			
-		}
+		ImVec2 displaySize = ImGui::GetContentRegionAvail();
+		m_ViewportSize.x = displaySize.x;
+		m_ViewportSize.y = displaySize.y;
 
-		if (gameCameraComponent == nullptr)
-		{
-			ImGui::End();
-			return;
-		}
-
-		ImGui::Image(&renderTarget.GetFrame(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
+		ImGui::Image(&renderTarget->GetFrame(), ImVec2(m_ViewportSize.x, m_ViewportSize.y));
 		
 		ImGui::End();
 	}
