@@ -16,9 +16,9 @@ namespace Engine
 		Entity{id, name, componentRegistry}
 	{
 		auto transform = AttachComponent<TransformComponent>();
-		transform->Position.y = 5.0f;
-		transform->Position.z = 30.0f;
-		transform->Rotation.x = -90.0f;
+		transform->Position.y = 20.0f;
+		transform->Position.z = -5.0f;
+		transform->Rotation.x = 90.0f;
 		AttachComponent<EditorCameraComponent>(transform, renderWidth, renderHeight);
 	}
 

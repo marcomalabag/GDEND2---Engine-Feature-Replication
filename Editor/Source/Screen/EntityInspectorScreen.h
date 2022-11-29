@@ -39,6 +39,9 @@ namespace Editor
 		void DrawRender(Engine::StringView entityNameID,
 		                Engine::SharedPtr<Engine::RenderComponent> render) const;
 
+		void DrawCamera(Engine::StringView entityNameID,
+						Engine::SharedPtr<Engine::CameraComponent> camera) const;
+
 		// Event Callbacks
 		void OnEntityDestroy(const Engine::Entity* entity);
 

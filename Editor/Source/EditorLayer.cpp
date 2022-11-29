@@ -36,22 +36,21 @@ namespace Editor
 		Application::GetResourceSystem().Load<Texture>("Assets/SuzunaDerpComfy.png");
 
 		auto shioriTexture = Application::GetResourceSystem().Get<TextureResource>("image0-42");
-		
+
 		auto* editorCamera = EntityManager::Create<EditorCamera>("EditorCamera", 512UL, 512UL);
 		UISystem::Create<EditorViewportScreen>(editorCamera);
 
 		UISystem::Create<GameViewportScreen>();
 
 		EntityManager::Create<Camera>("GameCamera", 512UL, 512UL);
-		
-		auto cubeEntity = EntityManager::Create<Cube>("Cube");
+
+		auto cubeEntity   = EntityManager::Create<Cube>("Cube");
 		auto cubeRenderer = cubeEntity->GetComponent<RenderComponent>();
 		cubeRenderer->SetTexture(shioriTexture);
-		
+
 		// auto plane = EntityManager::Create<Plane>("Plane");
 		// auto planeTransform = plane->GetComponent<TransformComponent>();
 		// planeTransform->Scale = Vector3Float(100.0f, 100.0f, 100.0f);
-		
 	}
 
 	void EditorLayer::OnPollInput() { }
@@ -70,13 +69,18 @@ namespace Editor
 		if (const auto gameCamera = cameraSystem.GetGameCamera();
 			gameCamera != nullptr)
 		{
-			Application::GetRenderer().StartRender(gameCamera->GetRenderTarget());
+			const auto& framebuffer = gameCamera->GetRenderTarget();
+
+			Application::GetRenderer().SetViewportSize(Vector2Uint(framebuffer.GetInfo().Width,
+			                                                       framebuffer.GetInfo().Height));
+			Application::GetRenderer().SetFramebuffer(framebuffer);
+			Application::GetRenderer().ClearFramebuffer(framebuffer, gameCamera->ClearColor);
+
 			Application::GetComponentSystem().Render(*gameCamera);
 
 			// gameCamera->ApplyPostProcessing();
 
 			Application::GetRenderer().EndRender();
-			
 		}
 
 		m_NumberOfEditorViewports = (int)cameraSystem.GetEditorCameraCount();

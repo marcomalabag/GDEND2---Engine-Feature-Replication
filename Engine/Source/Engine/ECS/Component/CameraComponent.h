@@ -19,6 +19,33 @@ namespace Engine
 
 		MAKE_COMPONENT(Camera)
 
+		enum class Projection
+		{
+			Perspective,
+			Orthographic
+		};
+
+		Color ClearColor;
+
+		float FoV;
+
+		float OrthographicSize;
+
+		float NearClipPlane;
+
+		float FarClipPlane;
+
+		Vector3Float Front;
+
+		Vector3Float Up;
+
+		Projection Projection;
+
+		TransformComponent& GetTransform() const;
+
+		void UpdateViewMatrix(const Vector3Float& target,
+							  const Vector3Float& up);
+
 		void SetSize(uint32_t width, uint32_t height);
 
 		void SetPosition(const Vector3Float& position) const;
@@ -31,33 +58,19 @@ namespace Engine
 		
 		Matrix4 GetViewProjMatrix();
 
-		void Update();
+		// void Update();
 
 		[[nodiscard]]
 		Framebuffer& GetRenderTarget() const;
 
 	private:
-		float FoV = 45.0f;
-
 		void InitRenderTarget(uint32_t width, uint32_t height);
-
-		void UpdateViewMatrix();
-
-		void UpdateCameraVectors();
 
 		SharedPtr<TransformComponent> m_Transform{};
 
 		Matrix4 m_ViewMatrix;
 
 		Matrix4 m_ProjMatrix;
-
-		Vector3Float m_Front;
-
-		Vector3Float m_Up;
-
-		Vector3Float m_Right;
-
-		Vector3Float m_WorldUp;
 
 		UniquePtr<Framebuffer> m_RenderTarget{};
 	};

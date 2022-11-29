@@ -292,7 +292,7 @@ namespace Engine
 		XMStoreFloat4x4(&result, XMMatrixRotationZ(radians));
 		return result;
 	}
-	
+
 	Matrix4 Matrix4::CreateFromAxisAngle(const Vector3Float& axis, float angle) noexcept
 	{
 		using namespace DirectX;
@@ -335,6 +335,18 @@ namespace Engine
 		return result;
 	}
 
+	Matrix4 Matrix4::CreateOrthographicOffCenter(const float left, const float right,
+	                                             const float bottom, const float top,
+	                                             const float zNearPlane, const float zFarPlane) noexcept
+	{
+		using namespace DirectX;
+		Matrix4 result;
+		XMStoreFloat4x4(&result, XMMatrixOrthographicOffCenterLH(left, right,
+		                                                         bottom, top,
+		                                                         zNearPlane, zFarPlane));
+		return result;
+	}
+
 	Matrix4 Matrix4::CreateLookAt(Vector3Float position, Vector3Float target, Vector3Float up)
 	{
 		using namespace DirectX;
@@ -347,7 +359,7 @@ namespace Engine
 		XMStoreFloat4x4(&result, XMMatrixLookAtLH(x1, x2, x3));
 		return result;
 	}
-	
+
 	Matrix4 Matrix4::CreateFromYawPitchRoll(const float yaw, const float pitch, const float roll) noexcept
 	{
 		using namespace DirectX;

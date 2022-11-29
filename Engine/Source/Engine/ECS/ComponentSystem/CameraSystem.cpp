@@ -49,18 +49,42 @@ namespace Engine
 
 		for (size_t i = 0; i < cameraList.size(); i++)
 		{
-			cameraList[i]->Update();
+			const float yaw   = DegreesToRadians(cameraList[i]->GetTransform().Rotation.y);
+			const float pitch = DegreesToRadians(cameraList[i]->GetTransform().Rotation.x);
+			const float roll  = DegreesToRadians(cameraList[i]->GetTransform().Rotation.z);
+
+			const Matrix4 cameraRotationMatrix = Matrix4::CreateFromYawPitchRoll(yaw, pitch, roll);
+
+			Vector3Float target = Vector3Float::Transform(cameraList[i]->Front, cameraRotationMatrix);
+
+			target += cameraList[i]->GetTransform().Position;
+
+			Vector3Float up = Vector3Float::Transform(cameraList[i]->Up, cameraRotationMatrix);
+
+			cameraList[i]->UpdateViewMatrix(target, up);
 		}
 	}
 
 	void CameraSystem::EditorCameraUpdate() const
 	{
 		const auto cameraList =
-				EntityManager::GetAllComponentsOfType<EditorCameraComponent>();
+			EntityManager::GetAllComponentsOfType<EditorCameraComponent>();
 
 		for (size_t i = 0; i < cameraList.size(); i++)
 		{
-			cameraList[i]->Update();
+			const float yaw   = DegreesToRadians(cameraList[i]->GetTransform().Rotation.y);
+			const float pitch = DegreesToRadians(cameraList[i]->GetTransform().Rotation.x);
+			const float roll  = DegreesToRadians(cameraList[i]->GetTransform().Rotation.z);
+
+			const Matrix4 cameraRotationMatrix = Matrix4::CreateFromYawPitchRoll(yaw, pitch, roll);
+
+			Vector3Float target = Vector3Float::Transform(cameraList[i]->Front, cameraRotationMatrix);
+
+			target += cameraList[i]->GetTransform().Position;
+
+			Vector3Float up = Vector3Float::Transform(cameraList[i]->Up, cameraRotationMatrix);
+
+			cameraList[i]->UpdateViewMatrix(target, up);
 		}
 	}
 }

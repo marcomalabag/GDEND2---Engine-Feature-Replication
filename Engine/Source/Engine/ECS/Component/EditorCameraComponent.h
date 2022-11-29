@@ -20,6 +20,17 @@ namespace Engine
 
 		MAKE_COMPONENT(EditorCamera)
 
+		float FoV;
+
+		Vector3Float Front;
+
+		Vector3Float Up;
+
+		TransformComponent& GetTransform() const;
+
+		void UpdateViewMatrix(const Vector3Float& target,
+		                      const Vector3Float& up);
+
 		void SetSize(uint64_t width, uint64_t height);
 
 		void SetPosition(const Vector3Float& position) const;
@@ -40,29 +51,13 @@ namespace Engine
 		Framebuffer& GetRenderTarget() const;
 
 	private:
-		float FoV = 45.0f;
-
 		void InitRenderTarget(uint64_t width, uint64_t height);
 
-		void UpdateViewMatrix();
-
-		void UpdateCameraVectors();
-
 		SharedPtr<TransformComponent> m_Transform;
-
-		Quaternion m_Quaternion;
 
 		Matrix4 m_ViewMatrix;
 
 		Matrix4 m_ProjMatrix;
-
-		Vector3Float m_Front;
-
-		Vector3Float m_Up;
-
-		Vector3Float m_Right;
-
-		Vector3Float m_WorldUp;
 
 		UniquePtr<Framebuffer> m_RenderTarget;
 
