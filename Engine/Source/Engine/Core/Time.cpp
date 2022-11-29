@@ -28,15 +28,9 @@ namespace Engine
 		const auto duration = duration_cast<milliseconds>(elapsed).count();
 
 		m_DeltaTimeMilliseconds = (double)duration;
-		m_DeltaTimeSeconds      = (float)duration / 1000.0;
+		m_DeltaTimeSeconds      = (float)duration / 1000.0f;
 	}
 	
-	const TimeData& Timer::GetInfo() const
-	{
-		return TimeData{m_DeltaTimeSeconds,
-		                m_DeltaTimeMilliseconds};
-	}
-
 	TimeData Timer::GetInfo()
 	{
 		return TimeData{m_DeltaTimeSeconds,

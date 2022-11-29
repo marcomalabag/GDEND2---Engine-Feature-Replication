@@ -22,9 +22,6 @@ namespace Engine
 		void Stop();
 
 		[[nodiscard]]
-		const TimeData& GetInfo() const;
-
-		[[nodiscard]]
 		TimeData GetInfo();
 
 		Timer(const Timer&)                = default;
