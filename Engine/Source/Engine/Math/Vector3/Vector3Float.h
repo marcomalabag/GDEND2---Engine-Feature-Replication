@@ -2,6 +2,7 @@
 
 namespace Engine
 {
+	struct Matrix4;
 	struct Vector3Float final : DirectX::XMFLOAT3
 	{
 		explicit Vector3Float();
@@ -25,6 +26,8 @@ namespace Engine
 		Vector3Float Cross(const Vector3Float& v) const;
 
 		void Normalize();
+
+		static Vector3Float Transform(const Vector3Float& v, const Matrix4& m);
 
 		[[nodiscard]]
 		static float Distance(const Vector3Float& v1, const Vector3Float& v2);

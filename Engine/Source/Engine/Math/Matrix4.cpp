@@ -335,16 +335,24 @@ namespace Engine
 		return result;
 	}
 
-	Matrix4 Matrix4::CreateLookAt(Vector3Float eye, Vector3Float focus, Vector3Float up)
+	Matrix4 Matrix4::CreateLookAt(Vector3Float position, Vector3Float target, Vector3Float up)
 	{
 		using namespace DirectX;
 
-		const XMVECTOR x1 = XMLoadFloat3(&eye);
-		const XMVECTOR x2 = XMLoadFloat3(&focus);
+		const XMVECTOR x1 = XMLoadFloat3(&position);
+		const XMVECTOR x2 = XMLoadFloat3(&target);
 		const XMVECTOR x3 = XMLoadFloat3(&up);
 
 		Matrix4 result;
 		XMStoreFloat4x4(&result, XMMatrixLookAtLH(x1, x2, x3));
+		return result;
+	}
+	
+	Matrix4 Matrix4::CreateFromYawPitchRoll(const float yaw, const float pitch, const float roll) noexcept
+	{
+		using namespace DirectX;
+		Matrix4 result;
+		XMStoreFloat4x4(&result, XMMatrixRotationRollPitchYaw(pitch, yaw, roll));
 		return result;
 	}
 

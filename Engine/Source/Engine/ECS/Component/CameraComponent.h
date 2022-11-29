@@ -12,14 +12,14 @@ namespace Engine
 	public:
 		explicit CameraComponent(const EntityID& ownerID,
 		                         SharedPtr<TransformComponent> transform,
-		                         uint64_t width,
-		                         uint64_t height);
+		                         uint32_t width,
+		                         uint32_t height);
 
 		~CameraComponent() override;
 
 		MAKE_COMPONENT(Camera)
 
-		void SetSize(uint64_t width, uint64_t height);
+		void SetSize(uint32_t width, uint32_t height);
 
 		void SetPosition(const Vector3Float& position) const;
 
@@ -39,7 +39,7 @@ namespace Engine
 	private:
 		float FoV = 45.0f;
 
-		void InitRenderTarget(uint64_t width, uint64_t height);
+		void InitRenderTarget(uint32_t width, uint32_t height);
 
 		void UpdateViewMatrix();
 

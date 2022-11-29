@@ -61,6 +61,18 @@ namespace Engine
 		const XMVECTOR result = XMVector3Normalize(v1);
 		XMStoreFloat3(this, result);
 	}
+	
+	Vector3Float Vector3Float::Transform(const Vector3Float& v, const Matrix4& m)
+	{
+		using namespace DirectX;
+		const XMVECTOR v1 = XMLoadFloat3(&v);
+		const XMMATRIX M = XMLoadFloat4x4(&m);
+		const XMVECTOR X = XMVector3TransformCoord(v1, M);
+
+		Vector3Float result;
+		XMStoreFloat3(&result, X);
+		return result;
+	}
 
 	float Vector3Float::Distance(const Vector3Float& v1, const Vector3Float& v2)
 	{

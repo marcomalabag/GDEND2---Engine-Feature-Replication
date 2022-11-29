@@ -21,18 +21,18 @@ namespace Engine
 		Entity{id, name, componentRegistry}
 	{
 		auto transform = AttachComponent<TransformComponent>();
-		transform->Position.z = 10.0f;
+		transform->Position.z = -10.0f;
 		AttachComponent<CameraComponent>(transform, renderWidth, renderHeight);
 
-		// Application::GetResourceSystem().Load<VertexShader>("Assets/Shaders/Basic/TexturedShader.hlsl");
-		// Application::GetResourceSystem().Load<PixelShader>("Assets/Shaders/Basic/TexturedShader.hlsl");
-		//
-		// auto vertexShader = Application::GetResourceSystem().Get<VertexShaderResource>("TexturedShader");
-		// auto pixelShader  = Application::GetResourceSystem().Get<PixelShaderResource>("TexturedShader");
-		//
-		// RenderData* cubeRenderData = Primitive::Cube();
-		//
-		// AttachComponent<RenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
+		Application::GetResourceSystem().Load<VertexShader>("Assets/Shaders/Basic/TexturedShader.hlsl");
+		Application::GetResourceSystem().Load<PixelShader>("Assets/Shaders/Basic/TexturedShader.hlsl");
+		
+		auto vertexShader = Application::GetResourceSystem().Get<VertexShaderResource>("TexturedShader");
+		auto pixelShader  = Application::GetResourceSystem().Get<PixelShaderResource>("TexturedShader");
+		
+		RenderData* cubeRenderData = Primitive::Cube();
+		
+		AttachComponent<RenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
 	}
 
 	Camera::~Camera() = default;

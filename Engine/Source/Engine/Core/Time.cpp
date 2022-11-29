@@ -31,7 +31,7 @@ namespace Engine
 		m_DeltaTimeSeconds      = (float)duration / 1000.0f;
 	}
 	
-	TimeData Timer::GetInfo()
+	TimeData Timer::GetInfo() const
 	{
 		return TimeData{m_DeltaTimeSeconds,
 		                m_DeltaTimeMilliseconds};

@@ -1,6 +1,7 @@
 ﻿#include "EditorLayer.h"
 #include <Engine/Core/Debug.h>
 #include <Engine/Core/Application.h>
+#include <Engine/ECS/Component/RenderComponent.h>
 #include <Engine/Graphics/Renderer.h>
 #include <Engine/ECS/ComponentSystem/ComponentSystemHandler.h>
 #include <Engine/ECS/Core/EntityManager.h>
@@ -32,19 +33,23 @@ namespace Editor
 		using namespace Engine;
 		Application::GetResourceSystem().Load<Texture>("Assets/Brick1024x1024.jpg");
 		Application::GetResourceSystem().Load<Texture>("Assets/image0-42.png");
+
+		auto shioriTexture = Application::GetResourceSystem().Get<TextureResource>("image0-42");
 		
-		auto* editorCamera = EntityManager::Create<EditorCamera>("EditorCamera", 512, 512);
+		auto* editorCamera = EntityManager::Create<EditorCamera>("EditorCamera", 512UL, 512UL);
 		UISystem::Create<EditorViewportScreen>(editorCamera);
 
 		UISystem::Create<GameViewportScreen>();
 
-		EntityManager::Create<Camera>("GameCamera", 512, 512);
-
-		EntityManager::Create<Cube>("Cube");
-
-		auto plane = EntityManager::Create<Plane>("Plane");
-		auto planeTransform = plane->GetComponent<TransformComponent>();
-		planeTransform->Scale = Vector3Float(100.0f, 100.0f, 100.0f);
+		EntityManager::Create<Camera>("GameCamera", 512UL, 512UL);
+		
+		auto cubeEntity = EntityManager::Create<Cube>("Cube");
+		auto cubeRenderer = cubeEntity->GetComponent<RenderComponent>();
+		cubeRenderer->SetTexture(shioriTexture);
+		
+		// auto plane = EntityManager::Create<Plane>("Plane");
+		// auto planeTransform = plane->GetComponent<TransformComponent>();
+		// planeTransform->Scale = Vector3Float(100.0f, 100.0f, 100.0f);
 		
 	}
 

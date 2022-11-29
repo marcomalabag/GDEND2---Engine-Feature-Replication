@@ -22,7 +22,7 @@ namespace Engine
 		void Stop();
 
 		[[nodiscard]]
-		TimeData GetInfo();
+		TimeData GetInfo() const;
 
 		Timer(const Timer&)                = default;
 		Timer& operator=(const Timer&)     = default;

@@ -45,7 +45,9 @@ namespace Engine
 
 		static Matrix4 CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane) noexcept;
 
-		static Matrix4 CreateLookAt(Vector3Float eye, Vector3Float focus, Vector3Float up);
+		static Matrix4 CreateLookAt(Vector3Float position, Vector3Float target, Vector3Float up);
+
+		static Matrix4 CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept;
 
 		explicit operator DirectX::XMMATRIX() const;
 
