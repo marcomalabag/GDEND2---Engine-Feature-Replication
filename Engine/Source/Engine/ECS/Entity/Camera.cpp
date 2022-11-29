@@ -29,10 +29,14 @@ namespace Engine
 		
 		auto vertexShader = Application::GetResourceSystem().Get<VertexShaderResource>("TexturedShader");
 		auto pixelShader  = Application::GetResourceSystem().Get<PixelShaderResource>("TexturedShader");
+
+		auto texture = Application::GetResourceSystem().Get<TextureResource>("SuzunaDerpComfy");
 		
+		//RenderData* cubeRenderData = Primitive::Mesh("Assets/Mesh/Camera/10128_Video_camera_v1_L3.obj");
 		RenderData* cubeRenderData = Primitive::Cube();
 		
-		AttachComponent<RenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
+		auto render = AttachComponent<RenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
+		//render->SetTexture(texture);
 	}
 
 	Camera::~Camera() = default;

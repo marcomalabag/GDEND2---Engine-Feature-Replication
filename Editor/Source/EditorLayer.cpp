@@ -33,6 +33,7 @@ namespace Editor
 		using namespace Engine;
 		Application::GetResourceSystem().Load<Texture>("Assets/Brick1024x1024.jpg");
 		Application::GetResourceSystem().Load<Texture>("Assets/image0-42.png");
+		Application::GetResourceSystem().Load<Texture>("Assets/SuzunaDerpComfy.png");
 
 		auto shioriTexture = Application::GetResourceSystem().Get<TextureResource>("image0-42");
 		
