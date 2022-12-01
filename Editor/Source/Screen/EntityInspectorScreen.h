@@ -2,6 +2,7 @@
 #include <Engine/Core/Core.h>
 #include <Engine/ECS/Component/TransformComponent.h>
 #include <Engine/ECS/Component/RenderComponent.h>
+#include <Engine/ECS/Component/CameraRenderComponent.h>
 #include <Engine/UI/AUIScreen.h>
 
 #include "WorldOutlinerScreen.h"

@@ -228,6 +228,7 @@ namespace Editor
 		}
 	}
 
+
 	void EntityInspectorScreen::DrawCamera(Engine::StringView entityNameID,
 	                                       Engine::SharedPtr<Engine::CameraComponent> camera) const
 	{

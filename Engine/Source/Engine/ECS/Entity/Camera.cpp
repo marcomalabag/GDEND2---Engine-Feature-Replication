@@ -5,6 +5,7 @@
 #include "Engine/ECS/Component/CameraComponent.h"
 
 #include "Engine/ECS/Component/RenderComponent.h"
+#include "Engine/ECS/Component/CameraRenderComponent.h"
 #include "Engine/ResourceManagement/Shader/ShaderLibrary.h"
 #include "Engine/Graphics/Primitives/Primitive.h"
 #include "Engine/ResourceManagement/Core/ResourceSystem.h"
@@ -37,6 +38,10 @@ namespace Engine
 		
 		auto render = AttachComponent<RenderComponent>(FrustumRenderData, vertexShader, pixelShader, transform);
 
+
+		RenderData* cubeRenderData = Primitive::Cube();
+
+		auto cameraRender = AttachComponent<CameraRenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
 
 		//render->SetTexture(texture);
 	}
