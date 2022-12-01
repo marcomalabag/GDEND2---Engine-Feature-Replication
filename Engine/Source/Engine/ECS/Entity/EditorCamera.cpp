@@ -19,6 +19,7 @@ namespace Engine
 		transform->Position.y = 20.0f;
 		transform->Position.z = -5.0f;
 		transform->Rotation.x = 90.0f;
+		
 		AttachComponent<EditorCameraComponent>(transform, renderWidth, renderHeight);
 	}
 

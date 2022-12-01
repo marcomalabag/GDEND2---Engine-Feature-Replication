@@ -121,6 +121,53 @@ namespace Engine
 		return result;
 	}
 
+	std::vector<DirectX::XMFLOAT4> CameraComponent::GetFrustumPlanes()
+	{
+		std::vector<DirectX::XMFLOAT4> tempFrustumPlane(6);
+
+		DirectX::XMMATRIX viewProj = (DirectX::XMMATRIX)(m_ViewMatrix * m_ProjMatrix);
+		tempFrustumPlane[0].x = viewProj.r[0].m128_f32[3] + viewProj.r[0].m128_f32[0];
+		tempFrustumPlane[0].y = viewProj.r[1].m128_f32[3] + viewProj.r[1].m128_f32[0];
+		tempFrustumPlane[0].z = viewProj.r[2].m128_f32[3] + viewProj.r[2].m128_f32[0];
+		tempFrustumPlane[0].w = viewProj.r[3].m128_f32[3] + viewProj.r[3].m128_f32[0];
+
+		tempFrustumPlane[1].x = viewProj.r[0].m128_f32[3] - viewProj.r[0].m128_f32[0];
+		tempFrustumPlane[1].y = viewProj.r[1].m128_f32[3] - viewProj.r[1].m128_f32[0];
+		tempFrustumPlane[1].z = viewProj.r[2].m128_f32[3] - viewProj.r[2].m128_f32[0];
+		tempFrustumPlane[1].w = viewProj.r[3].m128_f32[3] - viewProj.r[3].m128_f32[0];
+
+		tempFrustumPlane[2].x = viewProj.r[0].m128_f32[3] - viewProj.r[0].m128_f32[1];
+		tempFrustumPlane[2].y = viewProj.r[1].m128_f32[3] - viewProj.r[1].m128_f32[1];
+		tempFrustumPlane[2].z = viewProj.r[2].m128_f32[3] - viewProj.r[2].m128_f32[1];
+		tempFrustumPlane[2].w = viewProj.r[3].m128_f32[3] - viewProj.r[3].m128_f32[1];
+
+		tempFrustumPlane[3].x = viewProj.r[0].m128_f32[3] + viewProj.r[0].m128_f32[1];
+		tempFrustumPlane[3].y = viewProj.r[1].m128_f32[3] + viewProj.r[1].m128_f32[1];
+		tempFrustumPlane[3].z = viewProj.r[2].m128_f32[3] + viewProj.r[2].m128_f32[1];
+		tempFrustumPlane[3].w = viewProj.r[3].m128_f32[3] + viewProj.r[3].m128_f32[1];
+
+		tempFrustumPlane[4].x = viewProj.r[0].m128_f32[2];
+		tempFrustumPlane[4].y = viewProj.r[1].m128_f32[2];
+		tempFrustumPlane[4].z = viewProj.r[2].m128_f32[2];
+		tempFrustumPlane[4].w = viewProj.r[3].m128_f32[2];
+
+		tempFrustumPlane[5].x = viewProj.r[0].m128_f32[3] - viewProj.r[0].m128_f32[2];
+		tempFrustumPlane[5].y = viewProj.r[1].m128_f32[3] - viewProj.r[1].m128_f32[2];
+		tempFrustumPlane[5].z = viewProj.r[2].m128_f32[3] - viewProj.r[2].m128_f32[2];
+		tempFrustumPlane[5].w = viewProj.r[3].m128_f32[3] - viewProj.r[3].m128_f32[2];
+
+		for (int i = 0; i < 6; ++i)
+		{
+			float length = sqrt((tempFrustumPlane[i].x * tempFrustumPlane[i].x) + (tempFrustumPlane[i].y * tempFrustumPlane[i].y) + (tempFrustumPlane[i].z * tempFrustumPlane[i].z));
+			tempFrustumPlane[i].x /= length;
+			tempFrustumPlane[i].y /= length;
+			tempFrustumPlane[i].z /= length;
+			tempFrustumPlane[i].w /= length;
+		}
+
+		return tempFrustumPlane;
+	}
+
 	Framebuffer& CameraComponent::GetRenderTarget() const
 	{
 		return *m_RenderTarget;

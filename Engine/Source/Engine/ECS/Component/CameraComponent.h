@@ -63,6 +63,8 @@ namespace Engine
 		[[nodiscard]]
 		Framebuffer& GetRenderTarget() const;
 
+		std::vector<DirectX::XMFLOAT4> GetFrustumPlanes();
+
 	private:
 		void InitRenderTarget(uint32_t width, uint32_t height);
 

@@ -22,7 +22,7 @@ namespace Engine
 	{
 		auto transform = AttachComponent<TransformComponent>();
 		transform->Position.z = -10.0f;
-		AttachComponent<CameraComponent>(transform, renderWidth, renderHeight);
+		auto cameraComponent = AttachComponent<CameraComponent>(transform, renderWidth, renderHeight);
 
 		Application::GetResourceSystem().Load<VertexShader>("Assets/Shaders/Basic/TexturedShader.hlsl");
 		Application::GetResourceSystem().Load<PixelShader>("Assets/Shaders/Basic/TexturedShader.hlsl");
@@ -33,9 +33,11 @@ namespace Engine
 		auto texture = Application::GetResourceSystem().Get<TextureResource>("SuzunaDerpComfy");
 		
 		//RenderData* cubeRenderData = Primitive::Mesh("Assets/Mesh/Camera/10128_Video_camera_v1_L3.obj");
-		RenderData* cubeRenderData = Primitive::Cube();
+		RenderData* FrustumRenderData = Primitive::Frustum(cameraComponent->FoV, 512, 512, cameraComponent->NearClipPlane, cameraComponent->FarClipPlane);
 		
-		auto render = AttachComponent<RenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
+		auto render = AttachComponent<RenderComponent>(FrustumRenderData, vertexShader, pixelShader, transform);
+
+
 		//render->SetTexture(texture);
 	}
 

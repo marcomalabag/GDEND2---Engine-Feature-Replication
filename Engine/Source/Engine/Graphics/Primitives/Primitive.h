@@ -224,4 +224,79 @@ namespace Engine::Primitive
 
 		return planeRenderData;
 	}
+
+	inline RenderData* Frustum(float FOV, float windowHeight, float windowLength, float nearZ, float farZ)
+	{
+		float fovRadians = FOV / 180 * 3.14;
+		float aspectRatio = ((float)windowLength / 2) / ((float)windowHeight / 2);
+		
+		float nearHeight = 2 * tan(fovRadians / 2) * nearZ;
+		float farHeight = 2 * tan(fovRadians / 2) * farZ;
+		float nearWidth = (nearHeight * aspectRatio);
+		float farWidth = (farHeight * aspectRatio);
+
+		
+		float alpha = 0.5f;
+
+		const Vector2Float uvList[] =
+		{
+			{Vector2Float(0.0f, 0.0f)},
+			{Vector2Float(0.0f, 1.0f)},
+			{Vector2Float(1.0f, 0.0f)},
+			{Vector2Float(1.0f, 1.0f)}
+		};
+
+		List<Vertex>* vertices = new List<Vertex>{
+			{Vector3Float((-nearWidth * 0.5), (nearHeight * 0.5), nearZ * 6), uvList[1]},
+			{Vector3Float((nearWidth * 0.5), (nearHeight * 0.5), nearZ * 6), uvList[0]},
+			{Vector3Float((nearWidth * 0.5), (-nearHeight * 0.5), nearZ * 6), uvList[2]},
+			{Vector3Float(-(nearWidth * 0.5), (-nearHeight * 0.5), nearZ * 6), uvList[3]},
+			{Vector3Float((-farWidth * 0.5), (farHeight * 0.5), farZ * 6), uvList[1]},
+			{Vector3Float((farWidth * 0.5), (farHeight * 0.5), farZ * 6), uvList[0]},
+			{Vector3Float((farWidth * 0.5), (-farHeight * 0.5), farZ * 6), uvList[2]},
+			{Vector3Float(-(farWidth * 0.5), (-farHeight * 0.5), farZ * 6), uvList[3]}
+		};
+
+		List<D3D11_INPUT_ELEMENT_DESC>* layout = new List<D3D11_INPUT_ELEMENT_DESC>{
+			{"Position", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+			{"UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		};
+
+
+
+
+		List<uint32_t>* indices = new List<uint32_t>{
+			//Near Plane
+			0, 1, 2,
+			0, 2, 3,
+			//Far Plane
+			4, 5, 6,
+			4, 6, 7,
+			//Left Plane
+			0, 4, 7,
+			0, 7, 3,
+			//Right Plane
+			1, 5, 6,
+			1, 6, 2,
+			//Top Plane
+			0, 1, 4,
+			1, 4, 5,
+			//Bottom Plane
+			2, 3, 6,
+			3, 6, 7,
+		};
+
+		RenderData* FrustumRenderData = new RenderData();
+		FrustumRenderData->Vertices = vertices->data();
+		FrustumRenderData->VertexCount = vertices->size();
+		FrustumRenderData->VertexSize = sizeof(Vertex);
+		FrustumRenderData->VertexLayout = layout->data();
+		FrustumRenderData->VertexLayoutElementCount = layout->size();
+		FrustumRenderData->Indices = indices->data();
+		FrustumRenderData->IndexCount = indices->size();
+		FrustumRenderData->Topology = D3D11_PRIMITIVE_TOPOLOGY_LINELIST;
+
+		return FrustumRenderData;
+
+	}
 }
