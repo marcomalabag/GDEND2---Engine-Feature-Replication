@@ -39,7 +39,7 @@ namespace Engine
 		auto render = AttachComponent<RenderComponent>(FrustumRenderData, vertexShader, pixelShader, transform);
 
 
-		RenderData* cubeRenderData = Primitive::Cube();
+		RenderData* cubeRenderData = Primitive::Cylinder(1.5, 12, 12);
 
 		auto cameraRender = AttachComponent<CameraRenderComponent>(cubeRenderData, vertexShader, pixelShader, transform);
 
