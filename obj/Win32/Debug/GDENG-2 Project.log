@@ -1,0 +1,125 @@
+﻿  EditorCamera.cpp
+  AppWindow.cpp
+  AComponent.cpp
+  RenderComponent.cpp
+  Debug.cpp
+  GameCameraHandler.cpp
+  AGameObject.cpp
+  Camera.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  CameraMovement.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  Cube.cpp
+  GameObjectManager.cpp
+  ConstantBuffer.cpp
+  Framebuffer.cpp
+  GraphicsEngine.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\GameCameraHandler.cpp(38,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\AppWindow.cpp(86,44): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  HalfRenderQuad.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  IndexBuffer.cpp
+  PixelShader.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  RenderQuad.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  ShaderLibrary.cpp
+  SwapChain.cpp
+  VertexBuffer.cpp
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\GameObject\GameObjectManager.cpp(156,20): warning C4018: '<': signed/unsigned mismatch
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  VertexShader.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  Matrix4.cpp
+  Vector2D.cpp
+  SceneCameraHandler.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  RenderSystem.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\Math\Vector3D.h(5,1): warning C4099: 'Vector3D': type name first seen using 'struct' now seen using 'class' (compiling source file GDENG-2 Project\Math\Matrix4.cpp)
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\Math\Vector3D.h(4): message : see declaration of 'Vector3D' (compiling source file GDENG-2 Project\Math\Matrix4.cpp)
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  SystemHandler.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  AViewportScreen.cpp
+  CreditsScreen.cpp
+  EditorViewportScreen.cpp
+  GameViewportScreen.cpp
+  HierarchyScreen.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\SceneCameraHandler.cpp(36,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\System\RenderSystem.cpp(20,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\System\RenderSystem.cpp(58,20): warning C4018: '<': signed/unsigned mismatch
+  InspectorScreen.cpp
+  MenuScreen.cpp
+  ProfilerScreen.cpp
+  UIManager.cpp
+  main.cpp
+  GameCamera.cpp
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\UI\InspectorScreen.cpp(26,6): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\UI\InspectorScreen.cpp(30,6): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\UI\InspectorScreen.cpp(34,6): warning C4305: 'argument': truncation from 'double' to 'float'
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\GDENG-2 Project\UI\UIManager.cpp(71,20): warning C4018: '<': signed/unsigned mismatch
+  The contents of <format> are available only in c++latest mode with concepts support;
+  see https://github.com/microsoft/STL/issues/1814 for details.
+  GDENG-2 Project.vcxproj -> C:\Users\User\source\repos\GDEND2---Engine-Feature-Replication\bin\Win32\Debug\GDENG-2 Project.exe
