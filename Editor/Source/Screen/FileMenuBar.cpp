@@ -6,6 +6,7 @@
 #include <Engine/ECS/Entity/Camera.h>
 #include <Engine/ECS/Entity/Cube.h>
 #include <Engine/ECS/Entity/Sphere.h>
+#include <Engine/ECS/Entity/Cylinder.h>
 #include <Engine/ECS/Entity/EditorCamera.h>
 
 #include <Engine/UI/UISystem.h>
@@ -57,6 +58,11 @@ namespace Editor
 					if (ImGui::MenuItem("Sphere"))
 					{
 						Engine::EntityManager::Create<Engine::Sphere>("Sphere");
+					}
+
+					if (ImGui::MenuItem("Cylinder"))
+					{
+						Engine::EntityManager::Create<Engine::Cylinder>("Cylinder");
 					}
 					ImGui::EndMenu();
 				}
