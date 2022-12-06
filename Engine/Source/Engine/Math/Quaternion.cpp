@@ -3,6 +3,25 @@
 
 namespace Engine
 {
+	const Quaternion Quaternion::Identity = Quaternion{ 0.f, 0.f, 0.f, 1.f };
+	
+	Quaternion::Quaternion() noexcept:
+		XMFLOAT4(0, 0, 0, 1.f) {}
+
+	Quaternion::Quaternion(float ix, float iy, float iz, float iw) noexcept:
+		XMFLOAT4(ix, iy, iz, iw) {}
+	
+	Quaternion::Quaternion(const Vector3Float& v, float scalar) noexcept:
+		XMFLOAT4(v.x, v.y, v.z, scalar) {}
+
+	Quaternion::Quaternion(const XMFLOAT4& q) noexcept :
+		XMFLOAT4{q} { }
+
+	Quaternion::operator DirectX::XMVECTOR() const noexcept
+	{
+		return XMLoadFloat4(this);
+	}
+
 	bool Quaternion::operator ==(const Quaternion& q) const noexcept
 	{
 		using namespace DirectX;
@@ -188,17 +207,17 @@ namespace Engine
 		const XMVECTOR T = XMLoadFloat4(this);
 
 		// We can use the conjugate here instead of inverse assuming q1 & q2 are normalized.
-		const XMVECTOR R = XMQuaternionMultiply(XMQuaternionConjugate(T), target);
+		const XMVECTOR R = XMQuaternionMultiply(XMQuaternionConjugate(T), (XMVECTOR)target);
 
-		const float rs = XMVectorGetW(R);
-		const XMVECTOR L = XMVector3Length(R);
+		const float rs    = XMVectorGetW(R);
+		const XMVECTOR L  = XMVector3Length(R);
 		const float angle = 2.f * atan2f(XMVectorGetX(L), rs);
 
 		Quaternion result;
 		if (angle > maxAngle)
 		{
 			const XMVECTOR delta = XMQuaternionRotationAxis(R, maxAngle);
-			const XMVECTOR Q = XMQuaternionMultiply(delta, T);
+			const XMVECTOR Q     = XMQuaternionMultiply(delta, T);
 			XMStoreFloat4(&result, Q);
 		}
 		else

@@ -301,6 +301,15 @@ namespace Engine
 		XMStoreFloat4x4(&R, XMMatrixRotationAxis(a, angle));
 		return R;
 	}
+	
+	Matrix4 Matrix4::CreateFromQuaternion(const Quaternion& quat) noexcept
+	{
+		using namespace DirectX;
+		const XMVECTOR quatv = XMLoadFloat4(&quat);
+		Matrix4 R;
+		XMStoreFloat4x4(&R, XMMatrixRotationQuaternion(quatv));
+		return R;
+	}
 
 	Matrix4 Matrix4::CreatePerspectiveFieldOfView(float fov,
 	                                              float aspectRatio,

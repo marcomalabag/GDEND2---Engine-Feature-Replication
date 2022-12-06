@@ -3,24 +3,13 @@
 namespace Engine
 {
 	struct Matrix4;
-	struct Quaternion : public DirectX::XMFLOAT4
+	struct Quaternion final: public DirectX::XMFLOAT4
 	{
-		Quaternion() noexcept :
-			XMFLOAT4(0, 0, 0, 1.f) {}
-		constexpr Quaternion(float ix, float iy, float iz, float iw) noexcept :
-			XMFLOAT4(ix, iy, iz, iw) {}
-		Quaternion(const Vector3Float& v, float scalar) noexcept :
-			XMFLOAT4(v.x, v.y, v.z, scalar) {}
-		explicit Quaternion(_In_reads_(4) const float* pArray) noexcept :
-			XMFLOAT4(pArray) {}
-		
-		Quaternion(const XMFLOAT4& q) noexcept
-		{
-			this->x = q.x;
-			this->y = q.y;
-			this->z = q.z;
-			this->w = q.w;
-		}
+		Quaternion() noexcept;
+		explicit Quaternion(float ix, float iy, float iz, float iw) noexcept;
+		explicit Quaternion(const Vector3Float& v, float scalar) noexcept;
+		explicit Quaternion(const XMFLOAT4& q) noexcept;
+		~Quaternion() = default;
 
 		Quaternion(const Quaternion&)            = default;
 		Quaternion& operator=(const Quaternion&) = default;
@@ -28,7 +17,7 @@ namespace Engine
 		Quaternion(Quaternion&&)            = default;
 		Quaternion& operator=(Quaternion&&) = default;
 
-		operator DirectX::XMVECTOR() const noexcept { return XMLoadFloat4(this); }
+		explicit operator DirectX::XMVECTOR() const noexcept;
 
 		// Comparison operators
 		bool operator ==(const Quaternion& q) const noexcept;

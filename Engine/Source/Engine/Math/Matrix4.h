@@ -38,6 +38,8 @@ namespace Engine
 
 		static Matrix4 CreateFromAxisAngle(const Vector3Float& axis, float angle) noexcept;
 
+		static Matrix4 CreateFromQuaternion(const Quaternion& quat) noexcept;
+
 		static Matrix4 CreatePerspectiveFieldOfView(float fov, float aspectRatio, float nearPlane,
 		                                            float farPlane) noexcept;
 
